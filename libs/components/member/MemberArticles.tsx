@@ -66,7 +66,7 @@ const {
     await boardArticlesRefetch({ input: searchFilter });
     await sweetTopSmallSuccessAlert('success', 800);
   } catch (err: any) {
-    console.log('ERROR, likePropertyHandler:', err.message);
+    console.log('ERROR, likeCarHandler:', err.message);
     sweetMixinErrorAlert(err.message).then();
   }
 };
@@ -108,7 +108,7 @@ const {
 							/>
 						</Stack>
 						<Stack className="total-result">
-							<Typography>{total} property available</Typography>
+							<Typography>{total} car available</Typography>
 						</Stack>
 					</Stack>
 				)}

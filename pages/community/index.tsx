@@ -107,7 +107,7 @@ const {
 });
     await sweetTopSmallSuccessAlert('success', 800);
   } catch (err: any) {
-    console.log('ERROR, likePropertyHandler:', err.message);
+    console.log('ERROR, likeCarHandler:', err.message);
     sweetMixinErrorAlert(err.message).then();
   }
 };
@@ -124,7 +124,7 @@ const {
 								<Stack className={'image-info'}>
 									<img src={'/img/logo/logoText.svg'} />
 									<Stack className={'community-name'}>
-										<Typography className={'name'}>Nestar Community</Typography>
+										<Typography className={'name'}>mansury Community</Typography>
 									</Stack>
 								</Stack>
 

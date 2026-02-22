@@ -5,58 +5,58 @@ import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
-import TopPropertyCard from './TopPropertyCard';
-import { PropertiesInquiry } from '../../types/property/property.input';
-import { Property } from '../../types/property/property';
-import { GET_PROPERTIES } from '../../../apollo/user/query';
+import TopCarCard from './TopCarCard';
+import { CarsInquiry } from '../../types/car/car.input';
+import { Car } from '../../types/car/car';
+import { GET_CARS } from '../../../apollo/user/query';
 import { useMutation, useQuery } from '@apollo/client';
 import { T } from '../../types/common';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { LIKE_TARGET_CAR } from '../../../apollo/user/mutation';
 import { Message } from '../../enums/common.enum';
 import { sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../sweetAlert';
 
-interface TopPropertiesProps {
-	initialInput: PropertiesInquiry;
+interface TopCarsProps {
+	initialInput: CarsInquiry;
 }
 
-const TopProperties = (props: TopPropertiesProps) => {
+const TopCars = (props: TopCarsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const [topProperties, setTopProperties] = useState<Property[]>([]);
+	const [topCars, setTopCars] = useState<Car[]>([]);
 
 	/** APOLLO REQUESTS **/
 
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetCar] = useMutation(LIKE_TARGET_CAR);
 
 		const {
-	  loading: getPropertiesLoading,
-	  data: getPropertiesData,
-	  error: getPropertiesError,
-	  refetch: getPropertiesRefetch,
-	} = useQuery(GET_PROPERTIES, {
+	  loading: getCarsLoading,
+	  data: getCarsData,
+	  error: getCarsError,
+	  refetch: getCarsRefetch,
+	} = useQuery(GET_CARS, {
 	  fetchPolicy: 'cache-and-network',
 	  variables: { input: initialInput },
 	  notifyOnNetworkStatusChange: true,
 	  onCompleted: (data: T) => {
-		setTopProperties(data?.getProperties?.list);
+		setTopCars(data?.getCars?.list);
 	  },
 	});
 		
 	/** HANDLERS **/
 
-	const likePropertyHandler = async (user: T, id: string) => {
+	const likeCarHandler = async (user: T, id: string) => {
 	  try {
 		if (!id) return;
 		if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 	
-		await likeTargetProperty({
+		await likeTargetCar({
 		  variables: { input: id },
 		});
-		await getPropertiesRefetch({ input: initialInput });
+		await getCarsRefetch({ input: initialInput });
 	
 		await sweetTopSmallSuccessAlert('success', 800);
 	  } catch (err: any) {
-		console.log('ERROR, likePropertyHandler:', err.message);
+		console.log('ERROR, likeCarHandler:', err.message);
 		sweetMixinErrorAlert(err.message).then();
 	  }
 	};
@@ -64,23 +64,23 @@ const TopProperties = (props: TopPropertiesProps) => {
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'top-properties'}>
+			<Stack className={'top-cars'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Top properties</span>
+						<span>Top cars</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'top-property-swiper'}
+							className={'top-car-swiper'}
 							slidesPerView={'auto'}
 							centeredSlides={true}
 							spaceBetween={15}
 							modules={[Autoplay]}
 						>
-							{topProperties.map((property: Property) => {
+							{topCars.map((car: Car) => {
 								return (
-									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+									<SwiperSlide className={'top-car-slide'} key={car?._id}>
+										<TopCarCard car={car} likeCarHandler={likeCarHandler} />
 									</SwiperSlide>
 								);
 							})}
@@ -91,12 +91,12 @@ const TopProperties = (props: TopPropertiesProps) => {
 		);
 	} else {
 		return (
-			<Stack className={'top-properties'}>
+			<Stack className={'top-cars'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Top properties</span>
-							<p>Check out our Top Properties</p>
+							<span>Top cars</span>
+							<p>Check out our Top Cars</p>
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'pagination-box'}>
@@ -108,7 +108,7 @@ const TopProperties = (props: TopPropertiesProps) => {
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
-							className={'top-property-swiper'}
+							className={'top-car-swiper'}
 							slidesPerView={'auto'}
 							spaceBetween={15}
 							modules={[Autoplay, Navigation, Pagination]}
@@ -120,10 +120,10 @@ const TopProperties = (props: TopPropertiesProps) => {
 								el: '.swiper-top-pagination',
 							}}
 						>
-							{topProperties.map((property: Property) => {
+							{topCars.map((car: Car) => {
 								return (
-									<SwiperSlide className={'top-property-slide'} key={property?._id}>
-										<TopPropertyCard property={property} likePropertyHandler={likePropertyHandler} />
+									<SwiperSlide className={'top-car-slide'} key={car?._id}>
+										<TopCarCard car={car} likeCarHandler={likeCarHandler} />
 									</SwiperSlide>
 								);
 							})}
@@ -135,14 +135,14 @@ const TopProperties = (props: TopPropertiesProps) => {
 	}
 };
 
-TopProperties.defaultProps = {
+TopCars.defaultProps = {
 	initialInput: {
 		page: 1,
 		limit: 8,
-		sort: 'propertyRank',
+		sort: 'carRank',
 		direction: 'DESC',
 		search: {},
 	},
 };
 
-export default TopProperties;
+export default TopCars;

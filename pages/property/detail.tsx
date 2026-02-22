@@ -3,17 +3,17 @@ import { Box, Button,  CircularProgress, Stack, Typography } from '@mui/material
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutFull from '../../libs/components/layout/LayoutFull';
 import { NextPage } from 'next';
-import Review from '../../libs/components/property/Review';
+import Review from '../../libs/components/car/Review';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
-import PropertyBigCard from '../../libs/components/common/PropertyBigCard';
+import CarBigCard from '../../libs/components/common/CarBigCard';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import WestIcon from '@mui/icons-material/West';
 import EastIcon from '@mui/icons-material/East';
 import { useMutation, useQuery, useReactiveVar } from '@apollo/client';
 import { useRouter } from 'next/router';
-import { Property } from '../../libs/types/property/property';
+import { Car } from '../../libs/types/car/car';
 import moment from 'moment';
 import { formatterStr } from '../../libs/utils';
 import { REACT_APP_API_URL } from '../../libs/config';
@@ -27,10 +27,10 @@ import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
 import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import 'swiper/css';
 import 'swiper/css/pagination';
-import { GET_COMMENTS, GET_PROPERTIES, GET_PROPERTY } from '../../apollo/user/query';
+import { GET_COMMENTS, GET_CARS, GET_CAR } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
 import { Direction, Message } from '../../libs/enums/common.enum';
-import { CREATE_COMMENT, LIKE_TARGET_PROPERTY } from '../../apollo/user/mutation';
+import { CREATE_COMMENT, LIKE_TARGET_CAR } from '../../apollo/user/mutation';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
@@ -41,25 +41,25 @@ export const getStaticProps = async ({ locale }: any) => ({
 	},
 });
 
-const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
+const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
-	const [propertyId, setPropertyId] = useState<string | null>(null);
-	const [property, setProperty] = useState<Property | null>(null);
+	const [carId, setCarId] = useState<string | null>(null);
+	const [car, setCar] = useState<Car | null>(null);
 	const [slideImage, setSlideImage] = useState<string>('');
-	const [destinationProperties, setDestinationProperties] = useState<Property[]>([]);
+	const [destinationCars, setDestinationCars] = useState<Car[]>([]);
 	const [commentInquiry, setCommentInquiry] = useState<CommentsInquiry>(initialComment);
-	const [propertyComments, setPropertyComments] = useState<Comment[]>([]);
+	const [carComments, setCarComments] = useState<Comment[]>([]);
 	const [commentTotal, setCommentTotal] = useState<number>(0);
 	const [insertCommentData, setInsertCommentData] = useState<CommentInput>({
-		commentGroup: CommentGroup.PROPERTY,
+		commentGroup: CommentGroup.CAR,
 		commentContent: '',
 		commentRefId: '',
 	});
 
 	/** APOLLO REQUESTS **/
-	const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+	const [likeTargetCar] = useMutation(LIKE_TARGET_CAR);
 	// const [createComment] = useMutation(CREATE_COMMENT);
 	const [createComment] = useMutation(CREATE_COMMENT, {
   onCompleted: () => {
@@ -69,29 +69,29 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 
 
 		const {
-	  loading: getPropertyLoading,
-	  data: getPropertyData,
-	  error: getPropertyError,
-	  refetch: getPropertyRefetch,
-	} = useQuery(GET_PROPERTY, {
+	  loading: getCarLoading,
+	  data: getCarData,
+	  error: getCarError,
+	  refetch: getCarRefetch,
+	} = useQuery(GET_CAR, {
 	  fetchPolicy: 'network-only',
-	  variables: { input: propertyId },
-	  skip: !propertyId,
+	  variables: { input: carId },
+	  skip: !carId,
 	  notifyOnNetworkStatusChange: true,
 	  onCompleted: (data: T) => {
-		if (data?.getProperty) setProperty(data?.getProperty);
-		if (data?.getProperty) setSlideImage(data?.getProperty?.propertyImages[0]);
+		if (data?.getCar) setCar(data?.getCar);
+		if (data?.getCar) setSlideImage(data?.getCar?.carImages[0]);
 	  },
 	});
 
 
 
 	const {
-  loading: getPropertiesLoading,
-  data: getPropertiesData,
-  error: getPropertiesError,
-  refetch: getPropertiesRefetch,
-} = useQuery(GET_PROPERTIES, {
+  loading: getCarsLoading,
+  data: getCarsData,
+  error: getCarsError,
+  refetch: getCarsRefetch,
+} = useQuery(GET_CARS, {
   fetchPolicy: 'cache-and-network',
   variables: {
     input: {
@@ -100,14 +100,14 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
       sort: 'createdAt',
       direction: Direction.DESC,
       search: {
-        locationList: property?.propertyLocation ? [property?.propertyLocation] : [],
+        locationList: car?.carLocation ? [car?.carLocation] : [],
       },
     },
   },
-  skip: !propertyId && !property,
+  skip: !carId && !car,
   notifyOnNetworkStatusChange: true,
   onCompleted: (data: T) => {
-    if (data?.getProperties?.list) setDestinationProperties(data?.getProperties?.list);
+    if (data?.getCars?.list) setDestinationCars(data?.getCars?.list);
   },
 });
 
@@ -123,7 +123,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   skip: !commentInquiry.search.commentRefId,
   notifyOnNetworkStatusChange: true,
   onCompleted: (data: T) => {
-    if (data?.getComments?.list) setPropertyComments(data?.getComments?.list);
+    if (data?.getComments?.list) setCarComments(data?.getComments?.list);
 	setCommentTotal(data?.getComments?.metaCounter[0]?.total ?? 0);
   },
 });
@@ -133,7 +133,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 	/** LIFECYCLES **/
 	useEffect(() => {
 		if (router.query.id) {
-			setPropertyId(router.query.id as string);
+			setCarId(router.query.id as string);
 			setCommentInquiry({
 				...commentInquiry,
 				search: {
@@ -159,30 +159,30 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
 		setSlideImage(image);
 	};
 
-		const likePropertyHandler = async (user: T, id: string) => {
+		const likeCarHandler = async (user: T, id: string) => {
 	  try {
 		if (!id) return;
 		if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
 	
-		await likeTargetProperty({
+		await likeTargetCar({
 		  variables: { input: id },
 		});
-		await getPropertyRefetch({ input: id });
-		await getPropertiesRefetch({ 
+		await getCarRefetch({ input: id });
+		await getCarsRefetch({ 
 			input: {
                page: 1,
                limit: 4,
                sort: 'createdAt',
                direction: Direction.DESC,
                search: {
-                locationList: [property?.propertyLocation],
+                locationList: [car?.carLocation],
 		        },
 	         },
 	     });
 	
 		await sweetTopSmallSuccessAlert('success', 800);
 	  } catch (err: any) {
-		console.log('ERROR, likePropertyHandler:', err.message);
+		console.log('ERROR, likeCarHandler:', err.message);
 		sweetMixinErrorAlert(err.message).then();
 	  }
 	};
@@ -205,7 +205,7 @@ const PropertyDetail: NextPage = ({ initialComment, ...props }: any) => {
   }
 };
 
-if (getPropertyLoading) {
+if (getCarLoading) {
 	return (
 		<Stack sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center', width: '100%', height: '1080px' }}>
 			<CircularProgress size={'4rem'} />
@@ -214,21 +214,21 @@ if (getPropertyLoading) {
 }
 
 	if (device === 'mobile') {
-		return <div>PROPERTY DETAIL PAGE</div>;
+		return <div>CAR DETAIL PAGE</div>;
 	} else {
 		return (
-			<div id={'property-detail-page'}>
+			<div id={'car-detail-page'}>
 				<div className={'container'}>
-					<Stack className={'property-detail-config'}>
-						<Stack className={'property-info-config'}>
+					<Stack className={'car-detail-config'}>
+						<Stack className={'car-info-config'}>
 							<Stack className={'info'}>
 								<Stack className={'left-box'}>
-									<Typography className={'title-main'}>{property?.propertyTitle}</Typography>
+									<Typography className={'title-main'}>{car?.carTitle}</Typography>
 									<Stack className={'top-box'}>
-										<Typography className={'city'}>{property?.propertyLocation}</Typography>
+										<Typography className={'city'}>{car?.carLocation}</Typography>
 										<Stack className={'divider'}></Stack>
 										<Stack className={'buy-rent-box'}>
-											{property?.propertyBarter && (
+											{car?.carBarter && (
 												<>
 													<Stack className={'circle'}>
 														<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
@@ -239,7 +239,7 @@ if (getPropertyLoading) {
 												</>
 											)}
 
-											{property?.propertyRent && (
+											{car?.carRent && (
 												<>
 													<Stack className={'circle'}>
 														<svg xmlns="http://www.w3.org/2000/svg" width="6" height="6" viewBox="0 0 6 6" fill="none">
@@ -268,17 +268,17 @@ if (getPropertyLoading) {
 												</clipPath>
 											</defs>
 										</svg>
-										<Typography className={'date'}>{moment().diff(property?.createdAt, 'days')} days ago</Typography>
+										<Typography className={'date'}>{moment().diff(car?.createdAt, 'days')} days ago</Typography>
 									</Stack>
 									<Stack className={'bottom-box'}>
 										<Stack className="option">
-											<img src="/img/icons/bed.svg" alt="" /> <Typography>{property?.propertyBeds} bed</Typography>
+											<img src="/img/icons/bed.svg" alt="" /> <Typography>{car?.carBeds} bed</Typography>
 										</Stack>
 										<Stack className="option">
-											<img src="/img/icons/room.svg" alt="" /> <Typography>{property?.propertyRooms} room</Typography>
+											<img src="/img/icons/room.svg" alt="" /> <Typography>{car?.carRooms} room</Typography>
 										</Stack>
 										<Stack className="option">
-											<img src="/img/icons/expand.svg" alt="" /> <Typography>{property?.propertySquare} m2</Typography>
+											<img src="/img/icons/expand.svg" alt="" /> <Typography>{car?.carSquare} m2</Typography>
 										</Stack>
 									</Stack>
 								</Stack>
@@ -286,33 +286,33 @@ if (getPropertyLoading) {
 									<Stack className="buttons">
 										<Stack className="button-box">
 											<RemoveRedEyeIcon fontSize="medium" />
-											<Typography>{property?.propertyViews}</Typography>
+											<Typography>{car?.carViews}</Typography>
 										</Stack>
 										<Stack className="button-box">
-											{property?.meLiked && property?.meLiked[0]?.myFavorite ? (
+											{car?.meLiked && car?.meLiked[0]?.myFavorite ? (
 												<FavoriteIcon color="primary" fontSize={'medium'} />
 											) : (
 												<FavoriteBorderIcon
 													fontSize={'medium'}
 													// @ts-ignore
-													onClick={() => likePropertyHandler(user, property?._id)}
+													onClick={() => likeCarHandler(user, car?._id)}
 												/>
 											)}
-											<Typography>{property?.propertyLikes}</Typography>
+											<Typography>{car?.carLikes}</Typography>
 										</Stack>
 									</Stack>
-									<Typography>${formatterStr(property?.propertyPrice)}</Typography>
+									<Typography>${formatterStr(car?.carPrice)}</Typography>
 								</Stack>
 							</Stack>
 							<Stack className={'images'}>
 								<Stack className={'main-image'}>
 									<img
-										src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/property/bigImage.png'}
+										src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/car/bigImage.png'}
 										alt={'main-image'}
 									/>
 								</Stack>
 								<Stack className={'sub-images'}>
-									{property?.propertyImages.map((subImg: string) => {
+									{car?.carImages.map((subImg: string) => {
 										const imagePath: string = `${REACT_APP_API_URL}/${subImg}`;
 										return (
 											<Stack className={'sub-img-box'} onClick={() => changeImageHandler(subImg)} key={subImg}>
@@ -323,7 +323,7 @@ if (getPropertyLoading) {
 								</Stack>
 							</Stack>
 						</Stack>
-						<Stack className={'property-desc-config'}>
+						<Stack className={'car-desc-config'}>
 							<Stack className={'left-config'}>
 								<Stack className={'options-config'}>
 									<Stack className={'option'}>
@@ -337,7 +337,7 @@ if (getPropertyLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Bedroom</Typography>
-											<Typography className={'option-data'}>{property?.propertyBeds}</Typography>
+											<Typography className={'option-data'}>{car?.carBeds}</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -346,7 +346,7 @@ if (getPropertyLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Room</Typography>
-											<Typography className={'option-data'}>{property?.propertyRooms}</Typography>
+											<Typography className={'option-data'}>{car?.carRooms}</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -364,7 +364,7 @@ if (getPropertyLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Year Build</Typography>
-											<Typography className={'option-data'}>{moment(property?.createdAt).format('YYYY')}</Typography>
+											<Typography className={'option-data'}>{moment(car?.createdAt).format('YYYY')}</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -392,7 +392,7 @@ if (getPropertyLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Size</Typography>
-											<Typography className={'option-data'}>{property?.propertySquare} m2</Typography>
+											<Typography className={'option-data'}>{car?.carSquare} m2</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -406,50 +406,50 @@ if (getPropertyLoading) {
 											</svg>
 										</Stack>
 										<Stack className={'option-includes'}>
-											<Typography className={'title'}>Property Type</Typography>
-											<Typography className={'option-data'}>{property?.propertyType}</Typography>
+											<Typography className={'title'}>Car Type</Typography>
+											<Typography className={'option-data'}>{car?.carType}</Typography>
 										</Stack>
 									</Stack>
 								</Stack>
 								<Stack className={'prop-desc-config'}>
 									<Stack className={'top'}>
-										<Typography className={'title'}>Property Description</Typography>
-										<Typography className={'desc'}>{property?.propertyDesc ?? 'No Description!'}</Typography>
+										<Typography className={'title'}>Car Description</Typography>
+										<Typography className={'desc'}>{car?.carDesc ?? 'No Description!'}</Typography>
 									</Stack>
 									<Stack className={'bottom'}>
-										<Typography className={'title'}>Property Details</Typography>
+										<Typography className={'title'}>Car Details</Typography>
 										<Stack className={'info-box'}>
 											<Stack className={'left'}>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Price</Typography>
-													<Typography className={'data'}>${formatterStr(property?.propertyPrice)}</Typography>
+													<Typography className={'data'}>${formatterStr(car?.carPrice)}</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Typography className={'title'}>Property Size</Typography>
-													<Typography className={'data'}>{property?.propertySquare} m2</Typography>
+													<Typography className={'title'}>Car Size</Typography>
+													<Typography className={'data'}>{car?.carSquare} m2</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Rooms</Typography>
-													<Typography className={'data'}>{property?.propertyRooms}</Typography>
+													<Typography className={'data'}>{car?.carRooms}</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Bedrooms</Typography>
-													<Typography className={'data'}>{property?.propertyBeds}</Typography>
+													<Typography className={'data'}>{car?.carBeds}</Typography>
 												</Box>
 											</Stack>
 											<Stack className={'right'}>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Year Built</Typography>
-													<Typography className={'data'}>{moment(property?.createdAt).format('YYYY')}</Typography>
+													<Typography className={'data'}>{moment(car?.createdAt).format('YYYY')}</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Typography className={'title'}>Property Type</Typography>
-													<Typography className={'data'}>{property?.propertyType}</Typography>
+													<Typography className={'title'}>Car Type</Typography>
+													<Typography className={'data'}>{car?.carType}</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
-													<Typography className={'title'}>Property Options</Typography>
+													<Typography className={'title'}>Car Options</Typography>
 													<Typography className={'data'}>
-														For {property?.propertyBarter && 'Barter'} {property?.propertyRent && 'Rent'}
+														For {car?.carBarter && 'Barter'} {car?.carRent && 'Rent'}
 													</Typography>
 												</Box>
 											</Stack>
@@ -459,7 +459,7 @@ if (getPropertyLoading) {
 								<Stack className={'floor-plans-config'}>
 									<Typography className={'title'}>Floor Plans</Typography>
 									<Stack className={'image-box'}>
-										<img src={'/img/property/floorPlan.png'} alt={'image'} />
+										<img src={'/img/car/floorPlan.png'} alt={'image'} />
 									</Stack>
 								</Stack>
 								<Stack className={'address-config'}>
@@ -497,7 +497,7 @@ if (getPropertyLoading) {
 											</Stack>
 										</Stack>
 										<Stack className={'review-list'}>
-											{propertyComments?.map((comment: Comment) => {
+											{carComments?.map((comment: Comment) => {
 												return <Review comment={comment} key={comment?._id} />;
 											})}
 											<Box component={'div'} className={'pagination-box'}>
@@ -552,14 +552,14 @@ if (getPropertyLoading) {
 										<img
 											className={'member-image'}
 											src={
-												property?.memberData?.memberImage
-													? `${REACT_APP_API_URL}/${property?.memberData?.memberImage}`
+												car?.memberData?.memberImage
+													? `${REACT_APP_API_URL}/${car?.memberData?.memberImage}`
 													: '/img/profile/defaultUser.svg'
 											}
 										/>
 										<Stack className={'name-phone-listings'}>
-											<Link href={`/member?memberId=${property?.memberData?._id}`}>
-												<Typography className={'name'}>{property?.memberData?.memberNick}</Typography>
+											<Link href={`/member?memberId=${car?.memberData?._id}`}>
+												<Typography className={'name'}>{car?.memberData?.memberNick}</Typography>
 											</Link>
 											<Stack className={'phone-number'}>
 												<svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
@@ -575,7 +575,7 @@ if (getPropertyLoading) {
 														</clipPath>
 													</defs>
 												</svg>
-												<Typography className={'number'}>{property?.memberData?.memberPhone}</Typography>
+												<Typography className={'number'}>{car?.memberData?.memberPhone}</Typography>
 											</Stack>
 											<Typography className={'listings'}>View Listings</Typography>
 										</Stack>
@@ -595,7 +595,7 @@ if (getPropertyLoading) {
 								</Stack>
 								<Stack className={'info-box'}>
 									<Typography className={'sub-title'}>Message</Typography>
-									<textarea placeholder={'Hello, I am interested in \n' + '[Renovated property at  floor]'}></textarea>
+									<textarea placeholder={'Hello, I am interested in \n' + '[Renovated car at  floor]'}></textarea>
 								</Stack>
 								<Stack className={'info-box'}>
 									<Button className={'send-message'}>
@@ -617,11 +617,11 @@ if (getPropertyLoading) {
 								</Stack>
 							</Stack>
 						</Stack>
-						{destinationProperties.length !== 0 && (
-							<Stack className={'similar-properties-config'}>
+						{destinationCars.length !== 0 && (
+							<Stack className={'similar-cars-config'}>
 								<Stack className={'title-pagination-box'}>
 									<Stack className={'title-box'}>
-										<Typography className={'main-title'}>Destination Property</Typography>
+										<Typography className={'main-title'}>Destination Car</Typography>
 										<Typography className={'sub-title'}>Aliquam lacinia diam quis lacus euismod</Typography>
 									</Stack>
 									<Stack className={'pagination-box'}>
@@ -644,13 +644,13 @@ if (getPropertyLoading) {
 											el: '.swiper-similar-pagination',
 										}}
 									>
-										{destinationProperties.map((property: Property) => {
+										{destinationCars.map((car: Car) => {
 											return (
-												<SwiperSlide className={'similar-homes-slide'}  key={property.propertyTitle}>
-													<PropertyBigCard 
-													property={property} 
-													likePropertyHandler={likePropertyHandler} 
-													key={property?._id} />
+												<SwiperSlide className={'similar-homes-slide'}  key={car.carTitle}>
+													<CarBigCard 
+													car={car} 
+													likeCarHandler={likeCarHandler} 
+													key={car?._id} />
 												</SwiperSlide>
 											);
 										})}
@@ -665,7 +665,7 @@ if (getPropertyLoading) {
 	}
 };
 
-PropertyDetail.defaultProps = {
+CarDetail.defaultProps = {
 	initialComment: {
 		page: 1,
 		limit: 5,
@@ -677,4 +677,4 @@ PropertyDetail.defaultProps = {
 	},
 };
 
-export default withLayoutFull(PropertyDetail);
+export default withLayoutFull(CarDetail);

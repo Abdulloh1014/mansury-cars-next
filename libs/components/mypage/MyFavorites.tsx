@@ -2,24 +2,24 @@ import React, { useState } from 'react';
 import { NextPage } from 'next';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { Pagination, Stack, Typography } from '@mui/material';
-import PropertyCard from '../property/PropertyCard';
-import { Property } from '../../types/property/property';
+import CarCard from '../car/CarCard';
+import { Car } from '../../types/car/car';
 import { T } from '../../types/common';
 import { useMutation, useQuery } from '@apollo/client';
 import { GET_FAVORITES } from '../../../apollo/user/query';
-import { LIKE_TARGET_PROPERTY } from '../../../apollo/user/mutation';
+import { LIKE_TARGET_CAR } from '../../../apollo/user/mutation';
 import { Messages } from '../../config';
 import { sweetMixinErrorAlert } from '../../sweetAlert';
 
 
 const MyFavorites: NextPage = () => {
 	const device = useDeviceDetect();
-	const [myFavorites, setMyFavorites] = useState<Property[]>([]);
+	const [myFavorites, setMyFavorites] = useState<Car[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [searchFavorites, setSearchFavorites] = useState<T>({ page: 1, limit: 6 });
 
 	/** APOLLO REQUESTS **/
-const [likeTargetProperty] = useMutation(LIKE_TARGET_PROPERTY);
+const [likeTargetCar] = useMutation(LIKE_TARGET_CAR);
 
 const {
   loading: getFavoritesLoading,
@@ -43,12 +43,12 @@ const paginationHandler = (e: T, value: number) => {
   setSearchFavorites({ ...searchFavorites, page: value });
 };
 
-const likePropertyHandler = async (user: any, id: string) => {
+const likeCarHandler = async (user: any, id: string) => {
   try {
     if (!id) return;
     if (!user?._id) throw new Error(Messages.error2);
 
-    await likeTargetProperty({
+    await likeTargetCar({
       variables: {
         input: id,
       },
@@ -56,12 +56,12 @@ const likePropertyHandler = async (user: any, id: string) => {
 
     await getFavoritesRefetch({ input: searchFavorites });
   } catch (err: any) {
-    console.log('ERROR, likePropertyHandler:', err.message);
+    console.log('ERROR, likeCarHandler:', err.message);
     sweetMixinErrorAlert(err.message).then();
   }
 };
 	if (device === 'mobile') {
-		return <div>NESTAR MY FAVORITES MOBILE</div>;
+		return <div>mansury MY FAVORITES MOBILE</div>;
 	} else {
 		return (
 			<div id="my-favorites-page">
@@ -73,8 +73,8 @@ const likePropertyHandler = async (user: any, id: string) => {
 				</Stack>
 				<Stack className="favorites-list-box">
 					{myFavorites?.length ? (
-						myFavorites?.map((property: Property) => {
-							return <PropertyCard property={property} likePropertyHandler={likePropertyHandler} myFavorites={true} />;
+						myFavorites?.map((car: Car) => {
+							return <CarCard car={car} likeCarHandler={likeCarHandler} myFavorites={true} />;
 						})
 					) : (
 						<div className={'no-data'}>
