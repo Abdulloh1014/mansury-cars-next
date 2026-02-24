@@ -129,12 +129,16 @@ export const CREATE_CAR = gql`
 			carType
 			carStatus
 			carLocation
-			carAddress
 			carTitle
 			carPrice
-			carSquare
-			carBeds
-			carRooms
+
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+
 			carViews
 			carLikes
 			carImages
@@ -158,12 +162,16 @@ export const UPDATE_CAR = gql`
 			carType
 			carStatus
 			carLocation
-			carAddress
 			carTitle
 			carPrice
-			carSquare
-			carBeds
-			carRooms
+			
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+
 			carViews
 			carLikes
 			carImages
@@ -187,12 +195,16 @@ export const LIKE_TARGET_CAR = gql`
 			carType
 			carStatus
 			carLocation
-			carAddress
 			carTitle
 			carPrice
-			carSquare
-			carBeds
-			carRooms
+			
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+
 			carViews
 			carLikes
 			carImages

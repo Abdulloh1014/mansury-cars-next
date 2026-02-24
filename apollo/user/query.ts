@@ -61,7 +61,7 @@ export const GET_MEMBER = gql(`
         memberLikes
         memberViews
         memberFollowings
-				memberFollowers
+		memberFollowers
         memberRank
         memberWarnings
         memberBlocks
@@ -89,12 +89,16 @@ export const GET_CAR = gql`
 			carType
 			carStatus
 			carLocation
-			carAddress
 			carTitle
 			carPrice
-			carSquare
-			carBeds
-			carRooms
+
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+
 			carViews
 			carLikes
 			carImages
@@ -145,12 +149,16 @@ export const GET_CARS = gql`
 				carType
 				carStatus
 				carLocation
-				carAddress
 				carTitle
 				carPrice
-				carSquare
-				carBeds
-				carRooms
+
+				carMileage
+                carFuelType
+                carDoors
+                carYear
+                carColor
+                carEngine
+
 				carViews
 				carLikes
 				carRank
@@ -207,12 +215,14 @@ export const GET_AGENT_CARS = gql`
 				carType
 				carStatus
 				carLocation
-				carAddress
 				carTitle
 				carPrice
-				carSquare
-				carBeds
-				carRooms
+				carMileage
+                carFuelType
+                carDoors
+                carYear
+                carColor
+                carEngine
 				carViews
 				carLikes
 				carImages
@@ -241,12 +251,16 @@ export const GET_FAVORITES = gql`
 				carType
 				carStatus
 				carLocation
-				carAddress
 				carTitle
 				carPrice
-				carSquare
-				carBeds
-				carRooms
+
+				carMileage
+                carFuelType
+                carDoors
+                carYear
+                carColor
+                carEngine
+
 				carViews
 				carLikes
 				carComments
@@ -304,12 +318,16 @@ export const GET_VISITED = gql`
 				carType
 				carStatus
 				carLocation
-				carAddress
 				carTitle
 				carPrice
-				carSquare
-				carBeds
-				carRooms
+
+				carMileage
+                carFuelType
+                carDoors
+                carYear
+                carColor
+                carEngine
+				
 				carViews
 				carLikes
 				carComments
