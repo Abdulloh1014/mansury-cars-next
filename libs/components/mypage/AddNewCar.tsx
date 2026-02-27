@@ -58,8 +58,8 @@ const {
 			carMileage: getCarData?.getCar ? getCarData?.getCar?.carMileage : '',
 			carBarter: getCarData?.getCar ? getCarData?.getCar?.carBarter : false,
 			carRent: getCarData?.getCar ? getCarData?.getCar?.carRent : false,
-			carRooms: getCarData?.getCar ? getCarData?.getCar?.carRooms : 0,
-			carBeds: getCarData?.getCar ? getCarData?.getCar?.carBeds : 0,
+			carDoors: getCarData?.getCar ? getCarData?.getCar?.carDoors : 0,
+			carEngine: getCarData?.getCar ? getCarData?.getCar?.carEngine : '',
 			carFuelType: getCarData?.getCar ? getCarData?.getCar?.carFuelType : '',
 			carDesc: getCarData?.getCar ? getCarData?.getCar?.carDesc : '',
 			carImages: getCarData?.getCar ? getCarData?.getCar?.carImages : [],
@@ -128,8 +128,8 @@ const {
 			insertCarData.carMileage === 0 || // @ts-ignore
 			insertCarData.carBarter === '' || // @ts-ignore
 			insertCarData.carRent === '' ||
-			insertCarData.carRooms === 0 ||
-			insertCarData.carBeds === 0 ||
+			insertCarData.carDoors === 0 ||
+			insertCarData.carEngine === 0 ||
 			insertCarData.carFuelType === ('' as any)  ||
 			insertCarData.carDesc === '' ||
 			insertCarData.carImages.length === 0
@@ -215,14 +215,16 @@ const updateCarHandler = useCallback(async () => {
 								<Stack className="price-year-after-price">
 									<Typography className="title">Price</Typography>
 									<input
-										type="text"
+										type="number"
 										className="description-input"
 										placeholder={'Price'}
-										value={insertCarData.carPrice}
+										value={insertCarData.carPrice === 0 ? '' : insertCarData.carPrice}
 										onChange={({ target: { value } }) =>
-											setInsertCarData({ ...insertCarData, carPrice: parseInt(value) })
+											setInsertCarData({ ...insertCarData, carPrice: value === '' ? 0 : Number(value) })
 										}
 									/>
+
+
 								</Stack>
 								<Stack className="price-year-after-price">
 									<Typography className="title">Select Type</Typography>
@@ -237,7 +239,7 @@ const updateCarHandler = useCallback(async () => {
 									>
 										<>
 											<option selected={true} disabled={true} value={'select'}>
-												Select
+												Car Type
 											</option>
 											{carType.map((type: any) => (
 												<option value={`${type}`} key={type}>
@@ -265,7 +267,7 @@ const updateCarHandler = useCallback(async () => {
 									>
 										<>
 											<option selected={true} disabled={true} value={'select'}>
-												Select
+												Location
 											</option>
 											{carLocation.map((location: any) => (
 												<option value={`${location}`} key={location}>
@@ -277,15 +279,17 @@ const updateCarHandler = useCallback(async () => {
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
+
+
 								<Stack className="price-year-after-price">
 									<Typography className="title">Mileage</Typography>
 									<input
 										type="number"
 										className="description-input"
 										placeholder={'Mileage'}
-										value={insertCarData.carMileage}
+										value={insertCarData.carMileage === 0 ? '' : insertCarData.carMileage}
 										onChange={({ target: { value } }) =>
-											setInsertCarData({ ...insertCarData, carMileage: parseInt(value) || 0 })
+											setInsertCarData({ ...insertCarData, carMileage: value === '' ? 0 : parseInt(value) || 0 })
 										}
 									/>
 								</Stack>
@@ -334,33 +338,35 @@ const updateCarHandler = useCallback(async () => {
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Rooms</Typography>
+									<Typography className="title">Doors</Typography>
 									<select
 										className={'select-description'}
-										value={insertCarData.carRooms || 'select'}
-										defaultValue={insertCarData.carRooms || 'select'}
+										value={insertCarData.carDoors || 'select'}
+										defaultValue={insertCarData.carDoors || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertCarData({ ...insertCarData, carRooms: parseInt(value) })
+											setInsertCarData({ ...insertCarData, carDoors: parseInt(value) })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
-											Select
+											Doors
 										</option>
-										{[1, 2, 3, 4, 5].map((room: number) => (
+										{[2, 4,].map((room: number) => (
 											<option value={`${room}`}>{room}</option>
 										))}
 									</select>
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
-								<Stack className="price-year-after-price">
-									<Typography className="title">Bed</Typography>
+
+
+								{/* <Stack className="price-year-after-price">
+									<Typography className="title">Engine</Typography>
 									<select
 										className={'select-description'}
-										value={insertCarData.carBeds || 'select'}
-										defaultValue={insertCarData.carBeds || 'select'}
+										value={insertCarData.carEngine || 'select'}
+										defaultValue={insertCarData.carEngine || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertCarData({ ...insertCarData, carBeds: parseInt(value) })
+											setInsertCarData({ ...insertCarData, carEngine: parseInt(value) })
 										}
 									>
 										<option disabled={true} selected={true} value={'select'}>
@@ -372,7 +378,28 @@ const updateCarHandler = useCallback(async () => {
 									</select>
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
-								</Stack>
+								</Stack> */}
+
+								<Stack className="price-year-after-price">
+  <Typography className="title">Engine</Typography>
+
+  <input
+  type="number"
+  className="select-description"
+  value={insertCarData.carEngine === 0 ? '' : insertCarData.carEngine}
+  onChange={(e) =>
+    setInsertCarData({
+      ...insertCarData,
+      carEngine: Number(e.target.value) || 0,
+    })
+  }
+  placeholder="Engine size"
+/>
+  <div className="divider"></div>
+  <img src="/img/icons/Vector.svg" className="arrow-down" />
+</Stack>
+
+
 								<Stack className="price-year-after-price">
 									<Typography className="title">Fuel Type</Typography>
 									<select
@@ -384,7 +411,7 @@ const updateCarHandler = useCallback(async () => {
 										}
 									>
 										<option disabled value="select">
-											Select
+											Feul Type
 										</option>
 										{Object.values(CarFuelType).map((type) => (
                                           <option value={type} key={type}>
@@ -529,8 +556,8 @@ AddCar.defaultProps = {
 		carMileage: '',
 		carBarter: false,
 		carRent: false,
-		carRooms: 0,
-		carBeds: 0,
+		carDoors: 0,
+		carEngine: 0,
 		carFuelType: '',
 		carDesc: '',
 		carImages: [],

@@ -8,9 +8,11 @@ export interface CarInput {
 	carTitle: string;
 	carPrice: number;
 
+	// carSquare: number;
 	carFuelType: CarFuelType;
-	carBeds: number;
-	carRooms: number;
+	carEngine: number;
+	// carRooms: number;
+	carDoors: number;
 
 	carImages: string[];
 	carDesc?: string;

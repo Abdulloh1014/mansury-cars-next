@@ -44,11 +44,11 @@ const TrendCarCard = (props: TrendCarCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{car.carBeds} bed</span>
+							<span>{car.carEngine} engine</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{car.carRooms} rooms</span>
+							<span>{car.carDoors} rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
@@ -96,11 +96,11 @@ const TrendCarCard = (props: TrendCarCardProps) => {
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />
-							<span>{car.carBeds} bed</span>
+							<span>{car.carEngine} bed</span>
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{car.carRooms} rooms</span>
+							<span>{car.carDoors} rooms</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

@@ -272,10 +272,10 @@ if (getCarLoading) {
 									</Stack>
 									<Stack className={'bottom-box'}>
 										<Stack className="option">
-											<img src="/img/icons/bed.svg" alt="" /> <Typography>{car?.carBeds} bed</Typography>
+											<img src="/img/icons/bed.svg" alt="" /> <Typography>{car?.carEngine} bed</Typography>
 										</Stack>
 										<Stack className="option">
-											<img src="/img/icons/room.svg" alt="" /> <Typography>{car?.carRooms} room</Typography>
+											<img src="/img/icons/room.svg" alt="" /> <Typography>{car?.carDoors} room</Typography>
 										</Stack>
 										<Stack className="option">
 											<img src="/img/icons/expand.svg" alt="" /> <Typography>{car?.carFuelType} m2</Typography>
@@ -337,7 +337,7 @@ if (getCarLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Bedroom</Typography>
-											<Typography className={'option-data'}>{car?.carBeds}</Typography>
+											<Typography className={'option-data'}>{car?.carEngine}</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -346,7 +346,7 @@ if (getCarLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Room</Typography>
-											<Typography className={'option-data'}>{car?.carRooms}</Typography>
+											<Typography className={'option-data'}>{car?.carDoors}</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -430,11 +430,11 @@ if (getCarLoading) {
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Rooms</Typography>
-													<Typography className={'data'}>{car?.carRooms}</Typography>
+													<Typography className={'data'}>{car?.carDoors}</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Bedrooms</Typography>
-													<Typography className={'data'}>{car?.carBeds}</Typography>
+													<Typography className={'data'}>{car?.carEngine}</Typography>
 												</Box>
 											</Stack>
 											<Stack className={'right'}>

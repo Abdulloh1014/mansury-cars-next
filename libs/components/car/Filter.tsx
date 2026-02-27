@@ -17,7 +17,8 @@ import { CarLocation, CarType } from '../../enums/car.enum';
 import { CarsInquiry } from '../../types/car/car.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import { carFuelType } from '../../config';
+// import { carFuelType } from '../../config';
+import { CarFuelType } from '../../enums/car.enum';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const MenuProps = {
@@ -755,6 +756,8 @@ const Filter = (props: FilterType) => {
 				</Stack>
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<Typography className={'title'}>Square meter</Typography>
+
+
 					<Stack className="square-year-input">
 						<FormControl>
 							<InputLabel id="demo-simple-select-label">Min</InputLabel>
@@ -766,15 +769,15 @@ const Filter = (props: FilterType) => {
 								onChange={(e: any) => carSquareHandler(e, 'start')}
 								MenuProps={MenuProps}
 							>
-								{carFuelType.map((square: number) => (
-									<MenuItem
-										value={square}
-										disabled={(searchFilter?.search?.squaresRange?.end || 0) < square}
-										key={square}
-									>
-										{square}
-									</MenuItem>
-								))}
+								{Object.values(CarFuelType).map((type) => (
+  <MenuItem
+    value={type}
+    disabled={(searchFilter?.search?.squaresRange?.end || 0) < Number(type)}
+    key={type}
+  >
+    {type}
+  </MenuItem>
+))}
 							</Select>
 						</FormControl>
 						<div className="central-divider"></div>
@@ -788,16 +791,18 @@ const Filter = (props: FilterType) => {
 								onChange={(e: any) => carSquareHandler(e, 'end')}
 								MenuProps={MenuProps}
 							>
-								{carFuelType.map((square: number) => (
-									<MenuItem
-										value={square}
-										disabled={(searchFilter?.search?.squaresRange?.start || 0) > square}
-										key={square}
-									>
-										{square}
-									</MenuItem>
-								))}
+								{Object.values(CarFuelType).map((type) => (
+  <MenuItem
+    value={type}
+    disabled={(searchFilter?.search?.squaresRange?.start || 0) > Number(type)}
+    key={type}
+  >
+    {type}
+  </MenuItem>
+))}
 							</Select>
+
+
 						</FormControl>
 					</Stack>
 				</Stack>
