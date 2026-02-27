@@ -32,10 +32,10 @@ interface PISearch {
 	typeList?: CarType[];
 	carsList?: Number[];
 	options?: string[];
-	bedsList?: Number[];
+	engineList?: Number[];
 	pricesRange?: Range;
 	periodsRange?: PeriodsRange;
-	squaresRange?: Range;
+	mileageRange?: Range;
 	text?: string;
 }
 
@@ -76,6 +76,8 @@ interface Range {
 	start: number;
 	end: number;
 }
+
+
 
 interface PeriodsRange {
 	start: Date | number;

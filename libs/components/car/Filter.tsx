@@ -108,8 +108,8 @@ const Filter = (props: FilterType) => {
 		})}`, { scroll: false }).then();
 		}
 
-		if (searchFilter?.search?.bedsList?.length == 0) {
-			delete searchFilter.search.bedsList;
+		if (searchFilter?.search?.engineList?.length == 0) {
+			delete searchFilter.search.engineList;
 			router.push(`/car?input=${JSON.stringify({
 			...searchFilter,
 			search: {
@@ -337,20 +337,20 @@ const Filter = (props: FilterType) => {
 		async (number: Number) => {
 			try {
 				if (number != 0) {
-					if (searchFilter?.search?.bedsList?.includes(number)) {
+					if (searchFilter?.search?.engineList?.includes(number)) {
 						await router.push(
 							`/car?input=${JSON.stringify({
 								...searchFilter,
 								search: {
 									...searchFilter.search,
-									bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
+									engineList: searchFilter?.search?.engineList?.filter((item: Number) => item !== number),
 								},
 							})}`,
 							`/car?input=${JSON.stringify({
 								...searchFilter,
 								search: {
 									...searchFilter.search,
-									bedsList: searchFilter?.search?.bedsList?.filter((item: Number) => item !== number),
+									engineList: searchFilter?.search?.engineList?.filter((item: Number) => item !== number),
 								},
 							})}`,
 							{ scroll: false },
@@ -359,17 +359,17 @@ const Filter = (props: FilterType) => {
 						await router.push(
 							`/car?input=${JSON.stringify({
 								...searchFilter,
-								search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
+								search: { ...searchFilter.search, engineList: [...(searchFilter?.search?.engineList || []), number] },
 							})}`,
 							`/car?input=${JSON.stringify({
 								...searchFilter,
-								search: { ...searchFilter.search, bedsList: [...(searchFilter?.search?.bedsList || []), number] },
+								search: { ...searchFilter.search, engineList: [...(searchFilter?.search?.engineList || []), number] },
 							})}`,
 							{ scroll: false },
 						);
 					}
 				} else {
-					delete searchFilter?.search.bedsList;
+					delete searchFilter?.search.engineList;
 					setSearchFilter({ ...searchFilter });
 					await router.push(
 						`/car?input=${JSON.stringify({
@@ -406,14 +406,14 @@ const Filter = (props: FilterType) => {
 						...searchFilter,
 						search: {
 							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, start: value },
+							mileageRange: { ...searchFilter.search.mileageRange, start: value },
 						},
 					})}`,
 					`/car?input=${JSON.stringify({
 						...searchFilter,
 						search: {
 							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, start: value },
+							mileageRange: { ...searchFilter.search.mileageRange, start: value },
 						},
 					})}`,
 					{ scroll: false },
@@ -424,14 +424,14 @@ const Filter = (props: FilterType) => {
 						...searchFilter,
 						search: {
 							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, end: value },
+							mileageRange: { ...searchFilter.search.mileageRange, end: value },
 						},
 					})}`,
 					`/car?input=${JSON.stringify({
 						...searchFilter,
 						search: {
 							...searchFilter.search,
-							squaresRange: { ...searchFilter.search.squaresRange, end: value },
+							mileageRange: { ...searchFilter.search.mileageRange, end: value },
 						},
 					})}`,
 					{ scroll: false },
@@ -664,7 +664,7 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: '12px 0 0 12px',
-								border: !searchFilter?.search?.bedsList ? '2px solid #181A20' : '1px solid #b9b9b9',
+								border: !searchFilter?.search?.engineList ? '2px solid #181A20' : '1px solid #b9b9b9',
 							}}
 							onClick={() => carBedSelectHandler(0)}
 						>
@@ -673,8 +673,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(1) ? undefined : 'none',
+								border: searchFilter?.search?.engineList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.engineList?.includes(1) ? undefined : 'none',
 							}}
 							onClick={() => carBedSelectHandler(1)}
 						>
@@ -683,8 +683,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(2) ? undefined : 'none',
+								border: searchFilter?.search?.engineList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.engineList?.includes(2) ? undefined : 'none',
 							}}
 							onClick={() => carBedSelectHandler(2)}
 						>
@@ -693,8 +693,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(3) ? undefined : 'none',
+								border: searchFilter?.search?.engineList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.engineList?.includes(3) ? undefined : 'none',
 							}}
 							onClick={() => carBedSelectHandler(3)}
 						>
@@ -703,8 +703,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.bedsList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(4) ? undefined : 'none',
+								border: searchFilter?.search?.engineList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.engineList?.includes(4) ? undefined : 'none',
 								// borderRight: false ? undefined : 'none',
 							}}
 							onClick={() => carBedSelectHandler(4)}
@@ -714,8 +714,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: '0 12px 12px 0',
-								border: searchFilter?.search?.bedsList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.bedsList?.includes(5) ? undefined : 'none',
+								border: searchFilter?.search?.engineList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.engineList?.includes(5) ? undefined : 'none',
 							}}
 							onClick={() => carBedSelectHandler(5)}
 						>
@@ -764,7 +764,7 @@ const Filter = (props: FilterType) => {
 							<Select
 								labelId="demo-simple-select-label"
 								id="demo-simple-select"
-								value={searchFilter?.search?.squaresRange?.start ?? 0}
+								value={searchFilter?.search?.mileageRange?.start ?? 0}
 								label="Min"
 								onChange={(e: any) => carSquareHandler(e, 'start')}
 								MenuProps={MenuProps}
@@ -772,7 +772,7 @@ const Filter = (props: FilterType) => {
 								{Object.values(CarFuelType).map((type) => (
   <MenuItem
     value={type}
-    disabled={(searchFilter?.search?.squaresRange?.end || 0) < Number(type)}
+    disabled={(searchFilter?.search?.mileageRange?.end || 0) < Number(type)}
     key={type}
   >
     {type}
@@ -786,7 +786,7 @@ const Filter = (props: FilterType) => {
 							<Select
 								labelId="demo-simple-select-label"
 								id="demo-simple-select"
-								value={searchFilter?.search?.squaresRange?.end ?? 500}
+								value={searchFilter?.search?.mileageRange?.end ?? 500}
 								label="Max"
 								onChange={(e: any) => carSquareHandler(e, 'end')}
 								MenuProps={MenuProps}
@@ -794,7 +794,7 @@ const Filter = (props: FilterType) => {
 								{Object.values(CarFuelType).map((type) => (
   <MenuItem
     value={type}
-    disabled={(searchFilter?.search?.squaresRange?.start || 0) > Number(type)}
+    disabled={(searchFilter?.search?.mileageRange?.start || 0) > Number(type)}
     key={type}
   >
     {type}

@@ -71,13 +71,13 @@ const CarCard = (props: CarCardType) => {
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography>{car.carEngine} bed</Typography>
+							<img src="/img/icons/bed.svg" alt="" /> <Typography>{car.carEngine} Engine</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{car.carDoors} room</Typography>
+							<img src="/img/icons/room.svg" alt="" /> <Typography>{car.carDoors} Doors</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{car.carFuelType} m2</Typography>
+							<img src="/img/icons/expand.svg" alt="" /> <Typography>{car.carFuelType} Fuel Type</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>

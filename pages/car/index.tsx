@@ -225,7 +225,7 @@ CarList.defaultProps = {
 		sort: 'createdAt',
 		direction: 'DESC',
 		search: {
-			squaresRange: {
+			mileageRange: {
 				start: 0,
 				end: 500,
 			},
