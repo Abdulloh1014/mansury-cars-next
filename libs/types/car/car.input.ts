@@ -4,12 +4,14 @@ import { Direction } from '../../enums/common.enum';
 export interface CarInput {
 	carType: CarType;
 	carLocation: CarLocation;
-	carAddress: string;
+	carMileage: number;
 	carTitle: string;
 	carPrice: number;
+
 	carSquare: number;
 	carBeds: number;
 	carRooms: number;
+
 	carImages: string[];
 	carDesc?: string;
 	carBarter?: boolean;

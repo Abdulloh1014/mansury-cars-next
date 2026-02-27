@@ -16,12 +16,16 @@ export interface Car {
 	carType: CarType;
 	carStatus: CarStatus;
 	carLocation: CarLocation;
-	carAddress: string;
+	
+	carMileage: number;
+
 	carTitle: string;
 	carPrice: number;
+
 	carSquare: number;
 	carBeds: number;
 	carRooms: number;
+
 	carViews: number;
 	carLikes: number;
 	carComments: number;

@@ -65,7 +65,7 @@ const CarCard = (props: CarCardType) => {
 						</Stack>
 						<Stack className="address">
 							<Typography>
-								{car.carAddress}, {car.carLocation}
+								{car.carMileage}, {car.carLocation}
 							</Typography>
 						</Stack>
 					</Stack>

@@ -48,7 +48,7 @@ const CarBigCard = (props: CarBigCardProps) => {
 				</Box>
 				<Box component={'div'} className={'info'}>
 					<strong className={'title'}>{car?.carTitle}</strong>
-					<p className={'desc'}>{car?.carAddress}</p>
+					<p className={'desc'}>{car?.carMileage}</p>
 					<div className={'options'}>
 						<div>
 							<img src="/img/icons/bed.svg" alt="" />

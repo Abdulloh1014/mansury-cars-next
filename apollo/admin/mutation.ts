@@ -44,6 +44,7 @@ export const UPDATE_CAR_BY_ADMIN = gql`
 			carType
 			carStatus
 			carLocation
+			
 			carTitle
 			carPrice
 
@@ -77,6 +78,7 @@ export const REMOVE_CAR_BY_ADMIN = gql`
 			carType
 			carStatus
 			carLocation
+			
 			carTitle
 			carPrice
 

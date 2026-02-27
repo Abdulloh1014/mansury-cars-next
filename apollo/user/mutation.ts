@@ -129,6 +129,7 @@ export const CREATE_CAR = gql`
 			carType
 			carStatus
 			carLocation
+			
 			carTitle
 			carPrice
 

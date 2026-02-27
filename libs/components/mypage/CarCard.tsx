@@ -60,7 +60,7 @@ export const CarCard = (props: CarCardProps) => {
 				</Stack>
 				<Stack className="information-box" onClick={() => pushCarDetail(car?._id)}>
 					<Typography className="name">{car.carTitle}</Typography>
-					<Typography className="address">{car.carAddress}</Typography>
+					<Typography className="address">{car.carMileage}</Typography>
 					<Typography className="price">
 						<strong>${formatterStr(car?.carPrice)}</strong>
 					</Typography>

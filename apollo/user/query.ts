@@ -89,6 +89,7 @@ export const GET_CAR = gql`
 			carType
 			carStatus
 			carLocation
+			
 			carTitle
 			carPrice
 
@@ -149,6 +150,7 @@ export const GET_CARS = gql`
 				carType
 				carStatus
 				carLocation
+			
 				carTitle
 				carPrice
 
@@ -215,6 +217,7 @@ export const GET_AGENT_CARS = gql`
 				carType
 				carStatus
 				carLocation
+				
 				carTitle
 				carPrice
 				carMileage
@@ -251,6 +254,7 @@ export const GET_FAVORITES = gql`
 				carType
 				carStatus
 				carLocation
+				
 				carTitle
 				carPrice
 

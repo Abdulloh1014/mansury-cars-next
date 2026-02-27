@@ -5,12 +5,14 @@ export interface CarUpdate {
 	carType?: CarType;
 	carStatus?: CarStatus;
 	carLocation?: CarLocation;
-	carAddress?: string;
+	carMileage?: number;
 	carTitle?: string;
 	carPrice?: number;
+
 	carSquare?: number;
 	carBeds?: number;
 	carRooms?: number;
+
 	carImages?: string[];
 	carDesc?: string;
 	carBarter?: boolean;

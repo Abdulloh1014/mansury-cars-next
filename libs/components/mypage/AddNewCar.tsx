@@ -17,6 +17,7 @@ import {
     sweetErrorHandling, 
     sweetMixinSuccessAlert 
 } from '../../sweetAlert';
+import { parse } from 'path';
 
 const AddCar = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -53,7 +54,7 @@ const {
 			carPrice: getCarData?.getCar ? getCarData?.getCar?.carPrice : 0,
 			carType: getCarData?.getCar ? getCarData?.getCar?.carType : '',
 			carLocation: getCarData?.getCar ? getCarData?.getCar?.carLocation : '',
-			carAddress: getCarData?.getCar ? getCarData?.getCar?.carAddress : '',
+			carMileage: getCarData?.getCar ? getCarData?.getCar?.carMileage : '',
 			carBarter: getCarData?.getCar ? getCarData?.getCar?.carBarter : false,
 			carRent: getCarData?.getCar ? getCarData?.getCar?.carRent : false,
 			carRooms: getCarData?.getCar ? getCarData?.getCar?.carRooms : 0,
@@ -123,7 +124,7 @@ const {
 			insertCarData.carPrice === 0 || // @ts-ignore
 			insertCarData.carType === '' || // @ts-ignore
 			insertCarData.carLocation === '' || // @ts-ignore
-			insertCarData.carAddress === '' || // @ts-ignore
+			insertCarData.carMileage === '' || // @ts-ignore
 			insertCarData.carBarter === '' || // @ts-ignore
 			insertCarData.carRent === '' ||
 			insertCarData.carRooms === 0 ||
@@ -276,14 +277,14 @@ const updateCarHandler = useCallback(async () => {
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Address</Typography>
+									<Typography className="title">Mileage</Typography>
 									<input
-										type="text"
+										type="number"
 										className="description-input"
-										placeholder={'Address'}
-										value={insertCarData.carAddress}
+										placeholder={'Mileage'}
+										value={insertCarData.carMileage}
 										onChange={({ target: { value } }) =>
-											setInsertCarData({ ...insertCarData, carAddress: value })
+											setInsertCarData({ ...insertCarData, carMileage: parseInt(value) || 0 })
 										}
 									/>
 								</Stack>
@@ -524,7 +525,7 @@ AddCar.defaultProps = {
 		carPrice: 0,
 		carType: '',
 		carLocation: '',
-		carAddress: '',
+		carMileage: '',
 		carBarter: false,
 		carRent: false,
 		carRooms: 0,
