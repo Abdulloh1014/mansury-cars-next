@@ -1,4 +1,4 @@
-import { CarFuelType, CarLocation, CarStatus, CarType } from '../../enums/car.enum';
+import { CarColor, CarFuelType, CarLocation, CarStatus, CarType } from '../../enums/car.enum';
 
 export interface CarUpdate {
 	_id: string;
@@ -11,9 +11,13 @@ export interface CarUpdate {
 
 	// carSquare: number;
 	carFuelType?: CarFuelType;
+	// carBeds: number;
 	carEngine?: number;
 	// carRooms: number;
 	carDoors?: number;
+	// new
+	carYear?: number;
+	carColor?: CarColor
 
 	carImages?: string[];
 	carDesc?: string;

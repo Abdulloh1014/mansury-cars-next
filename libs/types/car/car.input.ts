@@ -1,4 +1,4 @@
-import { CarFuelType, CarLocation, CarStatus, CarType } from '../../enums/car.enum';
+import { CarColor, CarFuelType, CarLocation, CarStatus, CarType } from '../../enums/car.enum';
 import { Direction } from '../../enums/common.enum';
 
 export interface CarInput {
@@ -10,9 +10,13 @@ export interface CarInput {
 
 	// carSquare: number;
 	carFuelType: CarFuelType;
+	// carBeds: number;
 	carEngine: number;
 	// carRooms: number;
 	carDoors: number;
+		// new
+	carYear: number;
+	carColor: CarColor
 
 	carImages: string[];
 	carDesc?: string;
@@ -26,7 +30,7 @@ interface PISearch {
 	memberId?: string;
 	locationList?: CarLocation[];
 	typeList?: CarType[];
-	roomsList?: Number[];
+	carsList?: Number[];
 	options?: string[];
 	bedsList?: Number[];
 	pricesRange?: Range;

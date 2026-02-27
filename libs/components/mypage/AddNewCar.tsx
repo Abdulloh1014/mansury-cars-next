@@ -2,7 +2,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { CarLocation, CarType } from '../../enums/car.enum';
+import { CarColor, CarLocation, CarType } from '../../enums/car.enum';
 import { REACT_APP_API_URL,  } from '../../config';
 import { CarFuelType } from '../../enums/car.enum';
 import { CarInput } from '../../types/car/car.input';
@@ -19,6 +19,7 @@ import {
     sweetMixinSuccessAlert 
 } from '../../sweetAlert';
 import { parse } from 'path';
+import car from '../../../pages/car';
 
 const AddCar = ({ initialValues, ...props }: any) => {
 	const device = useDeviceDetect();
@@ -59,7 +60,9 @@ const {
 			carBarter: getCarData?.getCar ? getCarData?.getCar?.carBarter : false,
 			carRent: getCarData?.getCar ? getCarData?.getCar?.carRent : false,
 			carDoors: getCarData?.getCar ? getCarData?.getCar?.carDoors : 0,
+			carYear: getCarData?.getCar ? getCarData?.getCar?.carYear : '',
 			carEngine: getCarData?.getCar ? getCarData?.getCar?.carEngine : '',
+			carColor: getCarData?.getCar ? getCarData?.getCar?.carColor : '',
 			carFuelType: getCarData?.getCar ? getCarData?.getCar?.carFuelType : '',
 			carDesc: getCarData?.getCar ? getCarData?.getCar?.carDesc : '',
 			carImages: getCarData?.getCar ? getCarData?.getCar?.carImages : [],
@@ -128,7 +131,9 @@ const {
 			insertCarData.carMileage === 0 || // @ts-ignore
 			insertCarData.carBarter === '' || // @ts-ignore
 			insertCarData.carRent === '' ||
+			insertCarData.carColor === ('' as any) ||
 			insertCarData.carDoors === 0 ||
+			insertCarData.carYear === 0 ||
 			insertCarData.carEngine === 0 ||
 			insertCarData.carFuelType === ('' as any)  ||
 			insertCarData.carDesc === '' ||
@@ -199,11 +204,11 @@ const updateCarHandler = useCallback(async () => {
 					<Stack className="config">
 						<Stack className="description-box">
 							<Stack className="config-column">
-								<Typography className="title">Title</Typography>
+								<Typography className="title">Car Title</Typography>
 								<input
 									type="text"
 									className="description-input"
-									placeholder={'Title'}
+									placeholder={'Car Title'}
 									value={insertCarData.carTitle}
 									onChange={({ target: { value } }) =>
 										setInsertCarData({ ...insertCarData, carTitle: value })
@@ -213,11 +218,11 @@ const updateCarHandler = useCallback(async () => {
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Price</Typography>
+									<Typography className="title">Car Price</Typography>
 									<input
 										type="number"
 										className="description-input"
-										placeholder={'Price'}
+										placeholder={'Car Price'}
 										value={insertCarData.carPrice === 0 ? '' : insertCarData.carPrice}
 										onChange={({ target: { value } }) =>
 											setInsertCarData({ ...insertCarData, carPrice: value === '' ? 0 : Number(value) })
@@ -227,7 +232,7 @@ const updateCarHandler = useCallback(async () => {
 
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Select Type</Typography>
+									<Typography className="title">Car Type</Typography>
 									<select
 										className={'select-description'}
 										defaultValue={insertCarData.carType || 'select'}
@@ -255,7 +260,7 @@ const updateCarHandler = useCallback(async () => {
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
-									<Typography className="title">Select Location</Typography>
+									<Typography className="title">Car Location</Typography>
 									<select
 										className={'select-description'}
 										defaultValue={insertCarData.carLocation || 'select'}
@@ -267,7 +272,7 @@ const updateCarHandler = useCallback(async () => {
 									>
 										<>
 											<option selected={true} disabled={true} value={'select'}>
-												Location
+												Car Location
 											</option>
 											{carLocation.map((location: any) => (
 												<option value={`${location}`} key={location}>
@@ -282,11 +287,11 @@ const updateCarHandler = useCallback(async () => {
 
 
 								<Stack className="price-year-after-price">
-									<Typography className="title">Mileage</Typography>
+									<Typography className="title">Car Mileage</Typography>
 									<input
 										type="number"
 										className="description-input"
-										placeholder={'Mileage'}
+										placeholder={'Car Mileage'}
 										value={insertCarData.carMileage === 0 ? '' : insertCarData.carMileage}
 										onChange={({ target: { value } }) =>
 											setInsertCarData({ ...insertCarData, carMileage: value === '' ? 0 : parseInt(value) || 0 })
@@ -294,6 +299,69 @@ const updateCarHandler = useCallback(async () => {
 									/>
 								</Stack>
 							</Stack>
+
+
+
+
+
+                                <Stack className="config-row">
+								<Stack className="price-year-after-price">
+									<Typography className="title">Car Year</Typography>
+									<input
+										type="number"
+										className="description-input"
+										placeholder={'Car Year'}
+										min={1994}
+										max={2026}
+										value={insertCarData.carYear === 0 ? '' : insertCarData.carYear}
+										onChange={({ target: { value } }) => {
+											const year = value === '' ? 0 : Number(value);
+											 if (year >= 1990 && year <= 2026) {
+                                           setInsertCarData({ ...insertCarData, carYear: year });
+										}
+									  }
+                                    }
+									/>
+								</Stack>
+												     
+
+
+								<Stack className="price-year-after-price">
+									<Typography className="title">Car Color</Typography>
+									<select
+										className={'select-description'}
+										defaultValue={insertCarData.carColor || 'select'}
+										value={insertCarData.carColor || 'select'}
+										onChange={({ target: { value } }) =>
+											// @ts-ignore
+											setInsertCarData({ ...insertCarData, carColor: value })
+										}
+									>
+										<>
+											<option selected={true} disabled={true} value={'select'}>
+												Car Color
+											</option>
+											{Object.values(CarColor).map((color) => (
+												<option value={color} key={color}>
+													{color}
+												</option>
+											))}
+										</>
+									</select>
+									<div className={'divider'}></div>
+									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
+								</Stack>
+							</Stack>
+						
+
+
+
+
+
+
+
+
+
 
 							<Stack className="config-row">
 								<Stack className="price-year-after-price">
@@ -559,6 +627,8 @@ AddCar.defaultProps = {
 		carDoors: 0,
 		carEngine: 0,
 		carFuelType: '',
+		carColor: '',
+		carYear: '',
 		carDesc: '',
 		carImages: [],
 	},

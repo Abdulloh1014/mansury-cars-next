@@ -78,8 +78,8 @@ const Filter = (props: FilterType) => {
 		})}`, { scroll: false }).then();
 		}
 
-		if (searchFilter?.search?.roomsList?.length == 0) {
-			delete searchFilter.search.roomsList;
+		if (searchFilter?.search?.carsList?.length == 0) {
+			delete searchFilter.search.carsList;
 			router.push(`/car?input=${JSON.stringify({
 			...searchFilter,
 			search: {
@@ -229,20 +229,20 @@ const Filter = (props: FilterType) => {
 		async (number: Number) => {
 			try {
 				if (number != 0) {
-					if (searchFilter?.search?.roomsList?.includes(number)) {
+					if (searchFilter?.search?.carsList?.includes(number)) {
 						await router.push(
 							`/car?input=${JSON.stringify({
 								...searchFilter,
 								search: {
 									...searchFilter.search,
-									roomsList: searchFilter?.search?.roomsList?.filter((item: Number) => item !== number),
+									carsList: searchFilter?.search?.carsList?.filter((item: Number) => item !== number),
 								},
 							})}`,
 							`/car?input=${JSON.stringify({
 								...searchFilter,
 								search: {
 									...searchFilter.search,
-									roomsList: searchFilter?.search?.roomsList?.filter((item: Number) => item !== number),
+									carsList: searchFilter?.search?.carsList?.filter((item: Number) => item !== number),
 								},
 							})}`,
 							{ scroll: false },
@@ -251,17 +251,17 @@ const Filter = (props: FilterType) => {
 						await router.push(
 							`/car?input=${JSON.stringify({
 								...searchFilter,
-								search: { ...searchFilter.search, roomsList: [...(searchFilter?.search?.roomsList || []), number] },
+								search: { ...searchFilter.search, carsList: [...(searchFilter?.search?.carsList || []), number] },
 							})}`,
 							`/car?input=${JSON.stringify({
 								...searchFilter,
-								search: { ...searchFilter.search, roomsList: [...(searchFilter?.search?.roomsList || []), number] },
+								search: { ...searchFilter.search, carsList: [...(searchFilter?.search?.carsList || []), number] },
 							})}`,
 							{ scroll: false },
 						);
 					}
 				} else {
-					delete searchFilter?.search.roomsList;
+					delete searchFilter?.search.carsList;
 					setSearchFilter({ ...searchFilter });
 					await router.push(
 						`/car?input=${JSON.stringify({
@@ -600,7 +600,7 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: '12px 0 0 12px',
-								border: !searchFilter?.search?.roomsList ? '2px solid #181A20' : '1px solid #b9b9b9',
+								border: !searchFilter?.search?.carsList ? '2px solid #181A20' : '1px solid #b9b9b9',
 							}}
 							onClick={() => carRoomSelectHandler(0)}
 						>
@@ -609,8 +609,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(1) ? undefined : 'none',
+								border: searchFilter?.search?.carsList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.carsList?.includes(1) ? undefined : 'none',
 							}}
 							onClick={() => carRoomSelectHandler(1)}
 						>
@@ -619,8 +619,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(2) ? undefined : 'none',
+								border: searchFilter?.search?.carsList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.carsList?.includes(2) ? undefined : 'none',
 							}}
 							onClick={() => carRoomSelectHandler(2)}
 						>
@@ -629,8 +629,8 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(3) ? undefined : 'none',
+								border: searchFilter?.search?.carsList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.carsList?.includes(3) ? undefined : 'none',
 							}}
 							onClick={() => carRoomSelectHandler(3)}
 						>
@@ -639,9 +639,9 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: 0,
-								border: searchFilter?.search?.roomsList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.roomsList?.includes(4) ? undefined : 'none',
-								borderRight: searchFilter?.search?.roomsList?.includes(4) ? undefined : 'none',
+								border: searchFilter?.search?.carsList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								borderLeft: searchFilter?.search?.carsList?.includes(4) ? undefined : 'none',
+								borderRight: searchFilter?.search?.carsList?.includes(4) ? undefined : 'none',
 							}}
 							onClick={() => carRoomSelectHandler(4)}
 						>
@@ -650,7 +650,7 @@ const Filter = (props: FilterType) => {
 						<Button
 							sx={{
 								borderRadius: '0 12px 12px 0',
-								border: searchFilter?.search?.roomsList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
+								border: searchFilter?.search?.carsList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
 							}}
 							onClick={() => carRoomSelectHandler(5)}
 						>

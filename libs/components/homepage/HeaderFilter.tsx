@@ -155,7 +155,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					...searchFilter,
 					search: {
 						...searchFilter.search,
-						roomsList: [value],
+						carsList: [value],
 					},
 				});
 				disableAllStateHandler();
@@ -294,8 +294,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 				delete searchFilter.search.typeList;
 			}
 
-			if (searchFilter?.search?.roomsList?.length == 0) {
-				delete searchFilter.search.roomsList;
+			if (searchFilter?.search?.carsList?.length == 0) {
+				delete searchFilter.search.carsList;
 			}
 
 			if (searchFilter?.search?.options?.length == 0) {
@@ -332,7 +332,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						</Box>
 						<Box className={`box ${openRooms ? 'on' : ''}`} onClick={roomStateChangeHandler}>
 							<span>
-								{searchFilter?.search?.roomsList ? `${searchFilter?.search?.roomsList[0]} rooms}` : t('Rooms')}
+								{searchFilter?.search?.carsList ? `${searchFilter?.search?.carsList[0]} rooms}` : t('Rooms')}
 							</span>
 							<ExpandMoreIcon />
 						</Box>
