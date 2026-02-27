@@ -50,12 +50,16 @@ export const GET_ALL_CARS_BY_ADMIN = gql`
 				carType
 				carStatus
 				carLocation
-				carAddress
 				carTitle
 				carPrice
-				carSquare
-				carBeds
-				carRooms
+
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+			
 				carViews
 				carLikes
 				carImages

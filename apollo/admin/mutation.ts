@@ -44,12 +44,16 @@ export const UPDATE_CAR_BY_ADMIN = gql`
 			carType
 			carStatus
 			carLocation
-			carAddress
 			carTitle
 			carPrice
-			carSquare
-			carBeds
-			carRooms
+
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+
 			carViews
 			carLikes
 			carImages
@@ -73,12 +77,16 @@ export const REMOVE_CAR_BY_ADMIN = gql`
 			carType
 			carStatus
 			carLocation
-			carAddress
 			carTitle
 			carPrice
-			carSquare
-			carBeds
-			carRooms
+
+			carMileage
+            carFuelType
+            carDoors
+            carYear
+            carColor
+            carEngine
+			
 			carViews
 			carLikes
 			carImages
