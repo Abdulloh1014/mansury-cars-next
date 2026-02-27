@@ -60,7 +60,7 @@ const CarBigCard = (props: CarBigCardProps) => {
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />
-							<span>{car?.carSquare} m2</span>
+							<span>{car?.carFuelType} m2</span>
 						</div>
 					</div>
 					<Divider sx={{ mt: '15px', mb: '17px' }} />

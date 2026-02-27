@@ -1,4 +1,4 @@
-import { CarLocation, CarStatus, CarType } from '../../enums/car.enum';
+import { CarFuelType, CarLocation, CarStatus, CarType } from '../../enums/car.enum';
 import { Member } from '../member/member';
 
 export interface MeLiked {
@@ -16,13 +16,13 @@ export interface Car {
 	carType: CarType;
 	carStatus: CarStatus;
 	carLocation: CarLocation;
-	
 	carMileage: number;
-
+ // carAddress: string;
 	carTitle: string;
 	carPrice: number;
 
-	carSquare: number;
+	carFuelType: CarFuelType;
+ // carSquare: number;
 	carBeds: number;
 	carRooms: number;
 

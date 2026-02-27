@@ -6,7 +6,8 @@ import CloseIcon from '@mui/icons-material/Close';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import { carSquare, carYears } from '../../config';
+import {  carYears } from '../../config';
+import { CarFuelType } from '../../enums/car.enum';
 import { CarLocation, CarType } from '../../enums/car.enum';
 import { CarsInquiry } from '../../types/car/car.input';
 import { useRouter } from 'next/router';
@@ -505,15 +506,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 													inputProps={{ 'aria-label': 'Without label' }}
 													MenuProps={MenuProps}
 												>
-													{carSquare.map((square: number) => (
-														<MenuItem
-															value={square}
-															disabled={(searchFilter?.search?.squaresRange?.end || 0) < square}
-															key={square}
-														>
-															{square}
-														</MenuItem>
-													))}
+													{Object.values(CarFuelType).map((square) => (
+  <MenuItem
+    value={square}
+    disabled={(searchFilter?.search?.squaresRange?.end || 0) < Number(square)}
+    key={square}
+  >
+    {square}
+  </MenuItem>
+))}
 												</Select>
 											</FormControl>
 											<div className={'minus-line'}></div>
@@ -525,15 +526,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 													inputProps={{ 'aria-label': 'Without label' }}
 													MenuProps={MenuProps}
 												>
-													{carSquare.map((square: number) => (
-														<MenuItem
-															value={square}
-															disabled={(searchFilter?.search?.squaresRange?.start || 0) > square}
-															key={square}
-														>
-															{square}
-														</MenuItem>
-													))}
+													{Object.values(CarFuelType).map((square) => (
+  <MenuItem
+    value={square}
+    disabled={(searchFilter?.search?.squaresRange?.end || 0) > Number(square)}
+    key={square}
+  >
+    {square}
+  </MenuItem>
+))}
 												</Select>
 											</FormControl>
 										</div>

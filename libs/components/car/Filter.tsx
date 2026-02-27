@@ -17,7 +17,7 @@ import { CarLocation, CarType } from '../../enums/car.enum';
 import { CarsInquiry } from '../../types/car/car.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
-import { carSquare } from '../../config';
+import { carFuelType } from '../../config';
 import RefreshIcon from '@mui/icons-material/Refresh';
 
 const MenuProps = {
@@ -766,7 +766,7 @@ const Filter = (props: FilterType) => {
 								onChange={(e: any) => carSquareHandler(e, 'start')}
 								MenuProps={MenuProps}
 							>
-								{carSquare.map((square: number) => (
+								{carFuelType.map((square: number) => (
 									<MenuItem
 										value={square}
 										disabled={(searchFilter?.search?.squaresRange?.end || 0) < square}
@@ -788,7 +788,7 @@ const Filter = (props: FilterType) => {
 								onChange={(e: any) => carSquareHandler(e, 'end')}
 								MenuProps={MenuProps}
 							>
-								{carSquare.map((square: number) => (
+								{carFuelType.map((square: number) => (
 									<MenuItem
 										value={square}
 										disabled={(searchFilter?.search?.squaresRange?.start || 0) > square}

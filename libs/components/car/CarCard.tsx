@@ -77,7 +77,7 @@ const CarCard = (props: CarCardType) => {
 							<img src="/img/icons/room.svg" alt="" /> <Typography>{car.carRooms} room</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{car.carSquare} m2</Typography>
+							<img src="/img/icons/expand.svg" alt="" /> <Typography>{car.carFuelType} m2</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>

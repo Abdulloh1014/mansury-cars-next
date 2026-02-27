@@ -278,7 +278,7 @@ if (getCarLoading) {
 											<img src="/img/icons/room.svg" alt="" /> <Typography>{car?.carRooms} room</Typography>
 										</Stack>
 										<Stack className="option">
-											<img src="/img/icons/expand.svg" alt="" /> <Typography>{car?.carSquare} m2</Typography>
+											<img src="/img/icons/expand.svg" alt="" /> <Typography>{car?.carFuelType} m2</Typography>
 										</Stack>
 									</Stack>
 								</Stack>
@@ -392,7 +392,7 @@ if (getCarLoading) {
 										</Stack>
 										<Stack className={'option-includes'}>
 											<Typography className={'title'}>Size</Typography>
-											<Typography className={'option-data'}>{car?.carSquare} m2</Typography>
+											<Typography className={'option-data'}>{car?.carFuelType} m2</Typography>
 										</Stack>
 									</Stack>
 									<Stack className={'option'}>
@@ -426,7 +426,7 @@ if (getCarLoading) {
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Car Size</Typography>
-													<Typography className={'data'}>{car?.carSquare} m2</Typography>
+													<Typography className={'data'}>{car?.carFuelType} m2</Typography>
 												</Box>
 												<Box component={'div'} className={'info'}>
 													<Typography className={'title'}>Rooms</Typography>

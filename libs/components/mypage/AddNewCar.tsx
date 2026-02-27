@@ -3,7 +3,8 @@ import { useRouter } from 'next/router';
 import { Button, Stack, Typography } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import { CarLocation, CarType } from '../../enums/car.enum';
-import { REACT_APP_API_URL, carSquare } from '../../config';
+import { REACT_APP_API_URL,  } from '../../config';
+import { CarFuelType } from '../../enums/car.enum';
 import { CarInput } from '../../types/car/car.input';
 import axios from 'axios';
 import { getJwtToken } from '../../auth';
@@ -59,7 +60,7 @@ const {
 			carRent: getCarData?.getCar ? getCarData?.getCar?.carRent : false,
 			carRooms: getCarData?.getCar ? getCarData?.getCar?.carRooms : 0,
 			carBeds: getCarData?.getCar ? getCarData?.getCar?.carBeds : 0,
-			carSquare: getCarData?.getCar ? getCarData?.getCar?.carSquare : 0,
+			carFuelType: getCarData?.getCar ? getCarData?.getCar?.carFuelType : '',
 			carDesc: getCarData?.getCar ? getCarData?.getCar?.carDesc : '',
 			carImages: getCarData?.getCar ? getCarData?.getCar?.carImages : [],
 		});
@@ -124,12 +125,12 @@ const {
 			insertCarData.carPrice === 0 || // @ts-ignore
 			insertCarData.carType === '' || // @ts-ignore
 			insertCarData.carLocation === '' || // @ts-ignore
-			insertCarData.carMileage === '' || // @ts-ignore
+			insertCarData.carMileage === 0 || // @ts-ignore
 			insertCarData.carBarter === '' || // @ts-ignore
 			insertCarData.carRent === '' ||
 			insertCarData.carRooms === 0 ||
 			insertCarData.carBeds === 0 ||
-			insertCarData.carSquare === 0 ||
+			insertCarData.carFuelType === ('' as any)  ||
 			insertCarData.carDesc === '' ||
 			insertCarData.carImages.length === 0
 		) {
@@ -373,23 +374,23 @@ const updateCarHandler = useCallback(async () => {
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
 								<Stack className="price-year-after-price">
-									<Typography className="title">Square</Typography>
+									<Typography className="title">Fuel Type</Typography>
 									<select
 										className={'select-description'}
-										value={insertCarData.carSquare || 'select'}
-										defaultValue={insertCarData.carSquare || 'select'}
+										value={insertCarData.carFuelType || 'select'}
+										defaultValue={insertCarData.carFuelType || 'select'}
 										onChange={({ target: { value } }) =>
-											setInsertCarData({ ...insertCarData, carSquare: parseInt(value) })
+											setInsertCarData({ ...insertCarData, carFuelType: value as any})
 										}
 									>
-										<option disabled={true} selected={true} value={'select'}>
+										<option disabled value="select">
 											Select
 										</option>
-										{carSquare.map((square: number) => {
-											if (square !== 0) {
-												return <option value={`${square}`}>{square}</option>;
-											}
-										})}
+										{Object.values(CarFuelType).map((type) => (
+                                          <option value={type} key={type}>
+                                                    {type}
+                                              </option>
+                                         ))}
 									</select>
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
@@ -530,7 +531,7 @@ AddCar.defaultProps = {
 		carRent: false,
 		carRooms: 0,
 		carBeds: 0,
-		carSquare: 0,
+		carFuelType: '',
 		carDesc: '',
 		carImages: [],
 	},
