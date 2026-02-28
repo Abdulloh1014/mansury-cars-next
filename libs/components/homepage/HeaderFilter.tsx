@@ -1,12 +1,12 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Stack, Box, Modal, Divider, Button } from '@mui/material';
+import { Stack, Box, Modal, Divider, Button, InputLabel } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import CloseIcon from '@mui/icons-material/Close';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
-import {  carYears } from '../../config';
+import {  carMileage, carYears } from '../../config';
 import { CarColor, CarFuelType } from '../../enums/car.enum';
 import { CarLocation, CarType } from '../../enums/car.enum';
 import { CarsInquiry } from '../../types/car/car.input';
@@ -566,6 +566,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 											</FormControl>
 										</div>
 									</div>
+
+
+{/* 
 									<div className={'box'}>
 										<span>square meter</span>
 										<div className={'inside space-between align-center'}>
@@ -609,7 +612,64 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 												</Select>
 											</FormControl>
 										</div>
-									</div>
+									</div> */}
+
+									<div className={'box'}>
+	<span>Mileage</span>
+
+	<div className={'inside space-between align-center'}>
+		<FormControl sx={{ width: '122px' }}>
+			<InputLabel>Min</InputLabel>
+			<Select
+				value={searchFilter?.search?.mileageRange?.start ?? 0}
+				label="Min"
+				onChange={(e: any) => carSquareHandler(e, 'start')}
+				MenuProps={MenuProps}
+			>
+				{carMileage.map((mileage: number) => (
+					<MenuItem
+						key={mileage}
+						value={mileage}
+						disabled={
+							(searchFilter?.search?.mileageRange?.end ?? 0) < mileage
+						}
+					>
+						{mileage}
+					</MenuItem>
+				))}
+			</Select>
+		</FormControl>
+
+		<div className={'minus-line'}></div>
+
+		<FormControl sx={{ width: '122px' }}>
+			<InputLabel>Max</InputLabel>
+			<Select
+				value={searchFilter?.search?.mileageRange?.end ?? 500}
+				label="Max"
+				onChange={(e: any) => carSquareHandler(e, 'end')}
+				MenuProps={MenuProps}
+			>
+				{carMileage.map((mileage: number) => (
+					<MenuItem
+						key={mileage}
+						value={mileage}
+						disabled={
+							(searchFilter?.search?.mileageRange?.start ?? 0) > mileage
+						}
+					>
+						{mileage}
+					</MenuItem>
+				))}
+			</Select>
+		</FormControl>
+	</div>
+</div>
+
+
+
+
+
 								</div>
 							</div>
 

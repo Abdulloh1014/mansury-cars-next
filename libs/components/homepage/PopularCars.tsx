@@ -46,7 +46,7 @@ const PopularCars = (props: PopularCarsProps) => {
 			<Stack className={'popular-cars'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Popular cars</span>
+						<span>NEW EVENTS</span>
 					</Stack>
 					<Stack className={'card-box'}>
 						<Swiper
@@ -72,34 +72,28 @@ const PopularCars = (props: PopularCarsProps) => {
 		return (
 			<Stack className={'popular-cars'}>
 				<Stack className={'container'}>
+
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>Popular cars</span>
-							<p>Popularity is based on views</p>
+							{/* sx={{color: '#fff'}} */}
+							<span style={{ color: '#ffffff' }}>NEW EVENTS</span>
+							
 						</Box>
 						<Box component={'div'} className={'right'}>
 							<div className={'more-box'}>
 								<Link href={'/car'}>
 									<span>See All Categories</span>
 								</Link>
-								<img src="/img/icons/rightup.svg" alt="" />
+								
 							</div>
 						</Box>
 					</Stack>
+
+					
 					<Stack className={'card-box'}>
-						<Swiper
-							className={'popular-car-swiper'}
-							slidesPerView={'auto'}
-							spaceBetween={25}
-							modules={[Autoplay, Navigation, Pagination]}
-							navigation={{
-								nextEl: '.swiper-popular-next',
-								prevEl: '.swiper-popular-prev',
-							}}
-							pagination={{
-								el: '.swiper-popular-pagination',
-							}}
-						>
+
+
+						<div className={'popular-car-swiper'}>
 							{popularCars.map((car: Car) => {
 								return (
 									<SwiperSlide key={car._id} className={'popular-car-slide'}>
@@ -107,13 +101,13 @@ const PopularCars = (props: PopularCarsProps) => {
 									</SwiperSlide>
 								);
 							})}
-						</Swiper>
+						</div>
+
+
+
+
 					</Stack>
-					<Stack className={'pagination-box'}>
-						<WestIcon className={'swiper-popular-prev'} />
-						<div className={'swiper-popular-pagination'}></div>
-						<EastIcon className={'swiper-popular-next'} />
-					</Stack>
+					
 				</Stack>
 			</Stack>
 		);
@@ -123,8 +117,8 @@ const PopularCars = (props: PopularCarsProps) => {
 PopularCars.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 7,
-		sort: 'carViews',
+		limit: 2,
+		sort: 'createdAt',
 		direction: 'DESC',
 		search: {},
 	},

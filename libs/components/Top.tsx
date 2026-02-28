@@ -164,11 +164,15 @@ const Top = () => {
 			<Stack className={'navbar'}>
 				<Stack className={`navbar-main ${colorChange ? 'transparent' : ''} ${bgColor ? 'transparent' : ''}`}>
 					<Stack className={'container'}>
+
+
 						<Box component={'div'} className={'logo-box'}>
 							<Link href={'/'}>
 								<img src="/img/logo/logoWhite.svg" alt="" />
 							</Link>
 						</Box>
+
+
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
 								<div>{t('Home')}</div>
@@ -191,6 +195,8 @@ const Top = () => {
 								<div> {t('CS')} </div>
 							</Link>
 						</Box>
+
+
 						<Box component={'div'} className={'user-box'}>
 							{user?._id ? (
 								<>
@@ -283,6 +289,9 @@ const Top = () => {
 								</StyledMenu>
 							</div>
 						</Box>
+
+
+						
 					</Stack>
 				</Stack>
 			</Stack>

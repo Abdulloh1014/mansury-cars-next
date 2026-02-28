@@ -75,9 +75,15 @@ const PopularCarCard = (props: PopularCarCardProps) => {
 				</Box>
 			</Stack>
 		);
-	} else {
+	} 
+	
+	
+	
+	else {
 		return (
 			<Stack className="popular-card-box">
+
+
 				<Box
 					component={'div'}
 					className={'card-img'}
@@ -92,37 +98,25 @@ const PopularCarCard = (props: PopularCarCardProps) => {
 					) : (
 						''
 					)}
-
-					<div className={'price'}>${car.carPrice}</div>
 				</Box>
-				<Box component={'div'} className={'info'}>
+
+					
+				<Box component={'div'} className={'info'}
+				onClick={() => {pushDetailHandler(car._id)}}
+				>
 					<strong className={'title'} onClick={() => {pushDetailHandler(car._id)}}>{car.carTitle}</strong>
-					<p className={'desc'}>{car.carMileage}</p>
-					<div className={'options'}>
-						<div>
-							<img src="/img/icons/bed.svg" alt="" />
-							<span>{car?.carEngine} bed</span>
-						</div>
-						<div>
-							<img src="/img/icons/room.svg" alt="" />
-							<span>{car?.carDoors} rooms</span>
-						</div>
-						<div>
-							<img src="/img/icons/expand.svg" alt="" />
-							<span>{car?.carFuelType} m2</span>
-						</div>
-					</div>
-					<Divider sx={{ mt: '15px', mb: '17px' }} />
+					<p className={'desc'}>{car.carMileage}km Mileage</p>
+					
 					<div className={'bott'}>
 						<p>{car?.carRent ? 'rent' : 'sale'}</p>
 						<div className="view-like-box">
-							<IconButton color={'default'}>
-								<RemoveRedEyeIcon />
-							</IconButton>
-							<Typography className="view-cnt">{car?.carViews}</Typography>
+							
 						</div>
 					</div>
 				</Box>
+
+
+
 			</Stack>
 		);
 	}
