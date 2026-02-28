@@ -685,6 +685,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
     <Typography className={'title'}>Fuel Type</Typography>
     <select
         className={'select-description'}
+		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #b9b9b9' }}
         // URL dagi qiymatni select'ga bog'laymiz (agar bo'lmasa 'all' turadi)
         value={searchFilter?.search?.fuelTypeList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {

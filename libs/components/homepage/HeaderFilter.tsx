@@ -7,7 +7,7 @@ import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 import MenuItem from '@mui/material/MenuItem';
 import {  carYears } from '../../config';
-import { CarFuelType } from '../../enums/car.enum';
+import { CarColor, CarFuelType } from '../../enums/car.enum';
 import { CarLocation, CarType } from '../../enums/car.enum';
 import { CarsInquiry } from '../../types/car/car.input';
 import { useRouter } from 'next/router';
@@ -81,6 +81,30 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 	}, []);
 
 	/** HANDLERS **/
+
+	const carColorSelectHandler = useCallback(
+	async (value: string) => {
+		try {
+			const newSearch = { ...searchFilter.search };
+
+			if (value === 'all') {
+				delete newSearch.colorList;
+			} else {
+				newSearch.colorList = [value as CarColor];
+			}
+
+			setSearchFilter({
+				...searchFilter,
+				search: newSearch,
+			});
+		} catch (err: any) {
+			console.log('ERROR, carColorSelectHandler:', err);
+		}
+	},
+	[searchFilter],
+);
+
+
 	const advancedFilterHandler = (status: boolean) => {
 		setOpenLocation(false);
 		setOpenRooms(false);
@@ -286,6 +310,12 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 
 	const pushSearchHandler = async () => {
 		try {
+
+			if (searchFilter?.search?.colorList?.length == 0) {
+	         delete searchFilter.search.colorList;
+      }
+
+
 			if (searchFilter?.search?.locationList?.length == 0) {
 				delete searchFilter.search.locationList;
 			}
@@ -398,7 +428,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								<CloseIcon />
 							</div>
 							<div className={'top'}>
-								<span>Find your home</span>
+								<span>Find your car</span>
 								<div className={'search-input-box'}>
 									<img src="/img/icons/search.svg" alt="" />
 									<input
@@ -417,7 +447,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<Divider sx={{ mt: '30px', mb: '35px' }} />
 							<div className={'middle'}>
 								<div className={'row-box'}>
-									<div className={'box'}>
+
+
+									{/* <div className={'box'}>
 										<span>bedrooms</span>
 										<div className={'inside'}>
 											<div
@@ -436,7 +468,46 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 												</div>
 											))}
 										</div>
-									</div>
+									</div> */}
+
+<div className={'box'}>
+	<span>Car Color</span>
+	<div className={'inside'}>
+		<FormControl sx={{ width: '200px' }}>
+			<Select
+				value={searchFilter?.search?.colorList?.[0] || 'all'}
+				onChange={(e) => {
+					const value = e.target.value;
+
+					const newSearch = { ...searchFilter.search };
+
+					if (value === 'all') {
+						delete newSearch.colorList;
+					} else {
+						newSearch.colorList = [value as CarColor];
+					}
+
+					setSearchFilter({
+						...searchFilter,
+						search: newSearch,
+					});
+				}}
+				displayEmpty
+				MenuProps={MenuProps}
+			>
+				<MenuItem value="all">All Colors</MenuItem>
+
+				{(Object.values(CarColor) as CarColor[]).map((color) => (
+					<MenuItem key={color} value={color}>
+						{color}
+					</MenuItem>
+				))}
+			</Select>
+		</FormControl>
+	</div>
+</div>
+
+
 									<div className={'box'}>
 										<span>options</span>
 										<div className={'inside'}>
@@ -541,6 +612,12 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 									</div>
 								</div>
 							</div>
+
+
+
+
+
+
 							<Divider sx={{ mt: '60px', mb: '18px' }} />
 							<div className={'bottom'}>
 								<div onClick={resetFilterHandler}>
