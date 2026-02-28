@@ -20,6 +20,7 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 // import { carFuelType } from '../../config';
 import { CarFuelType } from '../../enums/car.enum';
 import RefreshIcon from '@mui/icons-material/Refresh';
+import { carMileage } from '../../config';
 
 const MenuProps = {
 	PaperProps: {
@@ -754,10 +755,10 @@ const Filter = (props: FilterType) => {
 						</label>
 					</Stack>
 				</Stack>
+
+
 				<Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Square meter</Typography>
-
-
+					<Typography className={'title'}>Mileage</Typography>
 					<Stack className="square-year-input">
 						<FormControl>
 							<InputLabel id="demo-simple-select-label">Min</InputLabel>
@@ -769,17 +770,21 @@ const Filter = (props: FilterType) => {
 								onChange={(e: any) => carSquareHandler(e, 'start')}
 								MenuProps={MenuProps}
 							>
-								{Object.values(CarFuelType).map((type) => (
-  <MenuItem
-    value={type}
-    disabled={(searchFilter?.search?.mileageRange?.end || 0) < Number(type)}
-    key={type}
-  >
-    {type}
-  </MenuItem>
-))}
+
+									{carMileage.map((square: number) => (
+									<MenuItem
+										value={square}
+										disabled={(searchFilter?.search?.mileageRange?.end || 0) < square}
+										key={square}
+									>
+										{square}
+									</MenuItem>
+								))}
+
+
 							</Select>
 						</FormControl>
+
 						<div className="central-divider"></div>
 						<FormControl>
 							<InputLabel id="demo-simple-select-label">Max</InputLabel>
@@ -791,21 +796,30 @@ const Filter = (props: FilterType) => {
 								onChange={(e: any) => carSquareHandler(e, 'end')}
 								MenuProps={MenuProps}
 							>
-								{Object.values(CarFuelType).map((type) => (
-  <MenuItem
-    value={type}
-    disabled={(searchFilter?.search?.mileageRange?.start || 0) > Number(type)}
-    key={type}
-  >
-    {type}
-  </MenuItem>
-))}
+								{carMileage.map((square: number) => (
+									<MenuItem
+										value={square}
+										disabled={(searchFilter?.search?.mileageRange?.start || 0) > square}
+										key={square}
+									>
+										{square}
+									</MenuItem>
+								))}
 							</Select>
-
-
 						</FormControl>
 					</Stack>
-				</Stack>
+				</Stack> 
+
+
+				
+
+
+
+				                         
+				
+
+
+
 				<Stack className={'find-your-home'}>
 					<Typography className={'title'}>Price Range</Typography>
 					<Stack className="square-year-input">

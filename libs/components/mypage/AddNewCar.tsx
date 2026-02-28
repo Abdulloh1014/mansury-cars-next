@@ -490,6 +490,8 @@ const updateCarHandler = useCallback(async () => {
 									<div className={'divider'}></div>
 									<img src={'/img/icons/Vector.svg'} className={'arrow-down'} />
 								</Stack>
+
+								
 							</Stack>
 
 							<Typography className="car-title">Car Description</Typography>
