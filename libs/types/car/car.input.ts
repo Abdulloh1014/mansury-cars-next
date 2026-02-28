@@ -31,6 +31,8 @@ interface PISearch {
 	locationList?: CarLocation[];
 	typeList?: CarType[];
 	carsList?: Number[];
+	fuelTypeList?: CarFuelType[];
+	colorList?: CarColor[];
 	options?: string[];
 	engineList?: Number[];
 	pricesRange?: Range;

@@ -13,7 +13,7 @@ import {
 	IconButton,
 } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { CarLocation, CarType } from '../../enums/car.enum';
+import { CarColor, CarLocation, CarType } from '../../enums/car.enum';
 import { CarsInquiry } from '../../types/car/car.input';
 import { useRouter } from 'next/router';
 import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
@@ -63,6 +63,23 @@ const Filter = (props: FilterType) => {
 			},
 		})}`, { scroll: false }).then();
 		}
+
+if (searchFilter?.search?.colorList?.length === 0) {
+    const newFilter = {
+        ...searchFilter,
+        search: { ...searchFilter.search }
+    };
+
+    delete newFilter.search.colorList;
+
+    router.push(
+        `/car?input=${JSON.stringify(newFilter)}`,
+        undefined,
+        { scroll: false }
+    );
+}
+
+
 
 		if (searchFilter?.search?.typeList?.length == 0) {
 			delete searchFilter.search.typeList;
@@ -595,7 +612,10 @@ const Filter = (props: FilterType) => {
 						</Stack>
 					))}
 				</Stack>
-				<Stack className={'find-your-home'} mb={'30px'}>
+
+
+
+				{/* <Stack className={'find-your-home'} mb={'30px'}>
 					<Typography className={'title'}>Rooms</Typography>
 					<Stack className="button-group">
 						<Button
@@ -658,7 +678,51 @@ const Filter = (props: FilterType) => {
 							5+
 						</Button>
 					</Stack>
-				</Stack>
+				</Stack> */}
+
+
+            <Stack className={'find-your-home'} mb={'30px'}>
+    <Typography className={'title'}>Fuel Type</Typography>
+    <select
+        className={'select-description'}
+        // URL dagi qiymatni select'ga bog'laymiz (agar bo'lmasa 'all' turadi)
+        value={searchFilter?.search?.fuelTypeList?.[0] || 'all'}
+        onChange={async ({ target: { value } }) => {
+            let newSearch = { ...searchFilter.search };
+
+            if (value === 'all') {
+                // "All Types" tanlansa filtrni o'chirib tashlaymiz
+                delete newSearch.fuelTypeList;
+            } else {
+                // Tanlangan turni massivga solamiz
+                newSearch.fuelTypeList = [value as any];
+            }
+
+            await router.push(
+                `/car?input=${JSON.stringify({
+                    ...searchFilter,
+                    search: newSearch,
+                })}`,
+                undefined,
+                { scroll: false },
+            );
+        }}
+    >
+        <option value="all">
+            All Fuel Types
+        </option>
+        {Object.values(CarFuelType).map((type) => (
+            <option value={type} key={type}>
+                {type}
+            </option>
+        ))}
+    </select>
+   
+</Stack>
+
+
+{/* 
+
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<Typography className={'title'}>Bedrooms</Typography>
 					<Stack className="button-group">
@@ -723,7 +787,50 @@ const Filter = (props: FilterType) => {
 							5+
 						</Button>
 					</Stack>
-				</Stack>
+				</Stack> */}
+
+
+
+<Stack className={'find-your-home'} mb={'30px'}>
+    <Typography className={'title'}>Car Color</Typography>
+    <select
+        className={'select-description'}
+        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #b9b9b9' }}
+        // URL'dagi colorList'ning birinchi elementini oladi, aks holda 'all'
+        value={searchFilter?.search?.colorList?.[0] || 'all'}
+        onChange={async ({ target: { value } }) => {
+    // 1. To'liq chuqur nusxa olish
+    const newSearch = { ...searchFilter.search };
+
+    if (value === 'all') {
+        delete newSearch.colorList;
+    } else {
+        // 2. Yangi massiv sifatida berish (React sezishi uchun)
+        newSearch.colorList = [value as CarColor]; 
+    }
+
+    // 3. To'liq yangi obyekt bilan push qilish
+    await router.push(
+        `/car?input=${JSON.stringify({ ...searchFilter, search: newSearch })}`,
+        undefined,
+        { scroll: false }
+    );
+}}
+    >
+        <option value="all">All Colors</option>
+        {/* CarColor enumidan ranglarni chiqarish */}
+        {Object.values(CarColor).map((color) => (
+            <option value={color} key={color}>
+                {color}
+            </option>
+        ))}
+    </select>
+</Stack>
+
+
+
+
+
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<Typography className={'title'}>Options</Typography>
 					<Stack className={'input-box'}>
@@ -809,15 +916,6 @@ const Filter = (props: FilterType) => {
 						</FormControl>
 					</Stack>
 				</Stack> 
-
-
-				
-
-
-
-				                         
-				
-
 
 
 				<Stack className={'find-your-home'}>
