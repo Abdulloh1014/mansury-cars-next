@@ -1,114 +1,154 @@
 import React, { useState } from 'react';
-import { useRouter } from 'next/router';
 import { Stack, Box } from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
+import WestIcon from '@mui/icons-material/West';
+import EastIcon from '@mui/icons-material/East';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Navigation, Pagination } from 'swiper';
-import TopAgentCard from './TopAgentCard';
-import { Member } from '../../types/member/member';
-import { AgentsInquiry } from '../../types/member/member.input';
-import { useQuery } from '@apollo/client';
-import { GET_AGENTS } from '../../../apollo/user/query';
+import { Car } from '../../types/car/car';
+import { CarsInquiry } from '../../types/car/car.input';
+import TrendCarCard from './TrendCarCard';
+import { useMutation, useQuery } from '@apollo/client';
+import { GET_CARS } from '../../../apollo/user/query';
 import { T } from '../../types/common';
+import { LIKE_TARGET_CAR } from '../../../apollo/user/mutation';
+import { sweetMixinErrorAlert } from '../../sweetAlert';
+import { Message } from '../../enums/common.enum';
+import { CarType } from '../../enums/car.enum';
 
-interface TopAgentsProps {
-	initialInput: AgentsInquiry;
+interface TrendCarsProps {
+	initialInput: CarsInquiry;
 }
 
-const TopAgents = (props: TopAgentsProps) => {
+const TrendCars = (props: TrendCarsProps) => {
 	const { initialInput } = props;
 	const device = useDeviceDetect();
-	const router = useRouter();
-	const [topAgents, setTopAgents] = useState<Member[]>([]);
+	const [trendCars, setTrendCars] = useState<Car[]>([]);
 
 	/** APOLLO REQUESTS **/
+	const [likeTargetCar] = useMutation(LIKE_TARGET_CAR);
 
-		const {
-	  loading: getAgentsLoading,
-	  data: getAgentsData,
-	  error: getAgentsError,
-	  refetch: getAgentsRefetch,
-	} = useQuery(GET_AGENTS, {
-	  fetchPolicy: 'cache-and-network',
-	  variables: { input: initialInput },
-	  notifyOnNetworkStatusChange: true,
-	  onCompleted: (data: T) => {
-		setTopAgents(data?.getAgents?.list);
-	  },
-	});
+
+	const {
+  loading: getCarsLoading,
+  data: getCarsData,
+  error: getCarsError,
+  refetch: getCarsRefetch,
+} = useQuery(GET_CARS, {
+  fetchPolicy: 'cache-and-network',
+  variables: { input: initialInput },
+  notifyOnNetworkStatusChange: true,
+  onCompleted: (data: T) => {
+	setTrendCars(data?.getCars?.list);
+  },
+});
 	/** HANDLERS **/
+	const likeCarHandler = async (user: T, id: string) => {
+  try {
+	if (!id) return;
+	if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+
+	await likeTargetCar({
+	  variables: { input: id },
+	});
+	await getCarsRefetch({ input: initialInput });
+
+	await sweetTopSmallSuccessAlert('success', 800);
+  } catch (err: any) {
+	console.log('ERROR, likeCarHandler:', err.message);
+	sweetMixinErrorAlert(err.message).then();
+  }
+};
+
+
+	if (trendCars) console.log('trendCars: +++', trendCars);
+	if (!trendCars) return null;
 
 	if (device === 'mobile') {
 		return (
-			<Stack className={'top-agents'}>
+			<Stack className={'trend-cars'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
-						<span>Top Agents</span>
+						<span>Trend Cars</span>
 					</Stack>
-					<Stack className={'wrapper'}>
-						<Swiper
-							className={'top-agents-swiper'}
-							slidesPerView={'auto'}
-							centeredSlides={true}
-							spaceBetween={29}
-							modules={[Autoplay]}
-						>
-							{topAgents.map((agent: Member) => {
-								return (
-									<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
-										<TopAgentCard agent={agent} key={agent?.memberNick} />
-									</SwiperSlide>
-								);
-							})}
-						</Swiper>
-					</Stack>
-				</Stack>
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className={'top-agents'}>
-				<Stack className={'container'}>
-					<Stack className={'info-box'}>
-						<Box component={'div'} className={'left'}>
-							<span>Top Agents</span>
-							<p>Our Top Agents always ready to serve you</p>
-						</Box>
-						<Box component={'div'} className={'right'}>
-							<div className={'more-box'}>
-								<span>See All Agents</span>
-								<img src="/img/icons/rightup.svg" alt="" />
-							</div>
-						</Box>
-					</Stack>
-					<Stack className={'wrapper'}>
-						<Box component={'div'} className={'switch-btn swiper-agents-prev'}>
-							<ArrowBackIosNewIcon />
-						</Box>
-						<Box component={'div'} className={'card-wrapper'}>
+					<Stack className={'card-box'}>
+						{trendCars.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Trends Empty
+							</Box>
+						) : (
 							<Swiper
-								className={'top-agents-swiper'}
+								className={'trend-car-swiper'}
 								slidesPerView={'auto'}
-								spaceBetween={29}
-								modules={[Autoplay, Navigation, Pagination]}
-								navigation={{
-									nextEl: '.swiper-agents-next',
-									prevEl: '.swiper-agents-prev',
-								}}
+								centeredSlides={true}
+								spaceBetween={15}
+								modules={[Autoplay]}
 							>
-								{topAgents.map((agent: Member) => {
+								{trendCars.map((car: Car) => {
 									return (
-										<SwiperSlide className={'top-agents-slide'} key={agent?._id}>
-											<TopAgentCard agent={agent} key={agent?.memberNick} />
+										<SwiperSlide key={car._id} className={'trend-car-slide'}>
+											<TrendCarCard car={car} likeCarHandler={likeCarHandler} />
 										</SwiperSlide>
 									);
 								})}
 							</Swiper>
+						)}
+					</Stack>
+				</Stack>
+			</Stack>
+		);
+	
+
+
+
+
+
+	
+	} else {
+		return (
+			<Stack className={'trend-cars uniqe'}>
+				<Stack className={'container'}>
+					<Stack className={'info-box'}>
+						<Box component={'div'} className={'left'}>
+							<span style={{color: '#ffffff'}}>ELECTRIC CARS</span>
+							
 						</Box>
-						<Box component={'div'} className={'switch-btn swiper-agents-next'}>
-							<ArrowBackIosNewIcon />
+						<Box component={'div'} className={'right'}>
+							<div className={'pagination-box'}>
+								<WestIcon className={'swiper-trend-prev'} />
+								<div className={'swiper-trend-pagination'}></div>
+								<EastIcon className={'swiper-trend-next'} />
+							</div>
 						</Box>
+					</Stack>
+					<Stack className={'card-box'}>
+						{trendCars.length === 0 ? (
+							<Box component={'div'} className={'empty-list'}>
+								Trends Empty
+							</Box>
+						) : (
+							<Swiper
+								className={'trend-car-swiper'}
+								slidesPerView={'auto'}
+								spaceBetween={15}
+								modules={[Autoplay, Navigation, Pagination]}
+								navigation={{
+									nextEl: '.swiper-trend-next',
+									prevEl: '.swiper-trend-prev',
+								}}
+								pagination={{
+									el: '.swiper-trend-pagination',
+								}}
+							>
+								{trendCars.map((car: Car) => {
+									return (
+										<SwiperSlide key={car._id} className={'trend-car-slide'}>
+											<TrendCarCard car={car} likeCarHandler={likeCarHandler} />
+										</SwiperSlide>
+									);
+								})}
+							</Swiper>
+						)}
 					</Stack>
 				</Stack>
 			</Stack>
@@ -116,14 +156,20 @@ const TopAgents = (props: TopAgentsProps) => {
 	}
 };
 
-TopAgents.defaultProps = {
+TrendCars.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 10,
-		sort: 'memberRank',
-		direction: 'DESC',
-		search: {},
+		limit: 3,
+		
+		search: {
+			
+			carType: CarType.ELECTRIC,
+		},
 	},
 };
 
-export default TopAgents;
+export default TrendCars;
+function sweetTopSmallSuccessAlert(arg0: string, arg1: number) {
+	throw new Error('Function not implemented.');
+}
+

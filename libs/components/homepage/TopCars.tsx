@@ -20,7 +20,10 @@ const TopCars = () => {
 				limit: 2, 
 				sort: 'createdAt',
 				direction: 'DESC',
-				search: {},
+				search: {
+					articleCategory: 'NEWS',
+					memberType: MemberType.ADMIN
+				},
 			},
 		},
 

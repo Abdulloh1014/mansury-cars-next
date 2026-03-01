@@ -586,13 +586,21 @@
 
 
 		.articles-section {
-	background: #c43e3e; // Qora fon
+	background: #000000; // Qora fon
 	padding: 80px 0;
+	padding-top: 200px;
 	width: 100%;
+	view-timeline-name: --articles-section;
+  view-timeline-axis: block;
+
+  opacity: 0;
+  animation: fadeInUp linear both;
+  animation-timeline: --articles-section;
+  animation-range: entry 20% cover 40%;
 
 	.container {
 		width: 100%;
-		max-width: 1440px;
+		max-width: 1740px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
@@ -610,7 +618,7 @@
 
 			.text-box {
 				flex: 1;
-				padding: 0 10%;
+				padding: 0 5%;
 				display: flex;
 				flex-direction: column;
 				justify-content: center;
@@ -651,7 +659,8 @@
 
 			.image-box {
 				flex: 1.2; // Rasm qismi biroz kengroq
-				height: 600px;
+				height: 650px;
+				
 				background-size: cover;
 				background-position: center;
 				background-repeat: no-repeat;
@@ -660,128 +669,50 @@
 	}
 }
 
-// Mobile moslashuvchanlik
-@media (max-width: 900px) {
-	.articles-section {
-		.container {
-			.article-row {
-				flex-direction: column !important; // Mobil qurilmada hamma narsa ustma-ust
-				min-height: auto;
-
-				.text-box {
-					padding: 40px 20px;
-					order: 2; // Matn har doim rasm tagida kelsin
-					
-					.title {
-						font-size: 28px;
-					}
-				}
-
-				.image-box {
-					width: 100%;
-					height: 350px;
-					order: 1;
-				}
-			}
-		}
-	}
-}
-
-
-
-
-
-		.top-agents {
-			position: relative;
-			padding: 153px 0px 135px;
+              	.uniqe {
+			padding: 108px 0px 76px;
+			// background-color: #010613;
+			 background: #000000;
 			width: 100%;
-			height: 722px;
+			height: 697px;
 			display: flex;
 			flex-direction: row;
-			background: #f6f6f6;
 			.container {
-				position: relative;
 				flex-direction: column;
-				align-items: center;
-				.wrapper {
-					width: 100%;
-					margin-top: 83px;
+				.card-box {
+					position: relative;
+					margin-top: 64px;
 					display: flex;
 					flex-direction: row;
-					align-items: center;
-					justify-content: space-between;
-					.switch-btn {
-						width: 53px;
-						height: 53px;
-						display: flex;
-						align-items: center;
-						justify-content: center;
-						border-radius: 50%;
-						background: #ffffff;
-						filter: drop-shadow(0px 10px 35px rgba(5, 16, 54, 0.1));
-						cursor: pointer;
-						svg {
-							width: 14px;
-							height: 14px;
-						}
-						&.swiper-agents-next {
-							transform: rotate(180deg);
-						}
-					}
-					.card-wrapper {
-						width: 1174px;
+					.empty-list {
+						width: 100%;
 						height: 280px;
 						display: flex;
-						flex-direction: row;
-						.top-agents-swiper {
-							width: 99.7%;
-							height: 280px;
-							display: flex;
-							flex-direction: row;
-							.top-agents-slide {
-								width: auto;
-								height: auto;
-								display: flex;
-							}
-						}
-						.top-agent-card {
-							width: 205px;
-							height: 280px;
-							display: flex;
-							flex-direction: column;
-							img {
-								width: 209px;
-								height: 209px;
-								border-radius: 50%;
-								cursor: pointer;
-								object-fit: cover;
-							}
-							strong {
-								margin-top: 20px;
-								color: #181a20;
-								text-align: center;
-								font-family: $font;
-								font-size: 15px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-								text-transform: capitalize;
-								cursor: pointer;
-							}
-							span {
-								color: #181a20;
-								text-align: center;
-								font-family: $font;
-								font-size: 15px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 28px;
-							}
-						}
+						justify-content: center;
+						align-items: center;
 					}
-				}
-			}
-		}
+					.trend-car-swiper {
+						width: 100%;
+						height: 400px;
+						display: flex;
+						flex-direction: row;
+						.trend-car-slide {
+							width: auto;
+							height: auto;
+							display: flex;
+							margin: 10px 0 0 10px;
+						}
+					}}}}
+
+
+
+
+
+
+
+
+
+
 		.events {
 			position: relative;
 			padding: 100px 0px 92px;

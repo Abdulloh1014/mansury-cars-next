@@ -1,41 +1,86 @@
 import React from 'react';
+import { Box, Typography } from '@mui/material';
+
 import { useRouter } from 'next/router';
-import { Stack } from '@mui/material';
+import { useReactiveVar } from '@apollo/client';
+import { userVar } from '../../../apollo/store';
+import { REACT_APP_API_URL } from '../../config';
+import { Car } from '../../types/car/car';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
-import { Member } from '../../types/member/member';
 
-interface TopAgentProps {
-	agent: Member;
+interface TrendCarCardProps {
+	car: Car;
+	likeCarHandler: any;
 }
-const TopAgentCard = (props: TopAgentProps) => {
-	const { agent } = props;
-	const device = useDeviceDetect();
+
+const TrendCarCard = ({ car, likeCarHandler }: TrendCarCardProps) => {
 	const router = useRouter();
-	const agentImage = agent?.memberImage
-		? `${process.env.REACT_APP_API_URL}/${agent?.memberImage}`
-		: '/img/profile/defaultUser.svg';
+	const user = useReactiveVar(userVar);
+	const device = useDeviceDetect();
 
-	/** HANDLERS **/
+	const pushDetailHandler = async () => {
+		await router.push({
+			pathname: '/car/detail',
+			query: { id: car._id },
+		});
+	};
 
-	if (device === 'mobile') {
-		return (
-			<Stack className="top-agent-card">
-				<img src={agentImage} alt="" />
+	/* ===== BADGE LOGIC (REAL MODEL BASED) ===== */
 
-				<strong>{agent?.memberNick}</strong>
-				<span>{agent?.memberType}</span>
-			</Stack>
-		);
-	} else {
-		return (
-			<Stack className="top-agent-card">
-				<img src={agentImage} alt="" />
+	const renderBadge = () => {
+	const isNew =
+		new Date(car.createdAt).getTime() >
+		Date.now() - 7 * 24 * 60 * 60 * 1000; // 7 kun
 
-				<strong>{agent?.memberNick}</strong>
-				<span>{agent?.memberType}</span>
-			</Stack>
-		);
-	}
+	if (car.carRank >= 8) return 'ATELIER';
+	if (car.carLikes >= 20) return 'ONE OF ONE';
+	if (isNew) return 'LATEST';
+
+	return null;
 };
 
-export default TopAgentCard;
+	const badge = renderBadge();
+
+	return (
+		<Box className={`trend-lux-card ${device}`}>
+			<Box
+				className="trend-lux-card__image"
+				style={{
+					backgroundImage: `url(${REACT_APP_API_URL}/${car?.carImages?.[0]})`,
+				}}
+				onClick={pushDetailHandler}
+			>
+
+				{/* BADGE */}
+				{badge && (
+					<Box className="trend-lux-card__badges">
+						<span className="badge">{badge}</span>
+					</Box>
+				)}
+
+				<Box className="trend-lux-card__overlay" />
+
+				<Box className="trend-lux-card__content">
+
+					<Typography className="title">
+						{car.carTitle}
+					</Typography>
+
+					<Typography className="price">
+						${car.carPrice}
+					</Typography>
+
+					<Box className="footer">
+
+				
+
+					</Box>
+
+				</Box>
+
+			</Box>
+		</Box>
+	);
+};
+
+export default TrendCarCard;

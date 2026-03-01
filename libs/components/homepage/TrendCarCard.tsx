@@ -1,7 +1,6 @@
 import React from 'react';
-import { Box, Typography, IconButton } from '@mui/material';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
+import { Box, Typography } from '@mui/material';
+
 import { useRouter } from 'next/router';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
