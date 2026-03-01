@@ -1,6 +1,7 @@
 import { BoardArticleCategory, BoardArticleStatus } from '../../enums/board-article.enum';
 import { Member } from '../member/member';
 import { MeLiked, TotalCounter } from '../car/car';
+import { MemberType } from '../../enums/member.enum';
 
 export interface BoardArticle {
 	_id: string;
@@ -13,6 +14,7 @@ export interface BoardArticle {
 	articleLikes: number;
 	articleComments: number;
 	memberId: string;
+	// memberType: MemberType;
 	createdAt: Date;
 	updatedAt: Date;
 	/** from aggregation **/

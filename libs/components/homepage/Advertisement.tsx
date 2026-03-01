@@ -8,17 +8,26 @@ import { Car } from '../../types/car/car';
 import { CarsInquiry } from '../../types/car/car.input';
 import { T } from '../../types/common';
 
+
 interface PremiumCarsProps {
   initialInput: CarsInquiry;
+  car: Car;
 }
 
-const PremiumCars = ({ initialInput }: PremiumCarsProps) => {
+const PremiumCars = ({ car, initialInput }: PremiumCarsProps) => {
   const router = useRouter();
 
   const { data } = useQuery(GET_CARS, {
     fetchPolicy: 'cache-and-network',
     variables: { input: initialInput },
   });
+
+const pushDetailHandler = async (id: string) => {
+  await router.push({
+    pathname: '/car/detail',
+    query: { id },
+  });
+};
 
   const cars: Car[] = data?.getCars?.list || [];
 
@@ -35,7 +44,7 @@ const PremiumCars = ({ initialInput }: PremiumCarsProps) => {
      <Stack className="premium-container">
 
         <Stack className="premium-header">
-          <h1>Premium Cars</h1>
+          <h1>Super Cars</h1>
         </Stack>
 		
 		<Stack className="premium-cards">
@@ -58,7 +67,7 @@ const PremiumCars = ({ initialInput }: PremiumCarsProps) => {
 
             <button
               className="arrow-btn"
-              onClick={() => router.push(`/car/detail/${car._id}`)}
+             onClick={() => pushDetailHandler(car._id)}
             >
               <ArrowForwardIcon />
             </button>

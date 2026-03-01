@@ -237,6 +237,7 @@ export const CREATE_BOARD_ARTICLE = gql`
 			articleImage
 			articleViews
 			articleLikes
+			
 			memberId
 			createdAt
 			updatedAt
