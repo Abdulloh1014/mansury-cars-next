@@ -159,7 +159,7 @@ const TrendCars = (props: TrendCarsProps) => {
 TrendCars.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 3,
+		limit: 8,
 		
 		search: {
 			

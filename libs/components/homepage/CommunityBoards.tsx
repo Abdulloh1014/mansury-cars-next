@@ -73,6 +73,7 @@ const CommunityBoards = () => {
 								})}
 							</Stack>
 						</Stack>
+						
 						<Stack className={'community-right'}>
 							<Stack className={'content-top'}>
 								<Link href={'/community?articleCategory=FREE'}>

@@ -600,7 +600,7 @@
 
 	.container {
 		width: 100%;
-		max-width: 1740px;
+		max-width: 1940px;
 		margin: 0 auto;
 		display: flex;
 		flex-direction: column;
@@ -714,93 +714,34 @@
 
 
 		.events {
-			position: relative;
-			padding: 100px 0px 92px;
-			width: 100%;
-			height: 810px;
-			display: flex;
-			flex-direction: row;
-			background: #181a20;
-			.container {
-				flex-direction: column;
-				align-items: center;
-				.card-wrapper {
-					position: relative;
-					margin-top: 48px;
-					width: 100%;
-					height: auto;
-					display: flex;
-					flex-direction: row;
-					justify-content: space-between;
-					.event-card {
-						position: relative;
-						width: 300px;
-						height: 420px;
-						border-radius: 12px;
-						opacity: 0.9;
-						cursor: pointer;
-						transition: opacity 0.4s;
-						&:hover {
-							opacity: 1;
-							scale: 1.05;
-							transition: 0.3s;
-							.more {
-								opacity: 1;
-							}
-						}
-						.info {
-							position: absolute;
-							display: flex;
-							flex-direction: column;
-							top: 35px;
-							left: 10px;
-							right: 10px;
-							strong {
-								color: #f64747;
-								font-family: $font;
-								font-size: 25px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-								text-transform: capitalize;
-							}
-							span {
-								color: #f66767;
-								font-family: $font;
-								font-size: 20px;
-								font-style: normal;
-								font-weight: 500;
-								line-height: 28px;
-								text-transform: capitalize;
-							}
-						}
-						.more {
-							position: absolute;
-							left: 10px;
-							right: 10px;
-							bottom: 41px;
-							display: flex;
-							flex-direction: row;
-							align-items: center;
-							opacity: 0;
-							span {
-								padding: 0px 5px;
-								border-radius: 5px;
-								background: #fffdfdc4;
-								color: #9c67f6;
-								font-family: $font;
-								font-size: 16px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-								text-align: justify;
-								cursor: pointer;
-							}
-						}
-					}
-				}
-			}
-		}
+    background: #000;
+    .container {
+        width: 100%;
+        max-width: 2290px; // Kengroq qildik
+        margin: 0 auto;
+		margin-top: 60px;
+
+	
+        .card-wrapper {
+            margin-top: 40px;
+			margin-bottom: 160px;
+			
+            /* Grid o'chirildi, Swiper o'zi boshqaradi */
+            
+            .swiper-button-next, .swiper-button-prev {
+                color: #fff; // Slayder tugmalari rangi
+            }
+        }
+    }
+}
+
+
+
+
+
+
+
+
 		.community-board {
 			position: relative;
 			padding: 124px 0px 61px;
@@ -948,5 +889,14 @@
 				}
 			}
 		}
+
+
+
+
+
+
+
+
+		
 	}
 }
