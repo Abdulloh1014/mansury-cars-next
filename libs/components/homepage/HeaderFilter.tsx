@@ -369,8 +369,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					</Stack>
 					<Stack className={'search-box-other'}>
 						<Box className={'advanced-filter'} onClick={() => advancedFilterHandler(true)}>
-							<img src="/img/icons/tune.svg" alt="" />
-							<span>{t('Advanced')}</span>
+							{/* <img src="/img/icons/tune.svg" alt="" />
+							<span>{t('Advanced')}</span> */}
 						</Box>
 						<Box className={'search-btn'} onClick={pushSearchHandler}>
 							<img src="/img/icons/search_white.svg" alt="" />
@@ -451,26 +451,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 								<div className={'row-box'}>
 
 
-									{/* <div className={'box'}>
-										<span>bedrooms</span>
-										<div className={'inside'}>
-											<div
-												className={`room ${!searchFilter?.search?.engineList ? 'active' : ''}`}
-												onClick={() => carBedSelectHandler(0)}
-											>
-												Any
-											</div>
-											{[1, 2, 3, 4, 5].map((bed: number) => (
-												<div
-													className={`room ${searchFilter?.search?.engineList?.includes(bed) ? 'active' : ''}`}
-													onClick={() => carBedSelectHandler(bed)}
-													key={bed}
-												>
-													{bed == 0 ? 'Any' : bed}
-												</div>
-											))}
-										</div>
-									</div> */}
+								
 
 <div className={'box'}>
 	<span>Car Color</span>
@@ -570,51 +551,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 									</div>
 
 
-{/* 
-									<div className={'box'}>
-										<span>square meter</span>
-										<div className={'inside space-between align-center'}>
-											<FormControl sx={{ width: '122px' }}>
-												<Select
-													value={searchFilter?.search?.mileageRange?.start}
-													onChange={(e: any) => carSquareHandler(e, 'start')}
-													displayEmpty
-													inputProps={{ 'aria-label': 'Without label' }}
-													MenuProps={MenuProps}
-												>
-													{Object.values(CarFuelType).map((square) => (
-  <MenuItem
-    value={square}
-    disabled={(searchFilter?.search?.mileageRange?.end || 0) < Number(square)}
-    key={square}
-  >
-    {square}
-  </MenuItem>
-))}
-												</Select>
-											</FormControl>
-											<div className={'minus-line'}></div>
-											<FormControl sx={{ width: '122px' }}>
-												<Select
-													value={searchFilter?.search?.mileageRange?.end}
-													onChange={(e: any) => carSquareHandler(e, 'end')}
-													displayEmpty
-													inputProps={{ 'aria-label': 'Without label' }}
-													MenuProps={MenuProps}
-												>
-													{Object.values(CarFuelType).map((square) => (
-  <MenuItem
-    value={square}
-    disabled={(searchFilter?.search?.mileageRange?.end || 0) > Number(square)}
-    key={square}
-  >
-    {square}
-  </MenuItem>
-))}
-												</Select>
-											</FormControl>
-										</div>
-									</div> */}
+
 
 									<div className={'box'}>
 	<span>Mileage</span>
@@ -697,6 +634,9 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						</Box>
 					</Box>
 				</Modal>
+
+
+
 			</>
 		);
 	}

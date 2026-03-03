@@ -168,7 +168,7 @@ const Top = () => {
 
 						<Box component={'div'} className={'logo-box'}>
 							<Link href={'/'}>
-								<img src="/img/logo/logoWhite.svg" alt="" />
+								<img src="/img/logo/mansury.png" alt="" />
 							</Link>
 						</Box>
 
@@ -185,6 +185,9 @@ const Top = () => {
 							</Link>
 							<Link href={'/community?articleCategory=FREE'}>
 								<div> {t('Community')} </div>
+							</Link>
+							<Link href={'/about'}>
+								<div> {t('About')} </div>
 							</Link>
 							{user?._id && (
 								<Link href={'/mypage'}>

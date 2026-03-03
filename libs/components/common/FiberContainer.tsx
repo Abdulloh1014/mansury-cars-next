@@ -30,7 +30,7 @@ const pushDetailHandler = async () => {
 	const topCars = useMemo(() => {
 		return [...cars]
 			.sort((a, b) => b.carViews - a.carViews)
-			.slice(0, 5);
+			.slice(0, 7);
 	}, [cars]);
 
 	// 🔁 Auto slide
@@ -52,7 +52,7 @@ const pushDetailHandler = async () => {
 			sx={{
 				position: 'relative',
 				width: '100%',
-				height: '860px',
+				height: '1160px',
 				overflow: 'hidden',
 			}}
 		>
@@ -91,9 +91,16 @@ const pushDetailHandler = async () => {
 					justifyContent: 'center',
 					paddingLeft: '120px',
 					color: '#fff',
+					
 				}}
 			>
-				<Typography variant="h2" sx={{ mb: 4 }}>
+				<Typography variant="h2" sx={{
+                   mb: 4,
+                   fontSize: { xs: '36px', md: '56px', lg: '68px' },
+                   fontWeight: 800,
+                   lineHeight: 1.1,
+                   letterSpacing: '-1px',
+                   }}>
 					{activeCar.carTitle}
 				</Typography>
 
