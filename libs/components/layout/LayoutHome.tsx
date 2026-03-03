@@ -7,15 +7,27 @@ import { Stack } from '@mui/material';
 import FiberContainer from '../common/FiberContainer';
 import HeaderFilter from '../homepage/HeaderFilter';
 import { userVar } from '../../../apollo/store';
-import { useReactiveVar } from '@apollo/client';
+import { useQuery, useReactiveVar } from '@apollo/client';
 import { getJwtToken, updateUserInfo } from '../../auth';
 import Chat from '../Chat';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/navigation';
+import { GET_CARS } from '../../../apollo/user/query';
+
+
+
 
 const withLayoutMain = (Component: any) => {
 	return (props: any) => {
+
+		const { data } = useQuery(GET_CARS, {
+  variables: { input: { page: 1, limit: 10,  search: {}  } }
+});
+
+const carsDataFromBackend = data?.getCars?.list ?? [];
+
+
 		const device = useDeviceDetect();
 		const user = useReactiveVar(userVar);
 
@@ -62,7 +74,7 @@ const withLayoutMain = (Component: any) => {
 						</Stack>
 
 						<Stack className={'header-main'}>
-							<FiberContainer />
+							<FiberContainer cars={carsDataFromBackend} />
 							<Stack className={'container'}>
 								<HeaderFilter />
 							</Stack>

@@ -179,7 +179,7 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 					...searchFilter,
 					search: {
 						...searchFilter.search,
-						carsList: [value],
+						fuelTypeList: [value],
 					},
 				});
 				disableAllStateHandler();
@@ -357,12 +357,12 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openType ? 'on' : ''}`} onClick={typeStateChangeHandler}>
-							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Car type')} </span>
+							<span> {searchFilter?.search?.typeList ? searchFilter?.search?.typeList[0] : t('Car Type')} </span>
 							<ExpandMoreIcon />
 						</Box>
 						<Box className={`box ${openRooms ? 'on' : ''}`} onClick={roomStateChangeHandler}>
 							<span>
-								{searchFilter?.search?.carsList ? `${searchFilter?.search?.carsList[0]} rooms}` : t('Rooms')}
+								{searchFilter?.search?.carsList ? `${searchFilter?.search?.carsList[0]} rooms}` : t('Fuel Type')}
 							</span>
 							<ExpandMoreIcon />
 						</Box>
@@ -376,6 +376,8 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 							<img src="/img/icons/search_white.svg" alt="" />
 						</Box>
 					</Stack>
+
+					
 
 					{/*MENU */}
 					<div className={`filter-location ${openLocation ? 'on' : ''}`} ref={locationRef}>
@@ -403,15 +405,15 @@ const HeaderFilter = (props: HeaderFilterProps) => {
 						})}
 					</div>
 
-					<div className={`filter-rooms ${openRooms ? 'on' : ''}`} ref={roomsRef}>
-						{[1, 2, 3, 4, 5].map((room: number) => {
-							return (
-								<span onClick={() => carRoomSelectHandler(room)} key={room}>
-									{room} room{room > 1 ? 's' : ''}
-								</span>
-							);
-						})}
-					</div>
+			       <div className={`filter-rooms ${openRooms ? 'on' : ''}`} ref={roomsRef}>
+	                        {Object.values(CarFuelType).map((fuel: CarFuelType) => {
+		                        return (
+			                    <span onClick={() => carRoomSelectHandler(fuel)} key={fuel}>
+				                   {fuel}
+			                     </span>
+		                     );
+	                     })}
+                   </div>
 				</Stack>
 
 				{/* ADVANCED FILTER MODAL */}
