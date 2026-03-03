@@ -58,8 +58,10 @@ body::-webkit-scrollbar {
 				align-items: center;
 				border-top: 1px solid rgba(255, 255, 255, 0.07);
 				&.transparent {
-					background-color: #181a209e;
-				}
+                 background-color: #202020d9; /* To'yinganlik 85% gacha oshirildi (d9) */
+                 -webkit-backdrop-filter: blur(10px); /* Safari brauzeri uchun */
+                 backdrop-filter: blur(10px); /* Boshqa zamonaviy brauzerlar uchun noaniqlik effekti */
+                 }
 				.container {
 					flex-direction: row;
 					align-items: center;
