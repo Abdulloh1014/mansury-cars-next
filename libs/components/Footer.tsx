@@ -2,6 +2,9 @@ import FacebookOutlinedIcon from '@mui/icons-material/FacebookOutlined';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import TwitterIcon from '@mui/icons-material/Twitter';
+import PhoneIcon from '@mui/icons-material/Phone';
+import EmailIcon from '@mui/icons-material/Email';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import useDeviceDetect from '../hooks/useDeviceDetect';
 import { Stack, Box } from '@mui/material';
 import moment from 'moment';
@@ -12,124 +15,171 @@ const Footer = () => {
 	if (device == 'mobile') {
 		return (
 			<Stack className={'footer-container'}>
-				<Stack className={'main'}>
-					<Stack className={'left'}>
-						<Box component={'div'} className={'footer-box'}>
-							<img src="/img/logo/logoWhite.svg" alt="" className={'logo'} />
+				{/* Footer Top Section */}
+				<Stack className={'footer-top'}>
+					<Stack className={'top-content'}>
+						<Box className={'logo-section'}>
+							<img src="/img/logo/mansury.png" alt="" className={'logo'} />
+							<p>Leading the future of automotive excellence with cutting-edge technology and premium services.</p>
 						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>total free customer care</span>
-							<p>+82 10 4867 2909</p>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>nee live</span>
-							<p>+82 10 4867 2909</p>
-							<span>Support?</span>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<p>follow us on social media</p>
-							<div className={'media-box'}>
-								<FacebookOutlinedIcon />
-								<TelegramIcon />
-								<InstagramIcon />
-								<TwitterIcon />
-							</div>
-						</Box>
-					</Stack>
-					<Stack className={'right'}>
-						<Box component={'div'} className={'bottom'}>
-							<div>
-								<strong>Popular Search</strong>
-								<span>Car for Rent</span>
-								<span>Car Low to hide</span>
-							</div>
-							<div>
-								<strong>Quick Links</strong>
-								<span>Terms of Use</span>
-								<span>Privacy Policy</span>
-								<span>Pricing Plans</span>
-								<span>Our Services</span>
-								<span>Contact Support</span>
-								<span>FAQs</span>
-							</div>
-							<div>
-								<strong>Discover</strong>
-								<span>Seoul</span>
-								<span>Gyeongido</span>
-								<span>Busan</span>
-								<span>Jejudo</span>
+
+						<Box className={'newsletter-section'}>
+							<h4>Stay Updated</h4>
+							<p>Get the latest news and offers from Mansury</p>
+							<div className={'email-input'}>
+								<input type="email" placeholder="your@email.com" />
+								<button>Subscribe</button>
 							</div>
 						</Box>
 					</Stack>
 				</Stack>
-				<Stack className={'second'}>
-					<span>© mansury - All rights reserved. mansury {moment().year()}</span>
+
+				{/* Footer Main Section */}
+				<Stack className={'footer-main'}>
+					<Stack className={'links-grid'}>
+						<Box className={'link-column'}>
+							<h4>Quick Links</h4>
+							<a href="#">Home</a>
+							<a href="#">About Us</a>
+							<a href="#">Browse Cars</a>
+							<a href="#">Sellers</a>
+						</Box>
+						<Box className={'link-column'}>
+							<h4>Company</h4>
+							<a href="#">About Mansury</a>
+							<a href="#">Careers</a>
+							<a href="#">Press</a>
+							<a href="#">Blog</a>
+						</Box>
+						<Box className={'link-column'}>
+							<h4>Support</h4>
+							<a href="#">Contact Us</a>
+							<a href="#">FAQ</a>
+							<a href="#">Help Center</a>
+							<a href="#">Terms of Service</a>
+						</Box>
+						<Box className={'link-column'}>
+							<h4>Contact</h4>
+							<a href="tel:+821048672909">+82 10 4867 2909</a>
+							<a href="mailto:support@mansury.com">support@mansury.com</a>
+							<a href="#">Seoul, South Korea</a>
+						</Box>
+					</Stack>
+				</Stack>
+
+				{/* Footer Bottom Section */}
+				<Stack className={'footer-bottom'}>
+					<Box className={'social-icons'}>
+						<a href="#"><FacebookOutlinedIcon /></a>
+						<a href="#"><InstagramIcon /></a>
+						<a href="#"><TelegramIcon /></a>
+						<a href="#"><TwitterIcon /></a>
+					</Box>
+					<span>© {moment().year()} Mansury. All rights reserved.</span>
+					<Box className={'footer-links'}>
+						<a href="#">Privacy Policy</a>
+						<span>·</span>
+						<a href="#">Terms of Service</a>
+						<span>·</span>
+						<a href="#">Cookie Policy</a>
+					</Box>
 				</Stack>
 			</Stack>
 		);
 	} else {
 		return (
 			<Stack className={'footer-container'}>
-				<Stack className={'main'}>
-					<Stack className={'left'}>
-						<Box component={'div'} className={'footer-box'}>
-							<img src="/img/logo/logoWhite.svg" alt="" className={'logo'} />
+				{/* Footer Top Section */}
+				<Stack className={'footer-top'}>
+					<Stack className={'top-content'}>
+						<Box className={'logo-section'}>
+							<img src="/img/logo/mansury.png" alt="Mansury Logo" className={'logo'} style={{ width: '250px', height: '190px'}}  />
+							<p>Leading the future of automotive excellence with cutting-edge technology and premium services.</p>
+							<Box className={'social-icons'}>
+								<a href="#"><FacebookOutlinedIcon /></a>
+								<a href="https://www.instagram.com/mansory/"><InstagramIcon /></a>
+								<a href="#"><TelegramIcon /></a>
+								<a href="#"><TwitterIcon /></a>
+							</Box>
 						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>total free customer care</span>
-							<p>+82 10 4867 2909</p>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<span>nee live</span>
-							<p>+82 10 4867 2909</p>
-							<span>Support?</span>
-						</Box>
-						<Box component={'div'} className={'footer-box'}>
-							<p>follow us on social media</p>
-							<div className={'media-box'}>
-								<FacebookOutlinedIcon />
-								<TelegramIcon />
-								<InstagramIcon />
-								<TwitterIcon />
+
+						<Box className={'newsletter-section'}>
+							<h4>Stay Updated</h4>
+							<p>Get the latest news, offers, and updates directly to your inbox</p>
+							<div className={'email-input'}>
+								<input type="email" placeholder="your@email.com" />
+								<button>Subscribe</button>
 							</div>
 						</Box>
-					</Stack>
-					<Stack className={'right'}>
-						<Box component={'div'} className={'top'}>
-							<strong>keep yourself up to date</strong>
-							<div>
-								<input type="text" placeholder={'Your Email'} />
-								<span>Subscribe</span>
-							</div>
-						</Box>
-						<Box component={'div'} className={'bottom'}>
-							<div>
-								<strong>Popular Search</strong>
-								<span>Car for Rent</span>
-								<span>Car Low to hide</span>
-							</div>
-							<div>
-								<strong>Quick Links</strong>
-								<span>Terms of Use</span>
-								<span>Privacy Policy</span>
-								<span>Pricing Plans</span>
-								<span>Our Services</span>
-								<span>Contact Support</span>
-								<span>FAQs</span>
-							</div>
-							<div>
-								<strong>Discover</strong>
-								<span>Seoul</span>
-								<span>Gyeongido</span>
-								<span>Busan</span>
-								<span>Jejudo</span>
-							</div>
+
+						<Box className={'contact-section'}>
+							<h4>Contact Info</h4>
+							<Box className={'contact-item'}>
+								<PhoneIcon />
+								<div>
+									<span>Phone</span>
+									<p>+82 10 4867 2909</p>
+								</div>
+							</Box>
+							<Box className={'contact-item'}>
+								<EmailIcon />
+								<div>
+									<span>Email</span>
+									<p>support@mansury.com</p>
+								</div>
+							</Box>
+							<Box className={'contact-item'}>
+								<LocationOnIcon />
+								<div>
+									<span>Location</span>
+									<p>Seoul, South Korea</p>
+								</div>
+							</Box>
 						</Box>
 					</Stack>
 				</Stack>
-				<Stack className={'second'}>
-					<span>© mansury - All rights reserved. mansury {moment().year()}</span>
-					<span>Privacy · Terms · Sitemap</span>
+
+				{/* Footer Main Section */}
+				<Stack className={'footer-main'}>
+					<Stack className={'links-grid'}>
+						<Box className={'link-column'}>
+							<h4>Quick Links</h4>
+							<a href="#">Home</a>
+							<a href="#">About Us</a>
+							<a href="#">Browse Cars</a>
+							<a href="#">Our Sellers</a>
+							<a href="#">How It Works</a>
+						</Box>
+						<Box className={'link-column'}>
+							<h4>Company</h4>
+							<a href="#">About Mansury</a>
+							<a href="#">Careers</a>
+							<a href="#">Press Release</a>
+							<a href="#">Blog</a>
+							<a href="#">Partnership</a>
+						</Box>
+						<Box className={'link-column'}>
+							<h4>Support</h4>
+							<a href="#">Contact Support</a>
+							<a href="#">FAQ</a>
+							<a href="#">Help Center</a>
+							<a href="#">Feedback</a>
+							<a href="#">Report Issue</a>
+						</Box>
+						<Box className={'link-column'}>
+							<h4>Legal</h4>
+							<a href="#">Terms of Service</a>
+							<a href="#">Privacy Policy</a>
+							<a href="#">Cookie Policy</a>
+							<a href="#">Disclaimer</a>
+							<a href="#">Sitemap</a>
+						</Box>
+					</Stack>
+				</Stack>
+
+				{/* Footer Bottom Section */}
+				<Stack className={'footer-bottom'}>
+					<span>© {moment().year()} Mansury. All rights reserved. Designed with ❤️ for car enthusiasts.</span>
 				</Stack>
 			</Stack>
 		);
