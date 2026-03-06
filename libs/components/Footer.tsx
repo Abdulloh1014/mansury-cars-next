@@ -70,10 +70,25 @@ const Footer = () => {
 				{/* Footer Bottom Section */}
 				<Stack className={'footer-bottom'}>
 					<Box className={'social-icons'}>
-						<a href="#"><FacebookOutlinedIcon /></a>
-						<a href="#"><InstagramIcon /></a>
-						<a href="#"><TelegramIcon /></a>
-						<a href="#"><TwitterIcon /></a>
+							{
+								[{
+									href: '#',
+									Icon: FacebookOutlinedIcon,
+								}, {
+									href: '#',
+									Icon: InstagramIcon,
+								}, {
+									href: '#',
+									Icon: TelegramIcon,
+								}, {
+									href: '#',
+									Icon: TwitterIcon,
+								}].map((item, idx) => (
+									<a key={idx} href={item.href}>
+										<item.Icon />
+									</a>
+								))
+							}
 					</Box>
 					<span>© {moment().year()} Mansury. All rights reserved.</span>
 					<Box className={'footer-links'}>
@@ -95,7 +110,8 @@ const Footer = () => {
 						<Box className={'logo-section'}>
 							<img src="/img/logo/mansury.png" alt="Mansury Logo" className={'logo'} style={{ width: '250px', height: '190px'}}  />
 							<p>Leading the future of automotive excellence with cutting-edge technology and premium services.</p>
-							<Box className={'social-icons'}>
+							{/* @ts-ignore: simplify child union complexity */}
+						<Box className={'social-icons'}>
 								<a href="#"><FacebookOutlinedIcon /></a>
 								<a href="https://www.instagram.com/mansory/"><InstagramIcon /></a>
 								<a href="#"><TelegramIcon /></a>

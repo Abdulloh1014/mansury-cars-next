@@ -521,7 +521,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
 		return (
 			<Stack className={'filter-main'}>
 				<Stack className={'find-your-home'} mb={'40px'}>
-					<Typography className={'title-main'}>Find Your Home</Typography>
+					<Typography className={'title-main'} style={{ color: '#222' }}>Find Your Car</Typography>
 					<Stack className={'input-box'}>
 						<OutlinedInput
 							value={searchText}
@@ -560,7 +560,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
 					</Stack>
 				</Stack>
 				<Stack className={'find-your-home'} mb={'30px'}>
-					<p className={'title'} style={{ textShadow: '0px 3px 4px #b9b9b9' }}>
+					<p className={'title'} style={{ color: '#222', fontWeight: '600' }}>
 						Location
 					</p>
 					<Stack
@@ -622,7 +622,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
     <Typography className={'title'}>Fuel Type</Typography>
     <select
         className={'select-description'}
-		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #b9b9b9' }}
+		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#fff', color: '#222', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
         // URL dagi qiymatni select'ga bog'laymiz (agar bo'lmasa 'all' turadi)
         value={searchFilter?.search?.fuelTypeList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {
@@ -733,7 +733,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
     <Typography className={'title'}>Car Color</Typography>
     <select
         className={'select-description'}
-        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #b9b9b9' }}
+        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#fff', color: '#222', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
         // URL'dagi colorList'ning birinchi elementini oladi, aks holda 'all'
         value={searchFilter?.search?.colorList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {
@@ -771,7 +771,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
 
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<Typography className={'title'}>Options</Typography>
-					<Stack className={'input-box'}>
+					<Stack className={'input-box'} style={{ gap: '10px' }}>
 						<Checkbox
 							id={'Barter'}
 							className="car-checkbox"

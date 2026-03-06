@@ -190,26 +190,27 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 								)}
 							</Stack>
 							<Stack className="pagination-config">
-								{cars.length !== 0 && (
-									<Stack className="pagination-box">
-										<Pagination
-											page={currentPage}
-											count={Math.ceil(total / searchFilter.limit)}
-											onChange={handlePaginationChange}
-											shape="circular"
-											color="primary"
-										/>
-									</Stack>
-								)}
+    {cars.length !== 0 && (
+        <Stack className="pagination-box">
+            <Pagination
+                page={currentPage}
+                count={Math.ceil(total / searchFilter.limit)}
+                onChange={handlePaginationChange}
+                variant="outlined"
+                shape="rounded"
+                size="large"
+            />
+        </Stack>
+    )}
 
-								{cars.length !== 0 && (
-									<Stack className="total-result">
-										<Typography>
-											Total {total} propert{total > 1 ? 'ies' : 'y'} available
-										</Typography>
-									</Stack>
-								)}
-							</Stack>
+    {cars.length !== 0 && (
+        <Stack className="total-result">
+            <Typography>
+                {total} Car{total > 1 ? "s" : ""} Available
+            </Typography>
+        </Stack>
+    )}
+</Stack>
 						</Stack>
 					</Stack>
 				</div>

@@ -1,5 +1,15 @@
 import React from 'react';
-import { Stack, Typography, Box } from '@mui/material';
+
+import {
+	Stack,
+	Typography,
+	Box,
+	Card,
+	CardMedia,
+	CardContent,
+	CardActions,
+	Divider,
+} from '@mui/material';
 import useDeviceDetect from '../../hooks/useDeviceDetect';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
@@ -32,6 +42,8 @@ const CarCard = (props: CarCardType) => {
 	} else {
 		return (
 			<Stack className="card-config">
+
+
 				<Stack className="top">
 					<Link
 						href={{
@@ -51,7 +63,12 @@ const CarCard = (props: CarCardType) => {
 						<Typography>${formatterStr(car?.carPrice)}</Typography>
 					</Box>
 				</Stack>
+
+
+
 				<Stack className="bottom">
+
+
 					<Stack className="name-address">
 						<Stack className="name">
 							<Link
@@ -65,13 +82,17 @@ const CarCard = (props: CarCardType) => {
 						</Stack>
 						<Stack className="address">
 							<Typography>
-								 <img style={{ width: '12px', height: '12px'}} src="/img/icons/location.svg" alt="" />
+								 
 								 {car.carLocation}
 							</Typography>
 						</Stack>
 					</Stack>
+
+
 					<Stack className="options">
-						<Stack className="option">
+
+						<Stack className="bir">
+							<Stack className="option">
 							<img 
 							style={{ width: '16px', height: '16px' }}
 							src="/img/icons/engine.svg" alt="" /> <Typography>{car.carEngine} Engine</Typography>
@@ -81,13 +102,35 @@ const CarCard = (props: CarCardType) => {
 							style={{ width: '16px', height: '16px' }}
 							src="/img/icons/car door.svg" alt="" /> <Typography>{car.carDoors} Doors</Typography>
 						</Stack>
-						<Stack className="option">
+						</Stack>
+
+
+						<Stack className="ikki">
+							<Stack className="option">
 							<img 
 							style={{ width: '16px', height: '16px' }}
 							src="/img/icons/fuel.svg" alt="" /> <Typography>{car.carFuelType} Fuel Type</Typography>
 						</Stack>
+						<Stack className="option">
+							<img 
+							style={{ width: '16px', height: '16px' }}
+							src="/img/icons/mile.png" alt="" /> <Typography>{car.carMileage.toLocaleString()} km</Typography>
+						</Stack>
+						</Stack>
+
+
+						
+
+
+						
+
+
 					</Stack>
-					<Stack className="divider"></Stack>
+
+
+					
+
+
 					<Stack className="type-buttons">
 						<Stack className="type">
 							<Typography
@@ -103,6 +146,7 @@ const CarCard = (props: CarCardType) => {
 								Barter
 							</Typography>
 						</Stack>
+
 						{!recentlyVisited && (
 							<Stack className="buttons">
 								<IconButton color={'default'}>
@@ -119,7 +163,9 @@ const CarCard = (props: CarCardType) => {
 									)}
 								</IconButton>
 								<Typography className="view-cnt">{car?.carLikes}</Typography>
+								
 							</Stack>
+
 						)}
 					</Stack>
 				</Stack>
