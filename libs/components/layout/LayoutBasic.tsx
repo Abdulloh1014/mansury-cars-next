@@ -31,48 +31,53 @@ const withLayoutBasic = (Component: any) => {
 				case '/car':
 					title = 'Car Search';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/agent':
 					title = 'Agents';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/agent/detail':
 					title = 'Agent Page';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/mypage':
-					title = 'my page';
+					title = 'My Page';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/community':
 					title = 'Community';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
+					break;
+				case '/about':
+					title = 'About';
+					desc = 'Home / For Rent';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/community/detail':
 					title = 'Community Detail';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/cs':
 					title = 'CS';
 					desc = 'We are glad to see you again!';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					setAuthHeader(true);
 					break;
 				case '/member':
 					title = 'Member Page';
 					desc = 'Home / For Rent';
-					bgImage = '/img/banner/cars.png';
+					bgImage = '/img/banner/rolls-banner.webp';
 					break;
 				default:
 					break;
@@ -128,6 +133,8 @@ const withLayoutBasic = (Component: any) => {
 							style={{
 								backgroundImage: `url(${memoizedValues.bgImage})`,
 								backgroundSize: 'cover',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'center',
 								boxShadow: 'inset 10px 40px 150px 40px rgb(24 22 36)',
 							}}
 						>

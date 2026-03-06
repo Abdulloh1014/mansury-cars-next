@@ -57,6 +57,7 @@
 								height: 115px;
 								overflow: hidden;
 								transition: 1s;
+								
 								&:hover {
 									height: 253px;
 								}
@@ -64,9 +65,9 @@
 							.title-main {
 								width: 100%;
 								height: 25px;
-								color: #222;
+								color: #b1b2b4;
 								font-family: $font;
-								font-size: 15px;
+								font-size: 17px;
 								font-style: normal;
 								font-weight: 700;
 								line-height: normal;
@@ -74,9 +75,9 @@
 							.title {
 								width: auto;
 								height: auto;
-								color: #222;
+								color: #b1b2b4;
 								font-family: $font;
-								font-size: 14px;
+								font-size: 17px;
 								font-style: normal;
 								font-weight: 600;
 								line-height: normal;
@@ -84,8 +85,10 @@
 							.input-box {
 								position: relative;
 								width: 100%;
+								color: #696969;
 								flex-direction: row;
 								align-items: center;
+								
 								
 								
 								
@@ -96,11 +99,12 @@
 									width: 100%;
 									height: 53px;
 									border-radius: 8px;
-									border: 1px solid #ddd;
+									border: 1px solid #4d4d4d;
 									background: #141516;
 									outline: none;
 									padding-left: 43px;
-									color: #666;
+									color: #a9a9a9;
+
 									font-family: $font;
 									font-size: 14px;
 									font-style: normal;
@@ -172,7 +176,7 @@
 								top: 52px;
 							}
 							.car-type {
-								color: #222;
+								color: #696969;
 								font-family: $font;
 								font-size: 14px;
 								font-style: normal;
@@ -364,20 +368,20 @@
 								gap: 30px;
 								.name-address {
 									width: 100%;
-									height: 48px;
+									height: 78px;
 									gap: 5px;
-									margin-bottom: 20px;
+									// margin-bottom: 20px;
 									  border-bottom: 1px solid #909090;
 									  padding-bottom: 8px;
 
 									.name {
 										width: 100%;
-										height: 29px;
+										height: 39px;
 										overflow: hidden;
 										p {
-											color: #949598;
+											color: #b1b2b4;
 											font-family: $font;
-											font-size: 19px;
+											font-size: 24px;
 											font-style: normal;
 											font-weight: 700;
 											line-height: normal;

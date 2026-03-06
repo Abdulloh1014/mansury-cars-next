@@ -100,7 +100,7 @@ const CarCard = (props: CarCardType) => {
 						<Stack className="option">
 							<img 
 							style={{ width: '16px', height: '16px', filter: 'invert(42%) sepia(0%) saturate(0%) hue-rotate(175deg) brightness(93%) contrast(90%)'  }}
-							src="/img/icons/car door.svg" alt="" /> <Typography>{car.carDoors} Doors</Typography>
+							src="/img/icons/car door.svg" alt="" /> <Typography>{car.carDoors} Door</Typography>
 						</Stack>
 						</Stack>
 
