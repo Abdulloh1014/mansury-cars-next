@@ -137,8 +137,10 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 		return (
 			<div id="car-list-page" style={{ position: 'relative' }}>
 				<div className="container">
+
+
 					<Box component={'div'} className={'right'}>
-						<span>Sort by</span>
+						<span style={{ color: '#949598' }}>Sort by</span>
 						<div>
 							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
 								{filterSortName}
@@ -171,12 +173,21 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 							</Menu>
 						</div>
 					</Box>
+
+
 					<Stack className={'car-page'}>
+
+
+
 						<Stack className={'filter-config'}>
 							{/* @ts-ignore */}
 							<Filter searchFilter={searchFilter} setSearchFilter={setSearchFilter} initialInput={initialInput} />
 						</Stack>
+
+
+
 						<Stack className="main-config" mb={'76px'}>
+							
 							<Stack className={'list-config'}>
 								{cars?.length === 0 ? (
 									<div className={'no-data'}>
@@ -189,29 +200,37 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 									})
 								)}
 							</Stack>
-							<Stack className="pagination-config">
-    {cars.length !== 0 && (
-        <Stack className="pagination-box">
-            <Pagination
-                page={currentPage}
-                count={Math.ceil(total / searchFilter.limit)}
-                onChange={handlePaginationChange}
-                variant="outlined"
-                shape="rounded"
-                size="large"
-            />
-        </Stack>
-    )}
 
-    {cars.length !== 0 && (
-        <Stack className="total-result">
-            <Typography>
-                {total} Car{total > 1 ? "s" : ""} Available
-            </Typography>
-        </Stack>
-    )}
-</Stack>
+						    <Stack className="pagination-config">
+                              {cars.length !== 0 && (
+                                <Stack className="pagination-box">
+                                 <Pagination
+                                  page={currentPage}
+                                  count={Math.ceil(total / searchFilter.limit)}
+                                  onChange={handlePaginationChange}
+                                   variant="outlined"
+                                   shape="rounded"
+                                  size="large"
+                                    />
+                                </Stack>
+                                )}
+
+                                  {cars.length !== 0 && (
+                               <Stack className="total-result">
+                                  <Typography>
+                                   {total} Car{total > 1 ? "s" : ""} Available
+                                   </Typography>
+                                </Stack>
+                                  )}
+                           </Stack>
+
 						</Stack>
+
+
+
+
+
+
 					</Stack>
 				</div>
 			</div>

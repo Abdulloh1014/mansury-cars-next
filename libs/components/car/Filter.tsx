@@ -527,7 +527,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
 							value={searchText}
 							type={'text'}
 							className={'search-input'}
-							placeholder={'What are you looking for?'}
+							placeholder={'Search...'}
 							onChange={(e: any) => setSearchText(e.target.value)}
 							onKeyDown={(event: any) => {
 								if (event.key == 'Enter') {
@@ -559,6 +559,8 @@ if (searchFilter?.search?.colorList?.length === 0) {
 						</Tooltip>
 					</Stack>
 				</Stack>
+
+
 				<Stack className={'find-your-home'} mb={'30px'}>
 					<p className={'title'} style={{ color: '#222', fontWeight: '600' }}>
 						Location
@@ -615,14 +617,49 @@ if (searchFilter?.search?.colorList?.length === 0) {
 
 
 
+					<Stack className={'find-your-home'} mb={'30px'}>
+					<Typography className={'title'}>Options</Typography>
+					<Stack className={'input-box'} style={{ gap: '10px' }}>
+						<Checkbox
+							id={'Barter'}
+							className="car-checkbox"
+							color="default"
+							size="small"
+							value={'carBarter'}
+							checked={(searchFilter?.search?.options || []).includes('carBarter')}
+							onChange={carOptionSelectHandler}
+						/>
+						<label htmlFor={'Barter'} style={{ cursor: 'pointer' }}>
+							<Typography className="propert-type">Barter</Typography>
+						</label>
+					</Stack>
+					<Stack className={'input-box'}>
+						<Checkbox
+							id={'Rent'}
+							className="car-checkbox"
+							color="default"
+							size="small"
+							value={'carRent'}
+							checked={(searchFilter?.search?.options || []).includes('carRent')}
+							onChange={carOptionSelectHandler}
+						/>
+						<label htmlFor={'Rent'} style={{ cursor: 'pointer' }}>
+							<Typography className="propert-type">Rent</Typography>
+						</label>
+					</Stack>
+				</Stack>
+
+
+
 				
+               <Stack className={'find-your-home'} mb={'30px'} style={{ gap: '25px', marginRight: '40px' }}>
 
 
-            <Stack className={'find-your-home'} mb={'30px'}>
+					<Stack className={'find-your-home'} mb={'30px'}>
     <Typography className={'title'}>Fuel Type</Typography>
     <select
         className={'select-description'}
-		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#fff', color: '#222', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
+		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#141516', color: '#222', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
         // URL dagi qiymatni select'ga bog'laymiz (agar bo'lmasa 'all' turadi)
         value={searchFilter?.search?.fuelTypeList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {
@@ -659,81 +696,11 @@ if (searchFilter?.search?.colorList?.length === 0) {
 </Stack>
 
 
-{/* 
-
-				<Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Bedrooms</Typography>
-					<Stack className="button-group">
-						<Button
-							sx={{
-								borderRadius: '12px 0 0 12px',
-								border: !searchFilter?.search?.engineList ? '2px solid #181A20' : '1px solid #b9b9b9',
-							}}
-							onClick={() => carBedSelectHandler(0)}
-						>
-							Any
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.engineList?.includes(1) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.engineList?.includes(1) ? undefined : 'none',
-							}}
-							onClick={() => carBedSelectHandler(1)}
-						>
-							1
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.engineList?.includes(2) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.engineList?.includes(2) ? undefined : 'none',
-							}}
-							onClick={() => carBedSelectHandler(2)}
-						>
-							2
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.engineList?.includes(3) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.engineList?.includes(3) ? undefined : 'none',
-							}}
-							onClick={() => carBedSelectHandler(3)}
-						>
-							3
-						</Button>
-						<Button
-							sx={{
-								borderRadius: 0,
-								border: searchFilter?.search?.engineList?.includes(4) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.engineList?.includes(4) ? undefined : 'none',
-								// borderRight: false ? undefined : 'none',
-							}}
-							onClick={() => carBedSelectHandler(4)}
-						>
-							4
-						</Button>
-						<Button
-							sx={{
-								borderRadius: '0 12px 12px 0',
-								border: searchFilter?.search?.engineList?.includes(5) ? '2px solid #181A20' : '1px solid #b9b9b9',
-								borderLeft: searchFilter?.search?.engineList?.includes(5) ? undefined : 'none',
-							}}
-							onClick={() => carBedSelectHandler(5)}
-						>
-							5+
-						</Button>
-					</Stack>
-				</Stack> */}
-
-
-
 <Stack className={'find-your-home'} mb={'30px'}>
     <Typography className={'title'}>Car Color</Typography>
     <select
         className={'select-description'}
-        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#fff', color: '#222', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
+        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#141516', color: '#222', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
         // URL'dagi colorList'ning birinchi elementini oladi, aks holda 'all'
         value={searchFilter?.search?.colorList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {
@@ -765,41 +732,16 @@ if (searchFilter?.search?.colorList?.length === 0) {
     </select>
 </Stack>
 
+                </Stack>
 
 
 
 
-				<Stack className={'find-your-home'} mb={'30px'}>
-					<Typography className={'title'}>Options</Typography>
-					<Stack className={'input-box'} style={{ gap: '10px' }}>
-						<Checkbox
-							id={'Barter'}
-							className="car-checkbox"
-							color="default"
-							size="small"
-							value={'carBarter'}
-							checked={(searchFilter?.search?.options || []).includes('carBarter')}
-							onChange={carOptionSelectHandler}
-						/>
-						<label htmlFor={'Barter'} style={{ cursor: 'pointer' }}>
-							<Typography className="propert-type">Barter</Typography>
-						</label>
-					</Stack>
-					<Stack className={'input-box'}>
-						<Checkbox
-							id={'Rent'}
-							className="car-checkbox"
-							color="default"
-							size="small"
-							value={'carRent'}
-							checked={(searchFilter?.search?.options || []).includes('carRent')}
-							onChange={carOptionSelectHandler}
-						/>
-						<label htmlFor={'Rent'} style={{ cursor: 'pointer' }}>
-							<Typography className="propert-type">Rent</Typography>
-						</label>
-					</Stack>
-				</Stack>
+
+
+
+			
+            <Stack className={'find-your-home'} mb={'30px'}>
 
 
 				<Stack className={'find-your-home'} mb={'30px'}>
@@ -883,6 +825,16 @@ if (searchFilter?.search?.colorList?.length === 0) {
 						/>
 					</Stack>
 				</Stack>
+
+			  </Stack>
+
+
+
+				
+
+
+
+
 			</Stack>
 		);
 	}

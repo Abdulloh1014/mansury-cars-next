@@ -96,20 +96,13 @@ const TrendCars = (props: TrendCarsProps) => {
 				</Stack>
 			</Stack>
 		);
-	
-
-
-
-
-
-	
 	} else {
 		return (
 			<Stack className={'trend-cars'}>
 				<Stack className={'container'}>
 					<Stack className={'info-box'}>
 						<Box component={'div'} className={'left'}>
-							<span>TOP CARS</span>
+							<span style={{ color: '#fff' }} >TOP CARS</span>
 							
 						</Box>
 						<Box component={'div'} className={'right'}>

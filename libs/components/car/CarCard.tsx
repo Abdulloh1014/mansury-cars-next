@@ -56,7 +56,7 @@ const CarCard = (props: CarCardType) => {
 					{car && car?.carRank > topCarRank && (
 						<Box component={'div'} className={'top-badge'}>
 							<img src="/img/icons/electricity.svg" alt="" />
-							<Typography>TOP</Typography>
+							<Typography>HOT</Typography>
 						</Box>
 					)}
 					<Box component={'div'} className={'price-box'}>
@@ -94,12 +94,12 @@ const CarCard = (props: CarCardType) => {
 						<Stack className="bir">
 							<Stack className="option">
 							<img 
-							style={{ width: '16px', height: '16px' }}
+							style={{ width: '16px', height: '16px', filter: 'invert(42%) sepia(0%) saturate(0%) hue-rotate(175deg) brightness(93%) contrast(90%)'  }}
 							src="/img/icons/engine.svg" alt="" /> <Typography>{car.carEngine} Engine</Typography>
 						</Stack>
 						<Stack className="option">
 							<img 
-							style={{ width: '16px', height: '16px' }}
+							style={{ width: '16px', height: '16px', filter: 'invert(42%) sepia(0%) saturate(0%) hue-rotate(175deg) brightness(93%) contrast(90%)'  }}
 							src="/img/icons/car door.svg" alt="" /> <Typography>{car.carDoors} Doors</Typography>
 						</Stack>
 						</Stack>
@@ -108,24 +108,24 @@ const CarCard = (props: CarCardType) => {
 						<Stack className="ikki">
 							<Stack className="option">
 							<img 
-							style={{ width: '16px', height: '16px' }}
-							src="/img/icons/fuel.svg" alt="" /> <Typography>{car.carFuelType} Fuel Type</Typography>
+							style={{ width: '16px', height: '16px', filter: 'invert(42%) sepia(0%) saturate(0%) hue-rotate(175deg) brightness(93%) contrast(90%)'  }}
+							src="/img/icons/fuel.svg" alt="" /> <Typography>{car.carFuelType}</Typography>
 						</Stack>
 						<Stack className="option">
 							<img 
-							style={{ width: '16px', height: '16px' }}
+							style={{ width: '16px', height: '16px', filter: 'invert(42%) sepia(0%) saturate(0%) hue-rotate(175deg) brightness(93%) contrast(90%)'  }}
 							src="/img/icons/mile.png" alt="" /> <Typography>{car.carMileage.toLocaleString()} km</Typography>
 						</Stack>
 						</Stack>
 
-
-						
-
-
-						
-
-
 					</Stack>
+
+						
+
+
+						
+
+
 
 
 					
