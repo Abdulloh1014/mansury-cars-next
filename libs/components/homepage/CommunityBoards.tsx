@@ -51,7 +51,7 @@ const CommunityBoards = () => {
                         </div>
                         <Stack className={'cards-list'}>
                             {newsArticles.map((article, index) => (
-                                <CommunityCard key={article?._id} vertical={true} article={article} index={index} />
+                                <CommunityCard key={article?._id} vertical={false} article={article} index={index} />
                             ))}
                         </Stack>
                     </Stack>

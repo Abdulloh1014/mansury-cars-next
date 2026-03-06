@@ -65,19 +65,26 @@ const CarCard = (props: CarCardType) => {
 						</Stack>
 						<Stack className="address">
 							<Typography>
-								{car.carMileage}, {car.carLocation}
+								 <img style={{ width: '12px', height: '12px'}} src="/img/icons/location.svg" alt="" />
+								 {car.carLocation}
 							</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="options">
 						<Stack className="option">
-							<img src="/img/icons/bed.svg" alt="" /> <Typography>{car.carEngine} Engine</Typography>
+							<img 
+							style={{ width: '16px', height: '16px' }}
+							src="/img/icons/engine.svg" alt="" /> <Typography>{car.carEngine} Engine</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/room.svg" alt="" /> <Typography>{car.carDoors} Doors</Typography>
+							<img 
+							style={{ width: '16px', height: '16px' }}
+							src="/img/icons/car door.svg" alt="" /> <Typography>{car.carDoors} Doors</Typography>
 						</Stack>
 						<Stack className="option">
-							<img src="/img/icons/expand.svg" alt="" /> <Typography>{car.carFuelType} Fuel Type</Typography>
+							<img 
+							style={{ width: '16px', height: '16px' }}
+							src="/img/icons/fuel.svg" alt="" /> <Typography>{car.carFuelType} Fuel Type</Typography>
 						</Stack>
 					</Stack>
 					<Stack className="divider"></Stack>

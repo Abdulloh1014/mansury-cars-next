@@ -6,10 +6,19 @@ import { useQuery } from '@apollo/client';
 import { BoardArticle } from '../../types/board-article/board-article';
 import { REACT_APP_API_URL } from '../../config';
 import { MemberType } from '../../enums/member.enum';
+import { useRouter } from 'next/router';
 
 const TopCars = () => {
 	const device = useDeviceDetect();
 	const [articles, setArticles] = useState<BoardArticle[]>([]);
+	const router = useRouter();
+
+const pushDetailHandler = async (id: string) => {
+  await router.push({
+    pathname: '/community/detail',
+    query: { id, articleCategory: 'NEWS' },
+  });
+};
 
 	/** APOLLO REQUESTS **/
 	const { loading, data } = useQuery(GET_BOARD_ARTICLES, {
@@ -56,7 +65,9 @@ const TopCars = () => {
 									{/* HTML teglarni tozalab faqat matnni chiqarish */}
 									{article.articleContent.replace(/<[^>]*>?/gm, '').slice(0, 200)}...
 								</Typography>
-								<Button className={'read-more-btn'}>READ MORE</Button>
+								<Button 
+								 onClick={() => pushDetailHandler(article._id)}
+								className={'read-more-btn'}>READ MORE</Button>
 							</Box>
 
 							{/* Rasm qismi */}
