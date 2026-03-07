@@ -43,3 +43,8 @@ export const likeTargetMemberHandler = async (likeTargetMember: any, id: string)
 		sweetMixinErrorAlert(err.message).then();
 	}
 };
+
+export const redirectToMemberPage = async (router: any, user: any, memberId: string) => {
+	if (memberId === user?._id) await router.push(`/mypage?memberId=${memberId}`);
+	else await router.push(`/member?memberId=${memberId}`);
+};

@@ -8,11 +8,17 @@ import FavoriteIcon from '@mui/icons-material/Favorite';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import { useReactiveVar } from '@apollo/client';
 import { userVar } from '../../../apollo/store';
+import router from 'next/router';
+import { sweetErrorHandling } from '../../sweetAlert';
+import { redirectToMemberPage } from '../../utils';
 
 interface AgentCardProps {
 	agent: any;
 	likeMemberHandler: any;
 }
+
+
+
 
 const AgentCard = (props: AgentCardProps) => {
 	const { agent, likeMemberHandler } = props;
@@ -27,17 +33,11 @@ const AgentCard = (props: AgentCardProps) => {
 	} else {
 		return (
 			<Card className="agent-general-card">
-				<Link
-					href={{
-						pathname: '/agent/detail',
-						query: { agentId: agent?._id },
-					}}
-				>
-					<Box className="agent-img-wrapper">
-						<CardMedia image={imagePath} className="agent-img" />
-						{/* <div className="car-badge">{agent?.memberCars ?? 0} CARS</div> */}
-					</Box>
-				</Link>
+				<Box className="agent-img-wrapper"
+	                 onClick={() => redirectToMemberPage(router, user, agent?._id)}
+                      >
+	                <CardMedia image={imagePath} className="agent-img" />
+                </Box>
 
 				<Stack className="agent-desc">
 					<Box className="agent-info">

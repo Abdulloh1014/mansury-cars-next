@@ -141,6 +141,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 						<Box component={'div'} className={'left'}>
 							<input
 								type="text"
+								color='#ddd'
 								placeholder={'Search for an agent'}
 								value={searchText}
 								onChange={(e: any) => setSearchText(e.target.value)}
@@ -155,7 +156,7 @@ const AgentList: NextPage = ({ initialInput, ...props }: any) => {
 							/>
 						</Box>
 						<Box component={'div'} className={'right'}>
-							<span>Sort by</span>
+							<span style={{ color: '#a5a5a6' }} >Sort by</span>
 							<div>
 								<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
 									{filterSortName}
