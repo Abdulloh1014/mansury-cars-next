@@ -6,11 +6,15 @@ import PhoneIcon from '@mui/icons-material/Phone';
 import EmailIcon from '@mui/icons-material/Email';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import useDeviceDetect from '../hooks/useDeviceDetect';
-import { Stack, Box } from '@mui/material';
+import { Stack, Box, Link } from '@mui/material';
 import moment from 'moment';
+import { useTranslation } from 'react-i18next';
+import NextLink from 'next/link';
+
 
 const Footer = () => {
 	const device = useDeviceDetect();
+	const { t, i18n } = useTranslation('common');
 
 	if (device == 'mobile') {
 		return (
@@ -39,30 +43,30 @@ const Footer = () => {
 					<Stack className={'links-grid'}>
 						<Box className={'link-column'}>
 							<h4>Quick Links</h4>
-							<a href="#">Home</a>
-							<a href="#">About Us</a>
-							<a href="#">Browse Cars</a>
-							<a href="#">Sellers</a>
+							<Link component={NextLink} href="/">Home</Link>
+							<a href="/about">About Us</a>
+							<a href="/cars">Browse Cars</a>
+							<a href="/sellers">Sellers</a>
 						</Box>
 						<Box className={'link-column'}>
 							<h4>Company</h4>
-							<a href="#">About Mansury</a>
-							<a href="#">Careers</a>
-							<a href="#">Press</a>
-							<a href="#">Blog</a>
+							<a href="/about">About Mansury</a>
+							<a href="/careers">Careers</a>
+							<a href="/press">Press</a>
+							<a href="/blog">Blog</a>
 						</Box>
 						<Box className={'link-column'}>
 							<h4>Support</h4>
-							<a href="#">Contact Us</a>
-							<a href="#">FAQ</a>
-							<a href="#">Help Center</a>
-							<a href="#">Terms of Service</a>
+							<a href="/contact">Contact Us</a>
+							<a href="/faq">FAQ</a>
+							<a href="/help">Help Center</a>
+							<a href="/terms">Terms of Service</a>
 						</Box>
 						<Box className={'link-column'}>
 							<h4>Contact</h4>
-							<a href="tel:+821048672909">+82 10 4867 2909</a>
+							<a href="tel:+821024995115">+82 10 2499 5115</a>
 							<a href="mailto:support@mansury.com">support@mansury.com</a>
-							<a href="#">Seoul, South Korea</a>
+							<a href="/contact">Seoul, South Korea</a>
 						</Box>
 					</Stack>
 				</Stack>
@@ -112,10 +116,10 @@ const Footer = () => {
 							<p>Leading the future of automotive excellence with cutting-edge technology and premium services.</p>
 							{/* @ts-ignore: simplify child union complexity */}
 						<Box className={'social-icons'}>
-								<a href="#"><FacebookOutlinedIcon /></a>
-								<a href="https://www.instagram.com/mansory/"><InstagramIcon /></a>
-								<a href="#"><TelegramIcon /></a>
-								<a href="#"><TwitterIcon /></a>
+								<a href="https://www.facebook.com/mansory?locale=ru_RU"  target="_blank" rel="noopener noreferrer"><FacebookOutlinedIcon /></a>
+								<a href="https://www.instagram.com/mansory/"  target="_blank" rel="noopener noreferrer"><InstagramIcon /></a>
+								<a href="#"  target="_blank" rel="noopener noreferrer"><TelegramIcon /></a>
+								<a href="https://twitter.com/mansory"  target="_blank" rel="noopener noreferrer"><TwitterIcon /></a>
 							</Box>
 						</Box>
 
@@ -134,7 +138,7 @@ const Footer = () => {
 								<PhoneIcon />
 								<div>
 									<span>Phone</span>
-									<p>+82 10 4867 2909</p>
+									<p>+82 10 2499 5115</p>
 								</div>
 							</Box>
 							<Box className={'contact-item'}>
@@ -160,11 +164,11 @@ const Footer = () => {
 					<Stack className={'links-grid'}>
 						<Box className={'link-column'}>
 							<h4>Quick Links</h4>
-							<a href="#">Home</a>
-							<a href="#">About Us</a>
-							<a href="#">Browse Cars</a>
-							<a href="#">Our Sellers</a>
-							<a href="#">How It Works</a>
+							<a href="/">Home</a>
+							<a href="/car">Cars</a>
+							<a href="/agent">Agents</a>
+							<a href="/community">Community</a>
+							<a href="/about">About</a>
 						</Box>
 						<Box className={'link-column'}>
 							<h4>Company</h4>

@@ -142,15 +142,15 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 					<Box component={'div'} className={'right'}>
 						<span style={{ color: '#949598' }}>Sort by</span>
 						<div>
-							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon />}>
+							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon  sx={{ paddingTop: '5px', color: '#fff' }} />}>
 								{filterSortName}
 							</Button>
-							<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px' }}>
+							<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px', color: '#fff' }}>
 								<MenuItem
 									onClick={sortingHandler}
 									id={'new'}
 									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									sx={{ boxShadow: 'rgba(49, 57, 65, 0.9) 0px 8px 24px' }}
 								>
 									New
 								</MenuItem>
@@ -158,7 +158,7 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 									onClick={sortingHandler}
 									id={'lowest'}
 									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									sx={{ boxShadow: 'rgba(49, 57, 65, 0.9) 0px 8px 24px' }}
 								>
 									Lowest Price
 								</MenuItem>
@@ -166,7 +166,8 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 									onClick={sortingHandler}
 									id={'highest'}
 									disableRipple
-									sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
+									sx={{ boxShadow: 'rgba(49, 57, 65, 0.9) 0px 8px 24px' }}
+									// sx={{ boxShadow: 'rgba(149, 157, 165, 0.2) 0px 8px 24px' }}
 								>
 									Highest Price
 								</MenuItem>

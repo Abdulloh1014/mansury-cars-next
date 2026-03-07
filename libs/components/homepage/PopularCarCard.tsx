@@ -105,7 +105,7 @@ const PopularCarCard = (props: PopularCarCardProps) => {
 				onClick={() => {pushDetailHandler(car._id)}}
 				>
 					<strong className={'title'} onClick={() => {pushDetailHandler(car._id)}}>{car.carTitle}</strong>
-					<p className={'desc'}>{car.carMileage}km Mileage</p>
+					<p className={'desc'}>{car.carMileage}km </p>
 					
 					<div className={'bott'}>
 						<p>{car?.carRent ? 'rent' : 'sale'}</p>

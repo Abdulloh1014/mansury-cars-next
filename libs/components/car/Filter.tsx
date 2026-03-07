@@ -670,12 +670,11 @@ if (searchFilter?.search?.colorList?.length === 0) {
 				
                <Stack className={'find-your-home'} mb={'30px'} style={{ gap: '25px', marginRight: '40px' }}>
 
-
-					<Stack className={'find-your-home'} mb={'30px'}>
+	<Stack className={'find-your-home'} mb={'30px'}>
     <Typography className={'title'}  >Fuel Type</Typography>
     <select
         className={'select-description'}
-		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#141516', color:' #696969', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
+		 style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor:  '#1e2029', color:' #696969', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
         // URL dagi qiymatni select'ga bog'laymiz (agar bo'lmasa 'all' turadi)
         value={searchFilter?.search?.fuelTypeList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {
@@ -716,7 +715,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
     <Typography className={'title'}  >Car Color</Typography>
     <select
         className={'select-description'}
-        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#141516', color: '#696969', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
+        style={{ width: '100%', padding: '10px', borderRadius: '8px', border: '1px solid #ddd', backgroundColor: '#1e2029',  color: '#696969', fontSize: '14px', cursor: 'pointer', transition: 'all 0.3s ease' }}
         // URL'dagi colorList'ning birinchi elementini oladi, aks holda 'all'
         value={searchFilter?.search?.colorList?.[0] || 'all'}
         onChange={async ({ target: { value } }) => {
@@ -766,7 +765,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
 						<FormControl>
 							<InputLabel id="demo-simple-select-label" style={{ color: '#696969' }} >Min</InputLabel>
 							<Select
-							     style={{backgroundColor: '#141516', color: '#696969'}}
+							     style={{backgroundColor: '#1e2029',  color: '#696969'}}
 								labelId="demo-simple-select-label"
 								id="demo-simple-select"
 								value={searchFilter?.search?.mileageRange?.start ?? 0}
@@ -793,7 +792,7 @@ if (searchFilter?.search?.colorList?.length === 0) {
 						<FormControl>
 							<InputLabel id="demo-simple-select-label" style={{ color: '#696969' }} >Max</InputLabel>
 							<Select
-							    style={{backgroundColor: '#141516', color: '#696969'}}
+							    style={{backgroundColor: '#1e2029',  color: '#696969'}}
 								labelId="demo-simple-select-label"
 								id="demo-simple-select"
 								value={searchFilter?.search?.mileageRange?.end ?? 500}

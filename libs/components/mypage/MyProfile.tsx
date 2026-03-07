@@ -27,6 +27,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 			memberNick: user.memberNick,
 			memberPhone: user.memberPhone,
 			memberAddress: user.memberAddress,
+			memberDesc: user.memberDesc,
 			memberImage: user.memberImage,
 		});
 	}, [user]);
@@ -102,6 +103,7 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 			updateData.memberNick === '' ||
 			updateData.memberPhone === '' ||
 			updateData.memberAddress === '' ||
+			updateData.memberDesc === '' ||
 			updateData.memberImage === ''
 		) {
 			return true;
@@ -177,6 +179,15 @@ const MyProfile: NextPage = ({ initialValues, ...props }: any) => {
 							placeholder="Your address"
 							value={updateData.memberAddress}
 							onChange={({ target: { value } }) => setUpdateData({ ...updateData, memberAddress: value })}
+						/>
+					</Stack>
+					<Stack className="address-box">
+						<Typography className="title">Description</Typography>
+						<input
+							type="text"
+							placeholder="Your description"
+							value={updateData.memberDesc}
+							onChange={({ target: { value } }) => setUpdateData({ ...updateData, memberDesc: value })}
 						/>
 					</Stack>
 					<Stack className="about-me-box">
