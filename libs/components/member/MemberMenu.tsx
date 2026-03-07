@@ -8,6 +8,7 @@ import { REACT_APP_API_URL } from '../../config';
 import { useQuery } from '@apollo/client';
 import { GET_MEMBER } from '../../../apollo/user/query';
 import { T } from '../../types/common';
+import { Height, Padding } from '@mui/icons-material';
 
 interface MemberMenuProps {
 	subscribeHandler: any;
@@ -42,8 +43,11 @@ const MemberMenu = (props: MemberMenuProps) => {
 		return <div>MEMBER MENU MOBILE</div>;
 	} else {
 		return (
-			<Stack width={'100%'} padding={'30px 24px'}>
-				<Stack className={'profile'}>
+			<Stack width={'100%'}   >
+
+
+				<Stack className={'profile'} style={{display: 'flex', justifyContent: 'space-between'}} >
+					<Stack >
 					<Box component={'div'} className={'profile-img'}>
 						<img
 							src={member?.memberImage ? `${REACT_APP_API_URL}/${member?.memberImage}` : '/img/profile/defaultUser.svg'}
@@ -59,12 +63,16 @@ const MemberMenu = (props: MemberMenuProps) => {
 						<Typography className={'view-list'}>{member?.memberType}</Typography>
 					</Stack>
 				</Stack>
+
 				<Stack className="follow-button-box">
 					{member?.meFollowed && member?.meFollowed[0]?.myFollowing ? (
 						<>
 							<Button
 								variant="outlined"
-								sx={{ background: '#b9b9b9' }}
+								sx={{ background: '#b9b9b9', '&:hover': { 
+                                  background: '#666', // hover bo'lganda qora rang
+                                  borderColor: '#888' // cheti ham qora bo'lishi uchun
+                                  } }}
 								onClick={() => unsubscribeHandler(member?._id, getMemberRefetch, memberId)}
 							>
 								Unfollow
@@ -74,18 +82,25 @@ const MemberMenu = (props: MemberMenuProps) => {
 					) : (
 						<Button
 							variant="contained"
-							sx={{ background: '#ff5d18', ':hover': { background: '#ff5d18' } }}
+							sx={{ background: '#fff', ':hover': { background: '#777' }, borderRadius: '19px', fontSize: '62px', width: '120px', height: '40px' }}
 							onClick={() => subscribeHandler(member?._id, getMemberRefetch, memberId)}
 						>
 							Follow
 						</Button>
 					)}
 				</Stack>
+				</Stack>
+
+
+				
+
+
+
 				<Stack className={'sections'}>
 					<Stack className={'section'}>
-						<Typography className="title" variant={'h5'}>
+						{/* <Typography className="title" variant={'h5'}>
 							Details
-						</Typography>
+						</Typography> */}
 						<List className={'sub-section'}>
 							{member?.memberType === 'AGENT' && (
 								<ListItem className={category === 'cars' ? 'focus' : ''}>
@@ -99,12 +114,12 @@ const MemberMenu = (props: MemberMenuProps) => {
 									>
 										<div className={'flex-box'}>
 											{category === 'cars' ? (
-												<img className={'com-icon'} src={'/img/icons/homeWhite.svg'} alt={'com-icon'} />
+												<img className={'com-icon'} src={'/img/icons/car.svg'} alt={'com-icon'}  style={{ filter: 'brightness(0) invert(1)' }}  />
 											) : (
-												<img className={'com-icon'} src={'/img/icons/home.svg'} alt={'com-icon'} />
+												<img className={'com-icon'} src={'/img/icons/car.svg'} alt={'com-icon'}  style={{ filter: 'brightness(0) invert(1)' }} />
 											)}
 											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-												Cars
+												Cars -
 											</Typography>
 											<Typography className="count-title" variant="subtitle1">
 												{member?.memberCars}
@@ -125,7 +140,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 									<div className={'flex-box'}>
 										<svg
 											className={'com-icon'}
-											fill={category === 'followers' ? 'white' : 'black'}
+											fill={category === 'followers' ? 'white' : 'gray'}
 											height="800px"
 											width="800px"
 											version="1.1"
@@ -156,7 +171,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 											</g>
 										</svg>
 										<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-											Followers
+											Followers -
 										</Typography>
 										<Typography className="count-title" variant="subtitle1">
 											{member?.memberFollowers}
@@ -176,7 +191,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 									<div className={'flex-box'}>
 										<svg
 											className={'com-icon'}
-											fill={category === 'followings' ? 'white' : 'black'}
+											fill={category === 'followings' ? 'white' : 'gray'}
 											height="800px"
 											width="800px"
 											version="1.1"
@@ -207,7 +222,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 											</g>
 										</svg>
 										<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-											Followings
+											Followings -
 										</Typography>
 										<Typography className="count-title" variant="subtitle1">
 											{member?.memberFollowings}
@@ -217,11 +232,12 @@ const MemberMenu = (props: MemberMenuProps) => {
 							</ListItem>
 						</List>
 					</Stack>
-					<Stack className={'section'} sx={{ marginTop: '10px' }}>
+
+
+					
+					{/* <Stack className={'section'} sx={{ marginTop: '10px' }}>
 						<div>
-							<Typography className="title" variant={'h5'}>
-								Community
-							</Typography>
+							
 							<List className={'sub-section'}>
 								<ListItem className={category === 'articles' ? 'focus' : ''}>
 									<Link
@@ -250,8 +266,14 @@ const MemberMenu = (props: MemberMenuProps) => {
 								</ListItem>
 							</List>
 						</div>
-					</Stack>
+					</Stack> */}
+
+
+
 				</Stack>
+
+
+
 			</Stack>
 		);
 	}

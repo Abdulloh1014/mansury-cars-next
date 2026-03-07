@@ -117,13 +117,18 @@ const likeMemberHandler = async (id: string, refetch: any, query: any) => {
 		return <>MEMBER PAGE MOBILE</>;
 	} else {
 		return (
-			<div id="member-page" style={{ position: 'relative' }}>
+			<div id="member-page" style={{ position: 'relative',  }}>
 				<div className="container">
 					<Stack className={'member-page'}>
 						<Stack className={'back-frame'}>
+
+
+
 							<Stack className={'left-config'}>
 								<MemberMenu subscribeHandler={subscribeHandler} unsubscribeHandler={unsubscribeHandler} />
 							</Stack>
+
+
 							<Stack className="main-config" mb={'76px'}>
 								<Stack className={'list-config'}>
 									{category === 'cars' && <MemberCars />}
@@ -146,6 +151,10 @@ const likeMemberHandler = async (id: string, refetch: any, query: any) => {
 									{category === 'articles' && <MemberArticles />}
 								</Stack>
 							</Stack>
+
+
+
+
 						</Stack>
 					</Stack>
 				</div>
