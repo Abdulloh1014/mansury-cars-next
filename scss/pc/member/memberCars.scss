@@ -2,6 +2,7 @@
 	#member-page {
 		#member-cars-page {
 			width: 100%;
+			// background-color: rgb(130, 135, 135);
 			.main-title-box {
 				width: auto;
 				height: auto;
@@ -9,8 +10,10 @@
 				justify-content: space-between;
 				.right-box {
 					width: 315px;
+					padding-left: 30px;
+					
 					.main-title {
-						color: #181a20;
+						color: #969696;
 						font-family: $font;
 						font-size: 30px;
 						font-style: normal;
@@ -29,11 +32,11 @@
 						height: auto;
 						flex-direction: row;
 						gap: 110px;
-						padding: 18px 15px 18px 33px;
+						padding: 18px 15px 18px 113px;
 						border-radius: 12px;
-						background: #f6f6f6;
+						background: #24262b;
 						.title-text {
-							color: #181a20;
+							color: #777777;
 							font-family: $font;
 							font-size: 15px;
 							font-style: normal;
@@ -49,12 +52,13 @@
 						height: auto;
 						flex-direction: row;
 						align-items: center;
-						margin-top: 30px;
-						padding-bottom: 30px;
+						margin-top: 10px;
+						padding-left: 30px;
+						padding-bottom: 10px;
 						border-bottom: 1px solid #ddd;
 						.image-box {
-							width: 115px;
-							height: 90px;
+							width: 175px;
+							height: 150px;
 							overflow: hidden;
 							margin-right: 25px;
 							padding-top: 1px;
@@ -73,7 +77,7 @@
 							cursor: pointer;
 							.name {
 								margin-bottom: 8px;
-								color: #181a20;
+								color: #a9a9a9;
 								font-family: $font;
 								font-size: 13px;
 								font-style: normal;
@@ -90,7 +94,7 @@
 								line-height: normal;
 							}
 							.price {
-								color: #181a20;
+								color: #a3a3a3;
 								font-family: $font;
 								font-size: 15px;
 								font-style: normal;
@@ -105,7 +109,7 @@
 							justify-content: center;
 							margin-right: 77px;
 							.date {
-								color: #181a20;
+								color: #909090;
 								font-family: $font;
 								font-size: 12px;
 								font-style: normal;
@@ -141,7 +145,7 @@
 							justify-content: center;
 							margin-right: 75px;
 							.views {
-								color: #181a20;
+								color: #b5b5b5;
 								font-family: $font;
 								font-size: 12px;
 								font-style: normal;
@@ -151,23 +155,36 @@
 						}
 					}
 					.pagination-config {
-						width: 100%;
-						height: auto;
-						justify-content: center;
-						align-items: center;
-						margin-top: 30px;
-						.total-result {
-							p {
-								color: #181a20;
-								text-align: center;
-								font-family: $font;
-								font-size: 14px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
-					}
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px; // Pagination va matn orasidagi masofa
+    margin-top: 50px;
+    padding-bottom: 30px;
+
+    .pagination-box {
+        display: flex;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.05); // Juda och shaffof fon
+        padding: 10px 20px;
+        border-radius: 50px; // Oval shakl
+        border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .total-result {
+        p {
+            color: #666; // Biroq xiraroq kulrang
+            font-size: 18px;
+            letter-spacing: 0.5px;
+            text-transform: uppercase; // Hammasi katta harf
+            
+            strong {
+                color: #a4a4ad; // Son qismi yorqinroq
+            }
+        }
+    }
+}
 				}
 			}
 		}

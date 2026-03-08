@@ -82,19 +82,34 @@ useEffect(() => {
 
 						{agentCars.length !== 0 && (
 							<Stack className="pagination-config">
-								<Stack className="pagination-box">
-									<Pagination
-										count={Math.ceil(total / searchFilter.limit)}
-										page={searchFilter.page}
-										shape="circular"
-										color="primary"
-										onChange={paginationHandler}
-									/>
-								</Stack>
-								<Stack className="total-result">
-									<Typography>{total} car available</Typography>
-								</Stack>
-							</Stack>
+    <Stack className="pagination-box">
+        <Pagination
+            count={Math.ceil(total / searchFilter.limit)}
+            page={searchFilter.page}
+            shape="rounded" // Doira emas, biroz burchakli zamonaviyroq ko'rinish
+            onChange={paginationHandler}
+            sx={{
+                '& .MuiPaginationItem-root': {
+                    color: '#969696',
+                    fontFamily: 'inherit',
+                    '&.Mui-selected': {
+                        backgroundColor: '#fff', // Tanlanganda oq fon
+                        color: '#000', // Qora raqam
+                        '&:hover': {
+                            backgroundColor: '#cccccc',
+                        },
+                    },
+                    '&:hover': {
+                        backgroundColor: 'rgba(255, 255, 255, 0.1)',
+                    },
+                },
+            }}
+        />
+    </Stack>
+    <Stack className="total-result">
+        <Typography>Total: <strong>{total}</strong> cars found</Typography>
+    </Stack>
+</Stack>
 						)}
 					</Stack>
 				</Stack>

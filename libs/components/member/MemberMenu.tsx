@@ -98,9 +98,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 
 				<Stack className={'sections'}>
 					<Stack className={'section'}>
-						{/* <Typography className="title" variant={'h5'}>
-							Details
-						</Typography> */}
+						
 						<List className={'sub-section'}>
 							{member?.memberType === 'AGENT' && (
 								<ListItem className={category === 'cars' ? 'focus' : ''}>
@@ -119,7 +117,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 												<img className={'com-icon'} src={'/img/icons/car.svg'} alt={'com-icon'}  style={{ filter: 'brightness(0) invert(1)' }} />
 											)}
 											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-												Cars -
+												Cars 
 											</Typography>
 											<Typography className="count-title" variant="subtitle1">
 												{member?.memberCars}
@@ -235,40 +233,7 @@ const MemberMenu = (props: MemberMenuProps) => {
 
 
 					
-					{/* <Stack className={'section'} sx={{ marginTop: '10px' }}>
-						<div>
-							
-							<List className={'sub-section'}>
-								<ListItem className={category === 'articles' ? 'focus' : ''}>
-									<Link
-										href={{
-											pathname: '/member',
-											query: { ...router.query, category: 'articles' },
-										}}
-										scroll={false}
-										style={{ width: '100%' }}
-									>
-										<div className={'flex-box'}>
-											{category === 'articles' ? (
-												<img className={'com-icon'} src={'/img/icons/discoveryWhite.svg'} alt={'com-icon'} />
-											) : (
-												<img className={'com-icon'} src={'/img/icons/discovery.svg'} alt={'com-icon'} />
-											)}
-
-											<Typography className={'sub-title'} variant={'subtitle1'} component={'p'}>
-												Articles
-											</Typography>
-											<Typography className="count-title" variant="subtitle1">
-												{member?.memberArticles}
-											</Typography>
-										</div>
-									</Link>
-								</ListItem>
-							</List>
-						</div>
-					</Stack> */}
-
-
+				
 
 				</Stack>
 
