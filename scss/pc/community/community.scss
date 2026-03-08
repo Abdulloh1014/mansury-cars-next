@@ -1,186 +1,179 @@
 #pc-wrap {
-	#community-list-page {
-		position: relative;
-		.container {
-			padding-top: 100px;
-			flex-direction: column;
-			gap: 64px;
-			.main-box {
-				flex-direction: row;
-				gap: 31px;
-				.left-config {
-					width: 266px;
-					height: fit-content;
-					gap: 30px;
-					padding: 30px 15px 57px 21px;
-					margin-top: 100px;
-					margin-bottom: 50px;
-					border-radius: 12px;
-					border: 1px solid rgba(196, 196, 196, 0.79);
-					background: #fff;
-					box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
-					.image-info {
-						width: 100%;
-						flex-direction: row;
-						gap: 11px;
-						img {
-							width: 80px;
-							height: 80px;
-							border-radius: 50%;
-							object-fit: cover;
-						}
-						.community-name {
-							.name {
-								margin-top: 15px;
-								color: #181a20;
-								font-family: $font;
-								font-size: 15px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-							}
-						}
-					}
-					.tab-button {
-						width: 216.612px;
-						height: 36px;
-						padding: 0;
-						justify-content: center;
-						align-items: center;
-						border-radius: 6px;
-						border: 1px solid #181a20;
-						margin-bottom: 10px;
-						color: #181a20;
-						font-family: $font;
-						font-size: 14px;
-						font-style: normal;
-						font-weight: 500;
-						line-height: 150%;
-						letter-spacing: -0.266px;
-					}
-					.tab-button.active {
-						width: 216.612px;
-						height: 36px;
-						padding: 0;
-						justify-content: center;
-						align-items: center;
-						background-color: #000000;
-						color: #ffffff;
-						border-radius: 6px;
-						margin-bottom: 10px;
-						font-family: $font;
-						font-size: 14px;
-						font-style: normal;
-						font-weight: 500;
-						line-height: 150%;
-						letter-spacing: -0.266px;
-					}
-				}
-				.right-config {
-					width: 100%;
-					height: auto;
-					.panel-config {
-						width: 100%;
-						height: auto;
-						.title-box {
-							width: 100%;
-							height: auto;
-							flex-direction: row;
-							justify-content: space-between;
-							align-items: center;
-							margin-bottom: 45px;
-							.left {
-								width: 60%;
-								height: auto;
-								.title {
-									color: #000;
-									font-family: $font;
-									font-size: 24px;
-									font-style: normal;
-									font-weight: 600;
-									line-height: normal;
-									letter-spacing: 0.24px;
-								}
-								.sub-title {
-									color: #757575;
-									font-family: $font;
-									font-size: 13px;
-									font-style: normal;
-									font-weight: 700;
-									line-height: normal;
-									letter-spacing: 0.325px;
-								}
-							}
-							.right {
-								width: 91px;
-								height: 32px;
-								border-radius: 4px;
-								background: #eb6753;
-								color: #fff;
-								font-family: $font;
-								font-size: 13px;
-								font-style: normal;
-								font-weight: 500;
-								line-height: normal;
-								letter-spacing: 0.39px;
-							}
-						}
-						.list-box {
-							width: 100%;
-							height: auto;
-							flex-direction: row;
-							flex-wrap: wrap;
-							gap: 30px;
-						}
-					}
-				}
-			}
-			.similar-articles-config {
-				width: 100%;
-				height: auto;
-				gap: 75px;
-				padding: 30px 9px 28px 9px;
-				border-radius: 10px;
-				border: 1px solid #c4c4c4;
-				.similar-articles-title {
-					padding-left: 56px;
-					color: #000;
-					font-family: $font;
-					font-size: 30px;
-					font-style: normal;
-					font-weight: 600;
-					line-height: normal;
-				}
-				.articles-box-row {
-					width: 100%;
-					height: auto;
-					flex-direction: row;
-					gap: 5px;
-				}
-			}
-			.pagination-config {
-				width: 100%;
-				align-items: center;
-				justify-content: center;
-				margin-bottom: 50px;
-				gap: 20px;
-				padding-left: 270px;
-				.pagination-box {
-					align-items: center;
-					justify-content: center;
-				}
-				.total-result {
-					p {
-						color: #181a20;
-						text-align: center;
-						font-family: $font;
-						font-size: 14px;
-						font-style: normal;
-						font-weight: 400;
-						line-height: 26px;
-					}
-				}
-			}
-		}
-	}
+    #community-list-page {
+        background-color: #0f1117;
+        min-height: 100vh;
+
+        // ─── HERO BANNER ───────────────────────────────────────────────
+        .community-hero {
+            position: relative;
+            width: 100%;
+            height: 380px;
+            background-image: url('/img/banner/mans-logo2.jpg'); // replace with your image
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: flex-end;
+            overflow: hidden;
+
+            .hero-overlay {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to bottom,
+                    rgba(0, 0, 0, 0.25) 0%,
+                    rgba(0, 0, 0, 0.65) 100%
+                );
+            }
+
+            .hero-content {
+                position: relative;
+                z-index: 1;
+                padding: 48px 80px;
+
+                .hero-label {
+                    color: rgba(255, 255, 255, 0.7);
+                    font-family: $font;
+                    font-size: 13px;
+                    font-weight: 500;
+                    letter-spacing: 2px;
+                    text-transform: uppercase;
+                    margin-bottom: 12px;
+                }
+
+                .hero-title {
+                    color: #ffffff;
+                    font-family: $font;
+                    font-size: 52px;
+                    font-weight: 700;
+                    line-height: 1.1;
+                    letter-spacing: -0.5px;
+                }
+            }
+        }
+
+        // ─── CONTAINER ─────────────────────────────────────────────────
+        .container {
+            padding: 48px 80px 80px;
+            flex-direction: column;
+            gap: 40px;
+
+            // ─── TAB BAR ───────────────────────────────────────────────
+            .tab-bar {
+                flex-direction: row;
+                align-items: center;
+                gap: 10px;
+                flex-wrap: wrap;
+
+                .tab-pill {
+                    height: 40px;
+                    padding: 0 22px;
+                    border-radius: 999px;
+                    border: 1px solid rgba(255, 255, 255, 0.2);
+                    background: transparent;
+                    color: rgba(255, 255, 255, 0.75);
+                    font-family: $font;
+                    font-size: 14px;
+                    font-weight: 500;
+                    cursor: pointer;
+                    transition: all 0.2s ease;
+                    white-space: nowrap;
+
+                    &:hover {
+                        border-color: rgba(255, 255, 255, 0.5);
+                        color: #fff;
+                    }
+
+                    &.active {
+                        background: #ffffff;
+                        color: #0f1117;
+                        border-color: #ffffff;
+                        font-weight: 600;
+                    }
+                }
+
+                .write-btn {
+                    margin-left: auto;
+                    height: 40px;
+                    padding: 0 24px;
+                    border-radius: 8px;
+                    background: #eb6753;
+                    color: #fff;
+                    font-family: $font;
+                    font-size: 14px;
+                    font-weight: 500;
+                    letter-spacing: 0.3px;
+                    text-transform: none;
+
+                    &:hover {
+                        background: #d45842;
+                    }
+                }
+            }
+
+            // ─── ARTICLES GRID ─────────────────────────────────────────
+            .articles-grid {
+                width: 100%;
+                flex-direction: row;
+                flex-wrap: wrap;
+                gap: 28px;
+
+                // Each card fills 3-column grid
+                > * {
+                    width: calc(33.333% - 19px);
+                }
+            }
+
+            // ─── NO DATA ───────────────────────────────────────────────
+            .no-data {
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                padding: 80px 0;
+                gap: 16px;
+
+                img {
+                    width: 48px;
+                    opacity: 0.4;
+                }
+
+                p {
+                    color: rgba(255, 255, 255, 0.4);
+                    font-family: $font;
+                    font-size: 15px;
+                }
+            }
+
+            // ─── PAGINATION ────────────────────────────────────────────
+            .pagination-config {
+                width: 100%;
+                align-items: center;
+                justify-content: center;
+                gap: 16px;
+
+                .pagination-box {
+                    align-items: center;
+                    justify-content: center;
+
+                    .MuiPaginationItem-root {
+                        color: rgba(255, 255, 255, 0.6);
+                        border-color: rgba(255, 255, 255, 0.15);
+
+                        &.Mui-selected {
+                            background: #ffffff;
+                            color: #0f1117;
+                        }
+                    }
+                }
+
+                .total-result {
+                    p {
+                        color: rgba(255, 255, 255, 0.45);
+                        font-family: $font;
+                        font-size: 13px;
+                        font-weight: 400;
+                    }
+                }
+            }
+        }
+    }
 }
