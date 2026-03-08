@@ -101,14 +101,7 @@ const Community: NextPage = ({ initialInput, ...props }: T) => {
 
     return (
         <div id="community-list-page">
-            {/* Hero Banner */}
-            {/* <div className="community-hero">
-                <div className="hero-overlay" />
-                <div className="hero-content">
-                    <Typography className="hero-label">[ COMMUNITY ]</Typography>
-                    <Typography className="hero-title">Community Boards</Typography>
-                </div>
-            </div> */}
+           
 
             <div className="container">
                 {/* Horizontal Tab Bar */}
