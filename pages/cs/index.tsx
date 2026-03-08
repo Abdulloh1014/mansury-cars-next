@@ -18,53 +18,42 @@ const CS: NextPage = () => {
 	const device = useDeviceDetect();
 	const router = useRouter();
 
-	/** HANDLERS **/
 	const changeTabHandler = (tab: string) => {
-		router.push(
-			{
-				pathname: '/cs',
-				query: { tab: tab },
-			},
-			undefined,
-			{ scroll: false },
-		);
+		router.push({ pathname: '/cs', query: { tab } }, undefined, { scroll: false });
 	};
+
 	const tab = router.query.tab ?? 'notice';
 
 	if (device === 'mobile') {
 		return <h1>CS PAGE MOBILE</h1>;
 	} else {
 		return (
-			<Stack className={'cs-page'}>
+			<Stack className={'cs-page'} style={{ background: 'linear-gradient(180deg, #0a1a1a 0%, #0d1f1f 100%)', minHeight: '100vh' }}>
 				<Stack className={'container'}>
 					<Box component={'div'} className={'cs-main-info'}>
 						<Box component={'div'} className={'info'}>
-							<span>Cs center</span>
-							<p>I will answer your questions</p>
+							<div className={'info-badge'}>Support</div>
+							<span>CS Center</span>
+							<p>We're here to help you with anything you need</p>
 						</Box>
 						<Box component={'div'} className={'btns'}>
 							<div
 								className={tab == 'notice' ? 'active' : ''}
-								onClick={() => {
-									changeTabHandler('notice');
-								}}
+								onClick={() => changeTabHandler('notice')}
 							>
-								Notice
+								<span className="tab-icon">📢</span> Notice
 							</div>
 							<div
 								className={tab == 'faq' ? 'active' : ''}
-								onClick={() => {
-									changeTabHandler('faq');
-								}}
+								onClick={() => changeTabHandler('faq')}
 							>
-								FAQ
+								<span className="tab-icon">💬</span> FAQ
 							</div>
 						</Box>
 					</Box>
 
 					<Box component={'div'} className={'cs-content'}>
 						{tab === 'notice' && <Notice />}
-
 						{tab === 'faq' && <Faq />}
 					</Box>
 				</Stack>

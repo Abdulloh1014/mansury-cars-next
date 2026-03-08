@@ -307,7 +307,7 @@ if (getCarLoading) {
 							<Stack className={'images'}>
 								<Stack className={'main-image'}>
 									<img
-										src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/car/bigImage.png'}
+										src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/banner/mans-sallon.webp'}
 										alt={'main-image'}
 									/>
 								</Stack>
@@ -459,7 +459,7 @@ if (getCarLoading) {
 								<Stack className={'floor-plans-config'}>
 									<Typography className={'title'}>Floor Plans</Typography>
 									<Stack className={'image-box'}>
-										<img src={'/img/car/floorPlan.png'} alt={'image'} />
+										<img src={'/img/banner/mans-sallon.webp'} alt={'image'} />
 									</Stack>
 								</Stack>
 								<Stack className={'address-config'}>
