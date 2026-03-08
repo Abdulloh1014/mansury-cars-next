@@ -199,7 +199,6 @@ const Top = () => {
 							</Link>
 						</Box>
 
-
 						<Box component={'div'} className={'user-box'}>
 							{user?._id ? (
 								<>

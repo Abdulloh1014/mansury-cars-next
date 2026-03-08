@@ -56,7 +56,7 @@ const CarBigCard = (props: CarBigCardProps) => {
 						</div>
 						<div>
 							<img src="/img/icons/room.svg" alt="" />
-							<span>{car?.carDoors} rooms</span>
+							<span>{car?.carDoors} roomsss</span>
 						</div>
 						<div>
 							<img src="/img/icons/expand.svg" alt="" />

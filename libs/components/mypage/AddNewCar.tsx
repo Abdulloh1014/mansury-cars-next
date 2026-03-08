@@ -115,7 +115,11 @@ const {
 			const responseImages = response.data.data.imagesUploader;
 
 			console.log('+responseImages: ', responseImages);
-			setInsertCarData({ ...insertCarData, carImages: responseImages });
+			// setInsertCarData({ ...insertCarData, carImages: responseImages });
+			setInsertCarData(prev => ({ 
+              ...prev, 
+             carImages: [...prev.carImages, ...responseImages] 
+             }));
 		} catch (err: any) {
 			console.log('err: ', err.message);
 			await sweetMixinErrorAlert(err.message);

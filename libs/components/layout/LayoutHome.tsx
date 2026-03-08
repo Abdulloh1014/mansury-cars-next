@@ -70,7 +70,7 @@ const carsDataFromBackend = data?.getCars?.list ?? [];
 					</Head>
 					<Stack id="pc-wrap">
 						<Stack id={'top'}>
-							<Top />
+							<Top/>
 						</Stack>
 
 						<Stack className={'header-main'}>
