@@ -6,192 +6,208 @@
 			display: flex;
 			flex-direction: column;
 			gap: 20px;
+
 			.main-title-box {
 				width: auto;
 				height: auto;
 				flex-direction: row;
 				justify-content: space-between;
+
 				.right-box {
 					width: 315px;
+
 					.main-title {
-						color: #181a20;
+						color: #f8f8f8;
 						font-family: $font;
 						font-size: 30px;
-						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
 						letter-spacing: 0.6px;
 						text-transform: capitalize;
 					}
+
 					.sub-title {
-						color: #181a20;
+						color: rgba(255, 255, 255, 0.4);
 						font-family: $font;
 						font-size: 14px;
-						font-style: normal;
 						font-weight: 400;
 						line-height: 26px;
 					}
 				}
 			}
-			.top-box {
+
+			// ── Shared card style ──────────────────────────────
+			.top-box,
+			.bottom-box {
 				width: 100%;
 				padding: 30px;
-				margin-top: 35px;
 				gap: 25px;
 				border-radius: 12px;
-				border: 1px solid #c4c4c4;
-				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
+				border: 1px solid rgba(255, 255, 255, 0.07);
+				background: #1c1f27;
+				box-shadow: none;
+
+				.title {
+					color: rgba(255, 255, 255, 0.75);
+					font-family: $font;
+					font-weight: 600;
+					line-height: normal;
+				}
+
+				input {
+					height: 55px;
+					outline: none;
+					padding: 0px 15px;
+					border-radius: 8px;
+					border: 1px solid rgba(255, 255, 255, 0.1);
+					background: rgba(255, 255, 255, 0.04);
+					color: rgba(255, 255, 255, 0.8);
+					font-family: $font;
+					font-size: 14px;
+					transition: border-color 0.2s;
+
+					&::placeholder {
+						color: rgba(255, 255, 255, 0.2);
+						font-family: $font;
+						font-size: 12px;
+						font-weight: 400;
+						line-height: 26px;
+					}
+
+					&:focus { border-color: rgba(255, 255, 255, 0.25); }
+				}
+			}
+
+			// ── TOP BOX ───────────────────────────────────────
+			.top-box {
+				margin-top: 35px;
+
 				.photo-box {
 					gap: 23px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 17px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
+
+					.title { font-size: 17px; }
+
 					.image-big-box {
 						flex-direction: row;
 						gap: 50px;
+
 						.image-box {
 							position: relative;
 							width: 194px;
 							height: 157px;
+
 							img {
 								width: 100%;
 								height: 100%;
 								object-fit: cover;
 								border-radius: 15px;
-								object-fit: cover;
+								border: 1px solid rgba(255, 255, 255, 0.08);
 							}
+
 							.delete-box {
 								position: absolute;
 								top: 10px;
 								left: 10px;
 								width: 36px;
 								height: 32px;
-								background-color: #ffffff;
+								background: rgba(17, 19, 24, 0.8);
+								backdrop-filter: blur(6px);
 								align-items: center;
 								justify-content: center;
-								border-radius: 12px;
+								border-radius: 10px;
+								border: 1px solid rgba(255, 255, 255, 0.1);
+								cursor: pointer;
+								transition: background 0.2s;
+
+								&:hover { background: rgba(235, 103, 83, 0.2); }
 							}
 						}
+
 						.upload-big-box {
 							align-self: flex-end;
 							gap: 22px;
+
 							.labeler {
 								display: flex;
-								width: 210.023px;
-								height: 40.135px;
+								width: 210px;
+								height: 40px;
 								justify-content: center;
 								align-items: center;
 								cursor: pointer;
 								border-radius: 12px;
-								border: 1px solid #181a20;
+								border: 1px solid rgba(255, 255, 255, 0.2);
+								background: transparent;
+								transition: all 0.2s;
+
+								&:hover {
+									background: rgba(255, 255, 255, 0.06);
+									border-color: rgba(255, 255, 255, 0.35);
+								}
+
 								p {
-									color: #181a20;
+									color: rgba(255, 255, 255, 0.7);
 									font-family: $font;
 									font-size: 13px;
-									font-style: normal;
 									font-weight: 600;
 									line-height: normal;
 								}
 							}
+
 							.upload-text {
-								color: #181a20;
+								color: rgba(255, 255, 255, 0.25);
 								font-family: $font;
 								font-size: 12px;
-								font-style: normal;
 								font-weight: 400;
 								line-height: 26px;
 							}
 						}
 					}
 				}
+
 				.small-input-box {
 					width: 100%;
 					height: auto;
 					flex-direction: row;
 					flex-wrap: wrap;
 					gap: 30px;
+
 					.input-box {
 						width: 48%;
 						gap: 10px;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						input {
-							height: 55px;
-							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
+
+						.title { font-size: 12px; }
 					}
 				}
+
 				.address-box {
 					gap: 10px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
-					input {
-						height: 55px;
-						outline: none;
-						padding: 0px 15px;
-						border-radius: 8px;
-						border: 1px solid #ddd;
-						::placeholder {
-							color: #717171;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: 26px;
-						}
-					}
+					.title { font-size: 12px; }
 				}
+
 				.about-me-box {
 					gap: 10px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 12px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
+
+					.title { font-size: 12px; }
+
 					.about-textarea {
 						height: 170px;
 						padding: 20px 15px;
 						border-radius: 8px;
-						border: 1px solid #ddd;
-						color: #717171;
+						border: 1px solid rgba(255, 255, 255, 0.1);
+						background: rgba(255, 255, 255, 0.04);
+						color: rgba(255, 255, 255, 0.7);
 						font-family: $font;
 						font-size: 12px;
-						font-style: normal;
 						font-weight: 400;
 						line-height: 26px;
+						resize: none;
+						outline: none;
+						transition: border-color 0.2s;
+
+						&::placeholder { color: rgba(255, 255, 255, 0.2); }
+						&:focus { border-color: rgba(255, 255, 255, 0.25); }
 					}
+
 					.update-button {
 						display: flex;
 						width: 170px;
@@ -202,99 +218,55 @@
 						align-self: flex-end;
 						margin-top: 30px;
 						border-radius: 12px;
-						background-color: #000000;
+						background: #ffffff;
+						cursor: pointer;
+						transition: opacity 0.2s;
+
+						&:hover { opacity: 0.88; }
+
 						p {
-							color: #fff;
+							color: #111318;
 							font-family: $font;
 							font-size: 13px;
-							font-style: normal;
 							font-weight: 600;
 							line-height: normal;
 						}
 					}
+
 					button:disabled {
-						background: #181a2045;
+						opacity: 0.3;
+						cursor: not-allowed;
 					}
 				}
 			}
+
+			// ── BOTTOM BOX ────────────────────────────────────
 			.bottom-box {
-				width: 100%;
-				padding: 30px;
-				gap: 25px;
-				border-radius: 12px;
-				border: 1px solid #c4c4c4;
-				background: #fff;
-				box-shadow: 0px 1px 4px 0px rgba(24, 26, 32, 0.07);
 				.top-inner-box {
 					gap: 20px;
-					.title {
-						color: #181a20;
-						font-family: $font;
-						font-size: 15px;
-						font-style: normal;
-						font-weight: 600;
-						line-height: normal;
-					}
+
+					.title { font-size: 15px; }
+
 					.old-password-box {
 						gap: 10px;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						input {
-							width: 50%;
-							height: 55px;
-							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
+						.title { font-size: 12px; }
+
+						input { width: 50%; }
 					}
 				}
+
 				.bottom-inner-box {
 					width: 100%;
 					flex-direction: row;
 					gap: 45px;
+
 					.new-password-box {
 						width: 100%;
 						gap: 10px;
-						.title {
-							color: #181a20;
-							font-family: $font;
-							font-size: 12px;
-							font-style: normal;
-							font-weight: 600;
-							line-height: normal;
-						}
-						input {
-							height: 55px;
-							outline: none;
-							padding: 0px 15px;
-							border-radius: 8px;
-							border: 1px solid #ddd;
-							::placeholder {
-								color: #717171;
-								font-family: $font;
-								font-size: 12px;
-								font-style: normal;
-								font-weight: 400;
-								line-height: 26px;
-							}
-						}
+						.title { font-size: 12px; }
 					}
 				}
+
 				.change-password {
 					display: flex;
 					width: 170px;
@@ -305,12 +277,16 @@
 					align-self: flex-end;
 					margin-top: 18px;
 					border-radius: 12px;
-					background-color: #000000;
+					background: #ffffff;
+					cursor: pointer;
+					transition: opacity 0.2s;
+
+					&:hover { opacity: 0.88; }
+
 					p {
-						color: #fff;
+						color: #111318;
 						font-family: $font;
 						font-size: 13px;
-						font-style: normal;
 						font-weight: 600;
 						line-height: normal;
 					}

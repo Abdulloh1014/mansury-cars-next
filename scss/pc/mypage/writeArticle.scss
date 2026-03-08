@@ -2,80 +2,253 @@
 	#write-article-page {
 		width: 100%;
 		height: auto;
+
 		.main-title-box {
 			width: auto;
 			height: auto;
 			flex-direction: row;
 			justify-content: space-between;
+
 			.right-box {
 				width: 315px;
+
 				.main-title {
-					color: #181a20;
+					color: #f8f8f8;
 					font-family: $font;
 					font-size: 30px;
-					font-style: normal;
 					font-weight: 600;
 					line-height: normal;
 					letter-spacing: 0.6px;
 					text-transform: capitalize;
 				}
+
 				.sub-title {
-					color: #181a20;
+					color: rgba(255, 255, 255, 0.4);
 					font-family: $font;
 					font-size: 14px;
-					font-style: normal;
 					font-weight: 400;
 					line-height: 26px;
 				}
 			}
 		}
-		
+
 		.right-wrap {
 			width: 100%;
 			height: auto;
+
 			.cont_bd {
 				padding: 30px 0px;
+
 				.form_hd > div {
 					margin-bottom: 16px;
 				}
 			}
+
 			.flex-space {
 				.btn-next {
-					background: #87cdf9;
-					color: #000000;
+					background: rgba(255, 255, 255, 0.1);
+					color: rgba(255, 255, 255, 0.8);
+					border: 1px solid rgba(255, 255, 255, 0.15);
+					border-radius: 8px;
+					transition: all 0.2s;
+
+					&:hover {
+						background: rgba(255, 255, 255, 0.16);
+						color: #fff;
+					}
 				}
 			}
+
 			.select {
 				width: 214px;
 				height: 40px;
 				font-size: 14px;
+				border-radius: 8px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				background: rgba(255, 255, 255, 0.04);
+				color: rgba(255, 255, 255, 0.7);
+				padding-left: 12px;
+				outline: none;
+				appearance: none;
+				cursor: pointer;
+				font-family: $font;
+
+				option { background: #1c1f27; color: #fff; }
+
+				&:focus { border-color: rgba(255, 255, 255, 0.25); }
 			}
+
 			.input-tit {
 				font-size: 14px;
 				padding: 0 16px;
 				margin-top: 16px;
-				border: 1px solid #eee;
-				border-radius: 4px;
+				border: 1px solid rgba(255, 255, 255, 0.1);
+				border-radius: 8px;
+				background: rgba(255, 255, 255, 0.04);
+				color: rgba(255, 255, 255, 0.8);
+				font-family: $font;
+				outline: none;
+				transition: border-color 0.2s;
+
+				&::placeholder { color: rgba(255, 255, 255, 0.2); }
+				&:focus { border-color: rgba(255, 255, 255, 0.25); }
 			}
+
 			.btn-flex { margin-top: 40px; }
 		}
+
+		// Submit button
 		.css-guvl2y-MuiButtonBase-root-MuiButton-root {
-			background: #87cdf9;
-			svg {
-				fill: #000000;
+			background: rgba(255, 255, 255, 0.1);
+			border: 1px solid rgba(255, 255, 255, 0.15);
+			color: rgba(255, 255, 255, 0.8);
+			border-radius: 8px;
+			transition: all 0.2s;
+
+			&:hover {
+				background: rgba(255, 255, 255, 0.16);
+			}
+
+			svg { fill: rgba(255, 255, 255, 0.7); }
+		}
+
+		// Toast UI Editor — dark override
+		.toastui-editor-defaultUI {
+			border: 1px solid rgba(255, 255, 255, 0.08) !important;
+			border-radius: 12px !important;
+			overflow: hidden;
+			background: #1c1f27 !important;
+
+			button {
+				padding: 4px;
+				color: rgba(255, 255, 255, 0.6);
+
+				&:hover { background: rgba(255, 255, 255, 0.07); }
+			}
+
+			// Toolbar
+			.toastui-editor-toolbar {
+				background: #16181f !important;
+				border-bottom: 1px solid rgba(255, 255, 255, 0.07) !important;
+			}
+
+			.toastui-editor-toolbar-group button {
+				color: rgba(255, 255, 255, 0.55);
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.07) !important;
+					color: #fff;
+				}
+			}
+
+			.toastui-editor-toolbar-divider {
+				background: rgba(255, 255, 255, 0.08) !important;
+			}
+
+			// Editor write area
+			.toastui-editor-md-container,
+			.toastui-editor-ww-container {
+				background: #1c1f27 !important;
+			}
+
+			.ProseMirror,
+			.toastui-editor-contents,
+			.CodeMirror,
+			.CodeMirror-lines,
+			.cm-s-default {
+				background: #1c1f27 !important;
+				color: rgba(255, 255, 255, 0.85) !important;
+				caret-color: #fff;
+			}
+
+			// Markdown mode — all text spans
+			.cm-s-default .cm-header,
+			.cm-s-default .cm-strong,
+			.cm-s-default .cm-em,
+			.cm-s-default .cm-link,
+			.cm-s-default .cm-url,
+			.cm-s-default .cm-string,
+			.cm-s-default .cm-variable-2,
+			.cm-s-default span {
+				color: rgba(255, 255, 255, 0.85) !important;
+			}
+
+			// WYSIWYG mode
+			.ProseMirror p,
+			.ProseMirror h1,
+			.ProseMirror h2,
+			.ProseMirror h3,
+			.ProseMirror h4,
+			.ProseMirror li,
+			.ProseMirror blockquote,
+			.toastui-editor-contents p,
+			.toastui-editor-contents h1,
+			.toastui-editor-contents h2,
+			.toastui-editor-contents h3,
+			.toastui-editor-contents li {
+				color: rgba(255, 255, 255, 0.85) !important;
+			}
+
+			.CodeMirror-cursor { border-left-color: #fff !important; }
+
+			.toastui-editor-md-preview {
+				background: #16181f !important;
+				border-left: 1px solid rgba(255, 255, 255, 0.06) !important;
+				color: rgba(255, 255, 255, 0.75) !important;
+			}
+
+			// Status bar
+			.toastui-editor-status-bar {
+				background: #16181f !important;
+				border-top: 1px solid rgba(255, 255, 255, 0.06) !important;
+				color: rgba(255, 255, 255, 0.25) !important;
 			}
 		}
-		.toastui-editor-popup-body { padding: 20px; }
+
+		// Toast UI popup
+		.toastui-editor-popup {
+			background: #1c1f27 !important;
+			border: 1px solid rgba(255, 255, 255, 0.1) !important;
+			border-radius: 10px !important;
+			box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5) !important;
+
+			.toastui-editor-popup-body {
+				padding: 20px;
+			}
+
+			button {
+				background: rgba(255, 255, 255, 0.08);
+				border: 1px solid rgba(255, 255, 255, 0.12);
+				color: rgba(255, 255, 255, 0.7);
+				border-radius: 6px;
+				transition: all 0.15s;
+
+				&:hover {
+					background: rgba(255, 255, 255, 0.14);
+					color: #fff;
+				}
+			}
+		}
+
+		.youtube-div {
+			display: flex;
+			flex-direction: column;
+			gap: 8px;
+		}
+
 		.youtube-input {
 			padding: 8px 16px;
-			border: 1px solid #ddd;
-		}
-		.youtube-div {
-			display:flex;
-			flex-direction: column;
-		}
-		.toastui-editor-defaultUI button {
-			padding: 4px;
+			border: 1px solid rgba(255, 255, 255, 0.1);
+			border-radius: 8px;
+			background: rgba(255, 255, 255, 0.04);
+			color: rgba(255, 255, 255, 0.8);
+			font-family: $font;
+			font-size: 14px;
+			outline: none;
+			transition: border-color 0.2s;
+
+			&::placeholder { color: rgba(255, 255, 255, 0.2); }
+			&:focus { border-color: rgba(255, 255, 255, 0.25); }
 		}
 	}
 }

@@ -45,60 +45,39 @@ const MyPage: NextPage = () => {
 
 	/** HANDLERS **/
 	const subscribeHandler = async (id: string, refetch: any, query: any) => {
-  try {
-    console.log('id: ', id);
-    if (!id) throw new Error(Messages.error1);
-    if (!user._id) throw new Error(Messages.error2);
+		try {
+			console.log('id: ', id);
+			if (!id) throw new Error(Messages.error1);
+			if (!user._id) throw new Error(Messages.error2);
+			await subscribe({ variables: { input: id } });
+			await refetch({ input: query });
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
 
-    await subscribe({
-      variables: {
-        input: id,
-      },
-    });
+	const unsubscribeHandler = async (id: string, refetch: any, query: any) => {
+		try {
+			if (!id) throw new Error(Messages.error1);
+			if (!user._id) throw new Error(Messages.error2);
+			await unsubscribe({ variables: { input: id } });
+			await refetch({ input: query });
+		} catch (err: any) {
+			sweetErrorHandling(err).then();
+		}
+	};
 
-    await sweetTopSmallSuccessAlert('Subscribed!', 800);
-    await refetch({ input: query });
-  } catch (err: any) {
-    sweetErrorHandling(err).then();
-  }
-};
-
-const unsubscribeHandler = async (id: string, refetch: any, query: any) => {
-  try {
-    if (!id) throw new Error(Messages.error1);
-    if (!user._id) throw new Error(Messages.error2);
-
-    await unsubscribe({
-      variables: {
-        input: id,
-      },
-    });
-
-    await sweetTopSmallSuccessAlert('Unsubscribed!', 800);
-    await refetch({ input: query });
-  } catch (err: any) {
-    sweetErrorHandling(err).then();
-  }
-};
-
-const likeMemberHandler = async (id: string, refetch: any, query: any) => {
-  try {
-    if (!id) return;
-    if (!user._id) throw new Error(Messages.error2);
-
-    await likeTargetMember({
-      variables: {
-        input: id,
-      },
-    });
-
-    await sweetTopSmallSuccessAlert('Success!', 800);
-    await refetch({ input: query });
-  } catch (err: any) {
-    console.log('ERROR, likeMemberHandler:', err.message);
-    sweetMixinErrorAlert(err.message).then();
-  }
-};
+	const likeMemberHandler = async (id: string, refetch: any, query: any) => {
+		try {
+			if (!id) return;
+			if (!user._id) throw new Error(Messages.error2);
+			await likeTargetMember({ variables: { input: id } });
+			await refetch({ input: query });
+		} catch (err: any) {
+			console.log('ERROR, likeMemberHandler:', err.message);
+			sweetMixinErrorAlert(err.message).then();
+		}
+	};
 
 	const redirectToMemberPageHandler = async (memberId: string) => {
 		try {
@@ -109,54 +88,51 @@ const likeMemberHandler = async (id: string, refetch: any, query: any) => {
 		}
 	};
 
-	if (device === 'mobile') {
-		return <div>MY PAGE</div>;
-	} else {
-		return (
-			<div id="my-page" style={{ position: 'relative' }}>
-				<div className="container">
-					<Stack className={'my-page'}>
-						<Stack className={'back-frame'}>
-							<Stack className={'left-config'}>
-								<MyMenu />
-							</Stack>
-							<Stack className="main-config" mb={'76px'}>
-								<Stack className={'list-config'}>
-									{category === 'addCar' && <AddCar />}
-									{category === 'myCars' && <MyCars />}
-									{category === 'myFavorites' && <MyFavorites />}
-									{category === 'recentlyVisited' && <RecentlyVisited />}
-									{category === 'myArticles' && <MyArticles />}
-									{category === 'writeArticle' && <WriteArticle />}
-									{category === 'myProfile' && <MyProfile />}
-									{category === 'followers' && (
-										<MemberFollowers
-											subscribeHandler={subscribeHandler}
-											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
-											redirectToMemberPageHandler={redirectToMemberPageHandler}
-										/>
-									)}
-									{category === 'followings' && (
-										<MemberFollowings
-											subscribeHandler={subscribeHandler}
-											unsubscribeHandler={unsubscribeHandler}
-											likeMemberHandler={likeMemberHandler}
-											redirectToMemberPageHandler={redirectToMemberPageHandler}
-										/>
-									)}
-								</Stack>
+	if (device === 'mobile') return <div>MY PAGE</div>;
+
+	return (
+		<div id="my-page">
+			<Stack className={'my-page'}>
+				{/* Cover banner + tabs */}
+				<Stack className={'left-config'}>
+					<MyMenu />
+				</Stack>
+
+				{/* Content */}
+				<div className={'page-container'}>
+					<Stack className={'back-frame'}>
+						<Stack className="main-config">
+							<Stack className={'list-config'}>
+								{category === 'addCar' && <AddCar />}
+								{category === 'myCars' && <MyCars />}
+								{category === 'myFavorites' && <MyFavorites />}
+								{category === 'recentlyVisited' && <RecentlyVisited />}
+								{category === 'myArticles' && <MyArticles />}
+								{category === 'writeArticle' && <WriteArticle />}
+								{category === 'myProfile' && <MyProfile />}
+								{category === 'followers' && (
+									<MemberFollowers
+										subscribeHandler={subscribeHandler}
+										unsubscribeHandler={unsubscribeHandler}
+										likeMemberHandler={likeMemberHandler}
+										redirectToMemberPageHandler={redirectToMemberPageHandler}
+									/>
+								)}
+								{category === 'followings' && (
+									<MemberFollowings
+										subscribeHandler={subscribeHandler}
+										unsubscribeHandler={unsubscribeHandler}
+										likeMemberHandler={likeMemberHandler}
+										redirectToMemberPageHandler={redirectToMemberPageHandler}
+									/>
+								)}
 							</Stack>
 						</Stack>
 					</Stack>
 				</div>
-			</div>
-		);
-	}
+			</Stack>
+		</div>
+	);
 };
 
 export default withLayoutBasic(MyPage);
-function sweetTopSmallSuccessAlert(arg0: string, arg1: number) {
-	throw new Error('Function not implemented.');
-}
-
