@@ -32,6 +32,7 @@ const Top = () => {
 	const [bgColor, setBgColor] = useState<boolean>(false);
 	const [logoutAnchor, setLogoutAnchor] = React.useState<null | HTMLElement>(null);
 	const logoutOpen = Boolean(logoutAnchor);
+	const [notifOpen, setNotifOpen] = useState(false);
 
 	/** LIFECYCLES **/
 	useEffect(() => {
@@ -57,6 +58,13 @@ const Top = () => {
 		const jwt = getJwtToken();
 		if (jwt) updateUserInfo(jwt);
 	}, []);
+
+	// useEffect ga qo'shing
+useEffect(() => {
+  const handleClickOutside = () => setNotifOpen(false);
+  if (notifOpen) document.addEventListener('click', handleClickOutside);
+  return () => document.removeEventListener('click', handleClickOutside);
+}, [notifOpen]);
 
 	/** HANDLERS **/
 	const langClick = (e: any) => {
@@ -189,19 +197,23 @@ const Top = () => {
 							<Link href={'/about'}>
 								<div> {t('About')} </div>
 							</Link>
-							{user?._id && (
+							{/* {user?._id && (
 								<Link href={'/mypage'}>
 									<div> {t('My Page')} </div>
 								</Link>
-							)}
+							)} */}
 							<Link href={'/cs'}>
 								<div> {t('CS')} </div>
 							</Link>
 						</Box>
 
 						<Box component={'div'} className={'user-box'}>
+							
 							{user?._id ? (
+
 								<>
+								<Link href={'/mypage'}>
+								<div>
 									<div 
 									style={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: '8px', color: '#fff' }}
 									className={'login-user'} onClick={(event: any) => setLogoutAnchor(event.currentTarget)}>
@@ -213,22 +225,12 @@ const Top = () => {
 										/>
 										<span>{user?.memberNick}</span>
 									</div>
-
-									<Menu
-										id="basic-menu"
-										anchorEl={logoutAnchor}
-										open={logoutOpen}
-										onClose={() => {
-											setLogoutAnchor(null);
-										}}
-										sx={{ mt: '5px' }}
-									>
-										<MenuItem onClick={() => logOut()}>
-											<Logout fontSize="small" style={{ color: 'blue', marginRight: '10px' }} />
-											Logout
-										</MenuItem>
-									</Menu>
+								</div>
+								</Link>
+									
 								</>
+
+
 							) : (
 								<Link href={'/account/join'}>
 									<div className={'join-box'}>
@@ -241,51 +243,104 @@ const Top = () => {
 							)}
 
 							<div className={'lan-box'}>
-								{user?._id && <NotificationsOutlinedIcon className={'notification-icon'} />}
+
+{user?._id && (
+  <div style={{ position: 'relative' }}>
+    <NotificationsOutlinedIcon 
+      className={'notification-icon'} 
+      style={{ cursor: 'pointer' }}
+      onClick={(e: any) => {
+        e.stopPropagation();
+        setNotifOpen(!notifOpen);
+      }}
+    />
+    
+    {notifOpen && (
+  <div 
+    onClick={(e) => e.stopPropagation()}
+    style={{
+      position: 'absolute',
+      top: '40px',
+      right: '-20px',
+      width: '320px',
+      background: '#fff',
+      borderRadius: '8px',
+      boxShadow: '0 4px 20px rgba(0,0,0,0.15)',
+      zIndex: 1000,
+      padding: '16px',
+    }}>
+    <h3 style={{ margin: '0 0 16px 0', fontSize: '16px', fontWeight: 600 }}>
+      Notifications
+    </h3>
+    
+    {[].length === 0 ? (
+      <div style={{ textAlign: 'center', color: '#999', padding: '20px 0' }}>
+        No notifications yet
+      </div>
+    ) : (
+      [].map((notif: any, i: number) => (
+        <div key={i} style={{
+          padding: '10px 0',
+          borderBottom: '1px solid #f0f0f0',
+          fontSize: '14px',
+          color: '#333'
+        }}>
+          <div>{notif.text}</div>
+          <div style={{ color: '#999', fontSize: '12px', marginTop: '4px' }}>{notif.time}</div>
+        </div>
+      ))
+    )}
+  </div>
+)}
+</div>
+)}
+
 								<Button
 									disableRipple
 									className="btn-lang"
 									onClick={langClick}
 									endIcon={<CaretDown size={14} color="#616161" weight="fill" />}
+
 								>
-									<Box component={'div'} className={'flag'}>
+									Language
+									{/* <Box component={'div'} className={'flag'}>
 										{lang !== null ? (
-											<img src={`/img/flag/lang${lang}.png`} alt={'usaFlag'} />
+											<img src={`/img/flag/lang${lang}.png`} alt={'Language'} />
 										) : (
-											<img src={`/img/flag/langen.png`} alt={'usaFlag'} />
+											<img src={`/img/flag/langen.png`} alt={'Language'} />
 										)}
-									</Box>
+									</Box> */}
 								</Button>
 
 								<StyledMenu anchorEl={anchorEl2} open={drop} onClose={langClose} sx={{ position: 'absolute' }}>
 									<MenuItem disableRipple onClick={langChoice} id="en">
-										<img
+										{/* <img
 											className="img-flag"
 											src={'/img/flag/langen.png'}
 											onClick={langChoice}
 											id="en"
 											alt={'usaFlag'}
-										/>
+										/> */}
 										{t('English')}
 									</MenuItem>
 									<MenuItem disableRipple onClick={langChoice} id="kr">
-										<img
+										{/* <img
 											className="img-flag"
 											src={'/img/flag/langkr.png'}
 											onClick={langChoice}
 											id="uz"
 											alt={'koreanFlag'}
-										/>
+										/> */}
 										{t('Korean')}
 									</MenuItem>
 									<MenuItem disableRipple onClick={langChoice} id="ru">
-										<img
+										{/* <img
 											className="img-flag"
 											src={'/img/flag/langru.png'}
 											onClick={langChoice}
 											id="ru"
 											alt={'russiaFlag'}
-										/>
+										/> */}
 										{t('Russian')}
 									</MenuItem>
 								</StyledMenu>
