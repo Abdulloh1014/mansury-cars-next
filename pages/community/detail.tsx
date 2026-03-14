@@ -100,6 +100,11 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
     });
 
     /** LIFECYCLES **/
+
+    
+
+
+
     useEffect(() => {
         if (articleId) setSearchFilter({ ...searchFilter, search: { commentRefId: articleId } });
     }, [articleId]);

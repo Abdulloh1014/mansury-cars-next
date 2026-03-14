@@ -73,12 +73,12 @@ return (
             <div className={'specs'}>
                 <div className={'spec-item'}>
                     <img src="/img/icons/engine.svg" alt="" />
-                    <span>{car?.carEngine}</span>
+                    <span>{car?.carEngine} Eng</span>
                 </div>
                 <span className={'spec-dot'} />
                 <div className={'spec-item'}>
                     <img src="/img/icons/car door.svg" alt="" />
-                    <span>{car?.carDoors}</span>
+                    <span>{car?.carDoors} Door</span>
                 </div>
                 <span className={'spec-dot'} />
                 <div className={'spec-item'}>
@@ -88,7 +88,7 @@ return (
                 <span className={'spec-dot'} />
                 <div className={'spec-item'}>
                     <img src="/img/icons/mile.png" alt="" />
-                    <span>{car?.carMileage}</span>
+                    <span>{car?.carMileage} km</span>
                 </div>
             </div>
 

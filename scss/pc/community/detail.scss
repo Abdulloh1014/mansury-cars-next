@@ -172,12 +172,35 @@
                 }
 
                 // Content
-                .article-content {
-                    padding: 36px 40px;
-                    color: rgba(255, 255, 255, 0.85);
-                    font-family: $font;
-                    min-height: 200px;
-                }
+  .article-content {
+    .toastui-editor-contents {
+        background: transparent !important;
+        background-color: transparent !important;
+    }
+
+    .toastui-editor-contents *:not(img) {
+        background: transparent !important;
+        background-color: transparent !important;
+        color: #ffffff !important;
+        font-size: 20px;
+        font-weight: 400;
+    }
+
+    .toastui-editor-contents img {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: auto !important;
+        border-radius: 8px !important;
+        margin: 16px 0 !important;
+    }
+
+    .toastui-editor-contents p {
+        display: flex !important;
+        flex-direction: column !important;
+        gap: 12px !important;
+    }
+}
 
                 // Like row
                 .article-like-row {
