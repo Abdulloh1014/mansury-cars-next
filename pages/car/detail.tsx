@@ -32,6 +32,8 @@ import { T } from '../../libs/types/common';
 import { Direction, Message } from '../../libs/enums/common.enum';
 import { CREATE_COMMENT, LIKE_TARGET_CAR } from '../../apollo/user/mutation';
 import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+ import { useRef } from 'react';
+import CarCardDP from '../../libs/components/common/CarCardDP';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -42,6 +44,9 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
+	const [lightboxOpen, setLightboxOpen] = useState(false);
+    const [lightboxIndex, setLightboxIndex] = useState(0);
+	const lightboxSwiperRef = useRef<any>(null);
 	const device = useDeviceDetect();
 	const router = useRouter();
 	const user = useReactiveVar(userVar);
@@ -229,6 +234,8 @@ if (getCarLoading) {
 if (device === 'mobile') {
 	return <div>CAR DETAIL PAGE</div>;
 } else {
+
+
 	return (
 		<div id={'car-detail-page'}>
 			<div className={'container'}>
@@ -236,18 +243,15 @@ if (device === 'mobile') {
 
 					{/* ─── HERO GALLERY ─────────────────────────────────────── */}
 					<Stack className={'hero-gallery'}>
-						{/* Main image */}
 						<Stack className={'main-image-wrap'}>
 							<img
 								src={slideImage ? `${REACT_APP_API_URL}/${slideImage}` : '/img/banner/mans-sallon.webp'}
 								alt={'main-image'}
 							/>
-							{/* Overlay badge */}
 							<Stack className={'hero-badge'}>
 								{car?.carBarter && <span className={'badge barter'}>BARTER</span>}
 								{car?.carRent && <span className={'badge rent'}>RENT</span>}
 							</Stack>
-							{/* Like / view overlay */}
 							<Stack className={'hero-actions'}>
 								<Stack className={'action-btn'}>
 									<RemoveRedEyeIcon sx={{ fontSize: 18 }} />
@@ -259,27 +263,13 @@ if (device === 'mobile') {
 									sx={{ cursor: 'pointer' }}
 								>
 									{car?.meLiked && car?.meLiked[0]?.myFavorite ? (
-										<FavoriteIcon sx={{ fontSize: 18, color: '#c9a84c' }} />
+										<FavoriteIcon sx={{ fontSize: 18, color: '#00c896' }} />
 									) : (
 										<FavoriteBorderIcon sx={{ fontSize: 18 }} />
 									)}
 									<Typography>{car?.carLikes}</Typography>
 								</Stack>
 							</Stack>
-						</Stack>
-
-						{/* Thumbnail strip — masonry-like sizes */}
-						<Stack className={'thumb-strip'}>
-							{car?.carImages.map((subImg: string, idx: number) => (
-								<Stack
-									className={`thumb-item thumb-item--${(idx % 3) + 1}`}
-									key={subImg}
-									onClick={() => changeImageHandler(subImg)}
-									sx={{ outline: slideImage === subImg ? '2px solid #c9a84c' : 'none' }}
-								>
-									<img src={`${REACT_APP_API_URL}/${subImg}`} alt={`thumb-${idx}`} />
-								</Stack>
-							))}
 						</Stack>
 					</Stack>
 
@@ -293,8 +283,6 @@ if (device === 'mobile') {
 								<Typography className={'meta-date'}>
 									{moment().diff(car?.createdAt, 'days')} days ago
 								</Typography>
-								{/* <span className={'dot'}>·</span> */}
-								{/* <Typography className={'meta-type'}>{car?.carType}</Typography> */}
 							</Stack>
 						</Stack>
 						<Stack className={'title-right'}>
@@ -334,10 +322,9 @@ if (device === 'mobile') {
 					{/* ─── MAIN BODY ────────────────────────────────────────── */}
 					<Stack className={'body-grid'}>
 
-						{/* LEFT COLUMN */}
 						<Stack className={'body-left'}>
 
-							{/* Description */}
+							{/* 01 Overview */}
 							<Stack className={'section-block'}>
 								<Typography className={'section-heading'}>
 									<span className={'heading-accent'}>01</span> Overview
@@ -345,7 +332,7 @@ if (device === 'mobile') {
 								<Typography className={'section-desc'}>{car?.carDesc ?? 'No description available.'}</Typography>
 							</Stack>
 
-							{/* Details table */}
+							{/* 02 Specifications */}
 							<Stack className={'section-block'}>
 								<Typography className={'section-heading'}>
 									<span className={'heading-accent'}>02</span> Specifications
@@ -369,39 +356,35 @@ if (device === 'mobile') {
 								</Stack>
 							</Stack>
 
-							{/* Floor plan */}
-							<Stack className={'section-block'}>
-								<Typography className={'section-heading'}>
-									<span className={'heading-accent'}>03</span> Interior Gallery
+							{/* 03 Gallery — click opens lightbox, main image NOT changed */}
+							<Stack className={'section-block gallery-block'}>
+								<Typography className={'section-heading'} style={{color: '111', fontSize: '35px', fontBold: '500'}}>
+									<span className={'heading-accent'}>03</span> Gallery
 								</Typography>
-								<Stack className={'floor-img-wrap'}>
-									<img src={'/img/banner/mans-sallon.webp'} alt={'floor'} />
+								<Stack className={'gallery-grid'}>
+									{car?.carImages.map((img: string, idx: number) => (
+										<Stack
+											className={`gallery-item gallery-item--${(idx % 5) + 1}`}
+											key={img}
+											onClick={() => {
+												setLightboxIndex(idx);
+												setLightboxOpen(true);
+											}}
+										>
+											<img
+												src={`${REACT_APP_API_URL}/${img}`}
+												alt={`gallery-${idx}`}
+											/>
+										</Stack>
+									))}
 								</Stack>
 							</Stack>
 
-							{/* Map */}
-							<Stack className={'section-block'}>
-								<Typography className={'section-heading'}>
-									<span className={'heading-accent'}>04</span> Location
-								</Typography>
-								<Stack className={'map-wrap'}>
-									<iframe
-										src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d25867.098915951767!2d128.68632810247993!3d35.86402299180927!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x35660bba427bf179%3A0x1fc02da732b9072f!2sGeumhogangbyeon-ro%2C%20Dong-gu%2C%20Daegu!5e0!3m2!1suz!2skr!4v1695537640704!5m2!1suz!2skr"
-										width="100%"
-										height="100%"
-										style={{ border: 0 }}
-										allowFullScreen={true}
-										loading="lazy"
-										referrerPolicy="no-referrer-when-downgrade"
-									/>
-								</Stack>
-							</Stack>
-
-							{/* Reviews */}
+							{/* 04 Reviews */}
 							{commentTotal !== 0 && (
 								<Stack className={'section-block'}>
 									<Typography className={'section-heading'}>
-										<span className={'heading-accent'}>05</span> Reviews
+										<span className={'heading-accent'}>04</span> Reviews
 										<span className={'review-count'}>{commentTotal}</span>
 									</Typography>
 									<Stack className={'review-list'}>
@@ -421,10 +404,10 @@ if (device === 'mobile') {
 								</Stack>
 							)}
 
-							{/* Leave review */}
+							{/* 05 Leave a Review */}
 							<Stack className={'section-block leave-review'}>
 								<Typography className={'section-heading'}>
-									<span className={'heading-accent'}>06</span> Leave a Review
+									<span className={'heading-accent'}>05</span> Leave a Review
 								</Typography>
 								<textarea
 									placeholder={'Share your experience with this vehicle...'}
@@ -450,7 +433,6 @@ if (device === 'mobile') {
 
 						{/* RIGHT SIDEBAR */}
 						<Stack className={'body-right'}>
-							{/* Agent card */}
 							<Stack className={'sidebar-card agent-card'}>
 								<Typography className={'sidebar-heading'}>CONTACT AGENT</Typography>
 								<Stack className={'agent-info'}>
@@ -472,7 +454,6 @@ if (device === 'mobile') {
 								</Stack>
 							</Stack>
 
-							{/* Contact form */}
 							<Stack className={'sidebar-card contact-form'}>
 								<Typography className={'sidebar-heading'}>SEND INQUIRY</Typography>
 								<Stack className={'form-group'}>
@@ -525,7 +506,7 @@ if (device === 'mobile') {
 							>
 								{destinationCars.map((car: Car) => (
 									<SwiperSlide className={'similar-slide'} key={car.carTitle}>
-										<CarBigCard car={car} likeCarHandler={likeCarHandler} key={car?._id} />
+										<CarCardDP car={car} likeCarHandler={likeCarHandler} key={car?._id} />
 									</SwiperSlide>
 								))}
 							</Swiper>
@@ -534,8 +515,80 @@ if (device === 'mobile') {
 
 				</Stack>
 			</div>
+
+			{/* ─── LIGHTBOX MODAL ───────────────────────────────────── */}
+			{lightboxOpen && car?.carImages && (
+				<div
+					className={'lightbox-overlay'}
+					onClick={() => setLightboxOpen(false)}
+				>
+					<div
+						className={'lightbox-inner'}
+						onClick={(e) => e.stopPropagation()}
+					>
+						{/* Close button */}
+						<button
+							className={'lightbox-close'}
+							onClick={() => setLightboxOpen(false)}
+						>
+							✕
+						</button>
+
+						{/* Counter */}
+						<div className={'lightbox-counter'}>
+							{lightboxIndex + 1} / {car.carImages.length}
+						</div>
+
+						{/* Prev arrow */}
+						<button
+							className={'lightbox-arrow lightbox-arrow--prev'}
+							onClick={() =>
+								setLightboxIndex((prev) =>
+									prev === 0 ? car!.carImages.length - 1 : prev - 1
+								)
+							}
+						>
+							<WestIcon />
+						</button>
+
+						{/* Image */}
+						<div className={'lightbox-img-wrap'}>
+							<img
+								src={`${REACT_APP_API_URL}/${car.carImages[lightboxIndex]}`}
+								alt={`lightbox-${lightboxIndex}`}
+							/>
+						</div>
+
+						{/* Next arrow */}
+						<button
+							className={'lightbox-arrow lightbox-arrow--next'}
+							onClick={() =>
+								setLightboxIndex((prev) =>
+									prev === car!.carImages.length - 1 ? 0 : prev + 1
+								)
+							}
+						>
+							<EastIcon />
+						</button>
+
+						{/* Thumbnail strip at bottom */}
+						<div className={'lightbox-thumbs'}>
+							{car.carImages.map((img: string, idx: number) => (
+								<div
+									key={img}
+									className={`lightbox-thumb ${idx === lightboxIndex ? 'active' : ''}`}
+									onClick={() => setLightboxIndex(idx)}
+								>
+									<img src={`${REACT_APP_API_URL}/${img}`} alt={`lt-${idx}`} />
+								</div>
+							))}
+						</div>
+					</div>
+				</div>
+			)}
 		</div>
 	);
+
 }
 };
 

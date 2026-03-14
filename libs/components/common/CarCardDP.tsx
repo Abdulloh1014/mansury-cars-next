@@ -16,7 +16,7 @@ interface CarBigCardProps {
 	likeCarHandler?: any;
 }
 
-const CarBigCard = (props: CarBigCardProps) => {
+const CarCardDP = (props: CarBigCardProps) => {
 	const { car, likeCarHandler } = props;
 	const device = useDeviceDetect();
 	const user = useReactiveVar(userVar);
@@ -34,7 +34,7 @@ const CarBigCard = (props: CarBigCardProps) => {
 	// CarBigCard.tsx — faqat return() qismini almashtiring
 
 return (
-    <Stack className="car-big-card-box" onClick={() => goCarDetatilPage(car?._id)}>
+    <Stack className="car-card-dp" onClick={() => goCarDetatilPage(car?._id)}>
 
         {/* ── IMAGE ─────────────────────────────────────── */}
         <Box
@@ -126,4 +126,4 @@ return (
 	}
 };
 
-export default CarBigCard;
+export default CarCardDP;

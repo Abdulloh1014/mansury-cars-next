@@ -1,5 +1,5 @@
 // ============================================================
-// car-detail.scss  —  dark navy theme (site palette match)
+// car-detail.scss  —  dark navy theme + lightbox
 // ============================================================
 
 #pc-wrap {
@@ -10,16 +10,14 @@
 		padding-bottom: 160px;
 		min-height: 100vh;
 
-		// ── TOKENS ─────────────────────────────────────────────
-		$accent:        #d0d2db;
-		$accent-dim:    rgba(89, 100, 103, 0.1);
+		$accent:        #aab0b5;
+		$accent-dim:    rgba(0, 200, 150, 0.10);
 		$accent-border: rgba(0, 200, 150, 0.22);
 		$dark-0:        #0d0f14;
 		$dark-1:        #111318;
 		$dark-2:        #16191f;
 		$dark-3:        #1c1f27;
 		$dark-4:        #252830;
-		$dark-5:        #2e3140;
 		$text-0:        #ffffff;
 		$text-1:        #e2e4ea;
 		$text-2:        #9498a8;
@@ -114,39 +112,6 @@
 								color: $text-0;
 							}
 						}
-					}
-				}
-
-				// Thumbnail strip — masonry sizes
-				.thumb-strip {
-					width: 100%;
-					flex-direction: row;
-					flex-wrap: wrap;
-					gap: 4px;
-
-					.thumb-item {
-						overflow: hidden;
-						cursor: pointer;
-						position: relative;
-						border: 2px solid transparent;
-						transition: border-color 0.2s, opacity 0.2s;
-
-						img {
-							width: 100%;
-							height: 100%;
-							object-fit: cover;
-							transition: transform 0.4s;
-							filter: brightness(0.82);
-						}
-
-						&:hover img {
-							transform: scale(1.06);
-							filter: brightness(1);
-						}
-
-						&--1 { width: 260px; height: 155px; }
-						&--2 { width: 195px; height: 155px; }
-						&--3 { width: 175px; height: 155px; }
 					}
 				}
 			}
@@ -267,6 +232,7 @@
 						background: $dark-2;
 						border: 1px solid $border-soft;
 						border-top: 1px solid $accent-border;
+						
 
 						.section-heading {
 							font-family: $font;
@@ -304,7 +270,6 @@
 							color: $text-2;
 						}
 
-						// Specifications table
 						.details-grid {
 							width: 100%;
 							display: grid;
@@ -341,47 +306,57 @@
 							}
 						}
 
-						// Floor plan
-						.floor-img-wrap {
-							width: 100%;
-							height: 420px;
-							overflow: hidden;
-							border: 1px solid $border-soft;
-							img {
-								width: 100%;
-								height: 100%;
-								object-fit: cover;
-								filter: brightness(0.88);
-							}
-						}
+				.review-list {
+    width: 100%;
+    gap: 0;
 
-						// Map
-						.map-wrap {
-							width: 100%;
-							height: 360px;
-							overflow: hidden;
-							border: 1px solid $border-soft;
-							iframe { border-radius: 0 !important; }
-						}
+    .review-config {
+        border-bottom: 1px solid $border-soft;
+        padding: 18px 0;
 
-						// Review list
-						.review-list {
-							width: 100%;
-							gap: 0;
+        .review-mb-info {
+            .img-name-box {
+                gap: 12px;
 
-							.review-config {
-								border-bottom: 1px solid $border-soft;
-								padding: 18px 0;
-							}
+                img, .img-box {
+                    width: 48px !important;
+                    height: 48px !important;
+                    min-width: 48px !important;
+                    border-radius: 50% !important;
+                    object-fit: cover !important;
+                    border: 1px solid rgba(255,255,255,0.1) !important;
+                    background: #1c1f27 !important;
+                }
 
-							.pagination-box {
-								margin-top: 18px;
-								display: flex;
-								justify-content: center;
-							}
-						}
+                .name {
+                    color: #e2e4ea !important;
+                    font-size: 16px !important;
+                    font-weight: 500 !important;
+                }
+                .date {
+                    color: #5a5e6e !important;
+                    font-size: 13px !important;
+                }
+            }
+        }
 
-						// Leave review
+        .desc-box .description {
+            color: #9498a8 !important;
+            font-size: 18px !important;
+            font-weight: 300 !important;
+            line-height: 22px !important;
+            margin-top: 10px;
+            padding-left: 52px;
+        }
+    }
+
+    .pagination-box {
+        margin-top: 18px;
+        display: flex;
+        justify-content: center;
+    }
+}
+
 						&.leave-review {
 							textarea {
 								width: 100%;
@@ -436,10 +411,84 @@
 								}
 							}
 						}
+
+						// ── GALLERY block ─────────────────────────────────
+						&.gallery-block {
+							background: transparent;
+							border: none;
+							border-top: none;
+							padding: 0;
+							gap: 16px;
+
+							.section-heading {
+								padding-top: 4px;
+							}
+
+							.gallery-grid {
+								width: 100%;
+								display: grid;
+								grid-template-columns: 1fr 2fr 1fr;
+								grid-template-rows: 380px 380px;
+								gap: 6px;
+
+								.gallery-item {
+									overflow: hidden;
+									cursor: pointer;
+									background: $dark-0;
+									position: relative;
+
+									img {
+										width: 100%;
+										height: 100%;
+										object-fit: cover;
+										display: block;
+										transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+													filter 0.3s ease;
+										filter: brightness(0.9);
+									}
+
+									// zoom icon on hover
+									&::after {
+										content: '⤢';
+										position: absolute;
+										bottom: 14px;
+										right: 14px;
+										width: 32px;
+										height: 32px;
+										background: rgba(13,15,20,0.7);
+										backdrop-filter: blur(6px);
+										border: 1px solid $border-soft;
+										color: $text-1;
+										font-size: 14px;
+										display: flex;
+										align-items: center;
+										justify-content: center;
+										opacity: 0;
+										transition: opacity 0.2s;
+									}
+
+									&:hover {
+										img {
+											transform: scale(1.05);
+											filter: brightness(1);
+										}
+										&::after { opacity: 1; }
+									}
+
+									&--1 { grid-column: 1; grid-row: 1; }
+									&--2 { grid-column: 2; grid-row: 1 / 3; }
+									&--3 { grid-column: 3; grid-row: 1; }
+									&--4 { grid-column: 1; grid-row: 2; }
+									&--5 { grid-column: 3; grid-row: 2; }
+								}
+							}
+						}
 					}
+
+					
 				}
 
-				// ── SIDEBAR ─────────────────────────────────────────
+				// ── SIDEBAR ──────────────────────────────────────────
 				.body-right {
 					width: 288px;
 					gap: 16px;
@@ -622,6 +671,164 @@
 				.similar-swiper {
 					width: 100%;
 					.similar-slide { width: 380px; }
+				}
+			}
+		}
+
+		// ── LIGHTBOX MODAL ────────────────────────────────────────
+		.lightbox-overlay {
+			position: fixed;
+			inset: 0;
+			z-index: 9999;
+			background: rgba(0, 0, 0, 0.96);
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			animation: lb-fade-in 0.2s ease;
+
+			@keyframes lb-fade-in {
+				from { opacity: 0; }
+				to   { opacity: 1; }
+			}
+		}
+
+		.lightbox-inner {
+			position: relative;
+			width: 100%;
+			height: 100%;
+			display: flex;
+			flex-direction: column;
+			align-items: center;
+			justify-content: center;
+
+			// Close button — top right
+			.lightbox-close {
+				position: absolute;
+				top: 24px;
+				right: 24px;
+				width: 44px;
+				height: 44px;
+				background: rgba(255,255,255,0.08);
+				border: 1px solid rgba(255,255,255,0.15);
+				color: #ffffff;
+				font-size: 18px;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 10;
+				transition: background 0.2s;
+				border-radius: 50%;
+
+				&:hover {
+					background: rgba(255,255,255,0.18);
+				}
+			}
+
+			// Counter — top left
+			.lightbox-counter {
+				position: absolute;
+				top: 30px;
+				left: 30px;
+				font-family: $font;
+				font-size: 12px;
+				letter-spacing: 2px;
+				color: rgba(255,255,255,0.5);
+				z-index: 10;
+			}
+
+			// Arrows
+			.lightbox-arrow {
+				position: absolute;
+				top: 50%;
+				transform: translateY(-50%);
+				width: 52px;
+				height: 52px;
+				background: rgba(255,255,255,0.06);
+				border: 1px solid rgba(255,255,255,0.12);
+				color: #ffffff;
+				cursor: pointer;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				z-index: 10;
+				transition: background 0.2s, border-color 0.2s;
+
+				svg { font-size: 22px; }
+
+				&:hover {
+					background: rgba(0, 200, 150, 0.15);
+					border-color: rgba(0, 200, 150, 0.4);
+				}
+
+				&--prev { left: 24px; }
+				&--next { right: 24px; }
+			}
+
+			// Main image
+			.lightbox-img-wrap {
+				width: 100%;
+				height: calc(100vh - 160px);
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				padding: 0 100px;
+
+				img {
+					max-width: 100%;
+					max-height: 100%;
+					object-fit: contain;
+					display: block;
+					animation: lb-img-in 0.25s ease;
+
+					@keyframes lb-img-in {
+						from { opacity: 0; transform: scale(0.97); }
+						to   { opacity: 1; transform: scale(1); }
+					}
+				}
+			}
+
+			// Thumbnail strip at bottom
+			.lightbox-thumbs {
+				position: absolute;
+				bottom: 0;
+				left: 0;
+				right: 0;
+				height: 90px;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				gap: 6px;
+				padding: 0 24px;
+				background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+				overflow-x: auto;
+
+				&::-webkit-scrollbar { display: none; }
+
+				.lightbox-thumb {
+					width: 80px;
+					height: 56px;
+					flex-shrink: 0;
+					overflow: hidden;
+					cursor: pointer;
+					border: 2px solid transparent;
+					transition: border-color 0.15s, opacity 0.15s;
+					opacity: 0.5;
+
+					img {
+						width: 100%;
+						height: 100%;
+						object-fit: cover;
+					}
+
+					&.active {
+						border-color: #00c896;
+						opacity: 1;
+					}
+
+					&:hover {
+						opacity: 0.85;
+					}
 				}
 			}
 		}
