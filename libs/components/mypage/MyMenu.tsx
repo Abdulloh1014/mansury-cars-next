@@ -8,6 +8,7 @@ import { userVar } from '../../../apollo/store';
 import { REACT_APP_API_URL } from '../../config';
 import { logOut } from '../../auth';
 import { sweetConfirmAlert } from '../../sweetAlert';
+import { signOut } from 'next-auth/react';
 
 const MyMenu = () => {
 	const device = useDeviceDetect();
@@ -16,12 +17,32 @@ const MyMenu = () => {
 	const user = useReactiveVar(userVar);
 
 	const logoutHandler = async () => {
-		try {
-			if (await sweetConfirmAlert('Do you want to logout?')) logOut();
-		} catch (err: any) {
-			console.log('ERROR, logoutHandler:', err.message);
-		}
-	};
+    try {
+        if (await sweetConfirmAlert('Do you want to logout?')) {
+            // 1. localStorage tozala
+            localStorage.removeItem('accessToken');
+            localStorage.setItem('logout', Date.now().toString());
+            
+            // 2. userVar reset
+            userVar({
+                _id: '', memberType: '', memberStatus: '',
+                memberAuthType: '', memberPhone: '', memberNick: '',
+                memberFullName: '', memberImage: '', memberAddress: '',
+                memberDesc: '', memberCars: 0, memberRank: 0,
+                memberArticles: 0, memberPoints: 0, memberLikes: 0,
+                memberViews: 0, memberWarnings: 0, memberBlocks: 0,
+            });
+
+            // 3. next-auth session tozala
+            await signOut({ redirect: false });
+
+            // 4. Redirect
+            window.location.href = '/';
+        }
+    } catch (err: any) {
+        console.log('ERROR, logoutHandler:', err.message);
+    }
+};
 
 	if (device === 'mobile') return <div>MY MENU</div>;
 

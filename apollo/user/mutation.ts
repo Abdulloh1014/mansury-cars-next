@@ -13,7 +13,7 @@ export const SIGN_UP = gql`
 			memberAuthType
 			memberPhone
 			memberNick
-			memberFullName
+			memberFullName 
 			memberImage
 			memberAddress
 			memberDesc

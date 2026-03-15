@@ -21,6 +21,8 @@ import { serverSideTranslations } from 'next-i18next/serverSideTranslations';
 import { LIKE_TARGET_MEMBER, SUBSCRIBE, UNSUBSCRIBE } from '../../apollo/user/mutation';
 import { Messages } from '../../libs/config';
 
+
+
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
 		...(await serverSideTranslations(locale, ['common'])),
@@ -44,6 +46,7 @@ const MyPage: NextPage = () => {
 	}, [user]);
 
 	/** HANDLERS **/
+
 	const subscribeHandler = async (id: string, refetch: any, query: any) => {
 		try {
 			console.log('id: ', id);

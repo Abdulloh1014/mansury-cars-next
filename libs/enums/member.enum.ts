@@ -14,4 +14,5 @@ export enum MemberAuthType {
 	PHONE = 'PHONE',
 	EMAIL = 'EMAIL',
 	TELEGRAM = 'TELEGRAM',
+	 GOOGLE = 'GOOGLE',
 }

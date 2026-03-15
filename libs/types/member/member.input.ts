@@ -39,3 +39,10 @@ export interface MembersInquiry {
 	direction?: Direction;
 	search: MISearch;
 }
+
+export interface GoogleLoginInput {
+    memberEmail: string;
+    memberNick: string;
+    memberImage?: string;
+    memberType?: MemberType;
+}
