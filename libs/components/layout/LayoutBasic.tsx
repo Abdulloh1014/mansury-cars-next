@@ -71,7 +71,7 @@ const withLayoutBasic = (Component: any) => {
 				case '/account/join':
 					title = 'Login/Signup';
 					desc = 'Authentication Process';
-					bgImage = '/img/banner/rolls-banner.webp';
+					bgImage = '/img/banner/mans-logo2.jpg';
 					setAuthHeader(true);
 					break;
 				case '/member':
