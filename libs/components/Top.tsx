@@ -188,19 +188,24 @@ useEffect(() => {
 
 						<Box component={'div'} className={'router-box'}>
 							<Link href={'/'}>
-								<div>{t('Home')}</div>
+								<div className={router.pathname === '/' ? 'active' : ''}
+								>{t('Home')}</div>
 							</Link>
 							<Link href={'/car'}>
-								<div>{t('Cars')}</div>
+								<div className={router.pathname === '/car' ? 'active' : ''}
+								>{t('Cars')}</div>
 							</Link>
 							<Link href={'/agent'}>
-								<div> {t('Agents')} </div>
+								<div className={router.pathname === '/agent' ? 'active' : ''}
+								> {t('Dealers')} </div>
 							</Link>
 							<Link href={'/community?articleCategory=FREE'}>
-								<div> {t('Community')} </div>
+								<div className={router.pathname === '/community' ? 'active' : ''}
+								> {t('Blog')} </div>
 							</Link>
 							<Link href={'/about'}>
-								<div> {t('About')} </div>
+								<div className={router.pathname === '/about' ? 'active' : ''}
+								> {t('About')} </div>
 							</Link>
 							{/* {user?._id && (
 								<Link href={'/mypage'}>
@@ -208,7 +213,8 @@ useEffect(() => {
 								</Link>
 							)} */}
 							<Link href={'/cs'}>
-								<div> {t('CS')} </div>
+								<div className={router.pathname === '/cs' ? 'active' : ''}
+								> {t('CS')} </div>
 							</Link>
 						</Box>
 
@@ -239,7 +245,7 @@ useEffect(() => {
 							) : (
 								<Link href={'/account/join'}>
 									<div className={'join-box'}>
-										<AccountCircleOutlinedIcon />
+										{/* <AccountCircleOutlinedIcon /> */}
 										<span>
 											{t('Login')} / {t('Register')}
 										</span>

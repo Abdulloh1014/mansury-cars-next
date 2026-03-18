@@ -74,72 +74,140 @@ body::-webkit-scrollbar {
 							cursor: pointer;
 						}
 					}
-					.router-box {
-						position: relative;
-						width: 617px;
-						display: flex;
-						gap: 50px;
-						flex-direction: row;
-						justify-content: space-between;
-						div {
-							position: relative;
-							color: #eeeeeeed;
-							font-family: $font;
-							font-size: 19px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: normal;
-							cursor: pointer;
-							.community_menu {
-								position: absolute;
-								left: -177%;
-								top: 30px;
-								width: 434px;
-								height: 33px;
-								background: white;
-								transition: all ease 2s;
-								&:before {
-									content: '';
-									display: block;
-									position: absolute;
-									top: 0;
-									right: 50%;
-									width: 10px;
-									height: 10px;
-									background: white;
-									transform: translateY(-50%) rotate(45deg);
-									z-index: 0;
-								}
-							}
-						}
-					}
+
+
+
+				.router-box {
+    position: relative;
+    width: 617px;
+    display: flex;
+    gap: 50px;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div {
+        position: relative;
+        color: #eeeeeeed;
+        font-family: $font;
+        font-size: 19px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: normal;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: #ffffff;
+            transition: width 0.25s ease;
+        }
+
+        &:hover::after {
+            width: 100%;
+        }
+
+        &.active::after {
+            width: 100%;
+        }
+
+        .community_menu {
+            position: absolute;
+            left: -177%;
+            top: 30px;
+            width: 434px;
+            height: 33px;
+            background: white;
+            transition: all ease 2s;
+
+            &:before {
+                content: '';
+                display: block;
+                position: absolute;
+                top: 0;
+                right: 50%;
+                width: 10px;
+                height: 10px;
+                background: white;
+                transform: translateY(-50%) rotate(45deg);
+                z-index: 0;
+            }
+        }
+    }
+}
+
+
+
+
 					.user-box {
 						width: 270px;
 						display: flex;
 						flex-direction: row;
 						justify-content: flex-end;
-						.join-box {
-							width: 184px;
-							height: 47px;
-							display: flex;
-							align-items: center;
-							justify-content: center;
-							border-radius: 60px;
-							border: 1px solid #ffffff;
-							cursor: pointer;
-							svg {
-								color: #ffffff;
-								margin-right: 10px;
-							}
-							span {
-								font-family: $font;
-								font-size: 14px;
-								font-style: normal;
-								font-weight: 600;
-								line-height: normal;
-								color: #ffffff;
-							}
-						}
+					.join-box {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 22px;
+    height: 36px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        transform: skewX(-12deg);
+        transition: all 0.3s ease;
+    }
+
+    &::after {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: #ffffff;
+        transform: skewX(-12deg) scaleX(0);
+        transform-origin: left;
+        transition: transform 0.3s ease;
+    }
+
+    &:hover {
+        &::after {
+            transform: skewX(-12deg) scaleX(1);
+        }
+        svg, span {
+            color: #000000;
+        }
+    }
+
+    svg {
+        position: relative;
+        z-index: 1;
+        color: #ffffff;
+        font-size: 17px;
+        transition: color 0.3s ease;
+    }
+
+    span {
+        position: relative;
+        z-index: 1;
+        font-family: $font;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.2px;
+        text-transform: uppercase;
+        color: #ffffff;
+        transition: color 0.3s ease;
+        white-space: nowrap;
+    }
+}
 						.login-user {
 							img {
 								width: 42px;
