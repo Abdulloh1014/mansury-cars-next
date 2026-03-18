@@ -298,9 +298,13 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                         </Stack>
                     </Stack>
 
+
+
+
+
                     {/* Comments list */}
                     {comments?.map((commentData) => (
-                        <Stack className="comment-item" key={commentData?._id}>
+                        <Stack className="comment-item" key={commentData?._id}  style={{background: 'red'}}>
                             <Stack className="comment-author">
                                 <img
                                     src={getCommentMemberImage(commentData?.memberData?.memberImage)}
@@ -351,6 +355,9 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                             <Typography className="comment-content">{commentData?.commentContent}</Typography>
                         </Stack>
                     ))}
+
+
+
 
                     {total > 0 && (
                         <Stack className="pagination-box">

@@ -225,6 +225,70 @@
 					flex: 1;
 					gap: 20px;
 
+					     .comment-item {
+                    background: #16181f;
+                    border: 1px solid rgba(255, 255, 255, 0.07);
+                    border-radius: 12px;
+                    padding: 20px 24px;
+                    gap: 12px;
+
+                    .comment-author {
+                        flex-direction: row;
+                        align-items: center;
+                        gap: 12px;
+
+                        img {
+                            width: 38px;
+                            height: 38px;
+                            border-radius: 50%;
+                            object-fit: cover;
+                            cursor: pointer;
+                            border: 1px solid rgba(255,255,255,0.1);
+                        }
+
+                        .comment-author-info {
+                            flex: 1;
+                            gap: 2px;
+
+                            .comment-nick {
+                                color: #ffffff;
+                                font-family: $font;
+                                font-size: 14px;
+                                font-weight: 600;
+                                cursor: pointer;
+                                &:hover { opacity: 0.7; }
+                            }
+
+                            .comment-date {
+                                color: rgba(255, 255, 255, 0.3);
+                                font-family: $font;
+                                font-size: 12px;
+                            }
+                        }
+
+                        .comment-actions {
+                            flex-direction: row;
+                            margin-left: auto;
+
+                            svg {
+                                color: rgba(255, 255, 255, 0.3);
+                                font-size: 18px;
+                                transition: color 0.2s;
+                            }
+
+                            button:hover svg { color: rgba(255, 255, 255, 0.7); }
+                        }
+                    }
+
+                    .comment-content {
+                        color: rgba(255, 255, 255, 0.75);
+                        font-family: $font;
+                        font-size: 14px;
+                        line-height: 1.6;
+                        padding-left: 50px;
+                    }
+                }
+
 					.section-block {
 						width: 100%;
 						gap: 20px;

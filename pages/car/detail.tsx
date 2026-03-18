@@ -1,5 +1,5 @@
 import React, { ChangeEvent, useEffect, useState } from 'react';
-import { Box, Button,  CircularProgress, Stack, Typography } from '@mui/material';
+import { Box, Button,  CircularProgress, IconButton, Stack, Typography, Backdrop } from '@mui/material';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutFull from '../../libs/components/layout/LayoutFull';
 import { NextPage } from 'next';
@@ -16,11 +16,11 @@ import { useRouter } from 'next/router';
 import { Car } from '../../libs/types/car/car';
 import moment from 'moment';
 import { formatterStr } from '../../libs/utils';
-import { REACT_APP_API_URL } from '../../libs/config';
+import { Messages, REACT_APP_API_URL } from '../../libs/config';
 import { userVar } from '../../apollo/store';
 import { CommentInput, CommentsInquiry } from '../../libs/types/comment/comment.input';
 import { Comment } from '../../libs/types/comment/comment';
-import { CommentGroup } from '../../libs/enums/comment.enum';
+import { CommentGroup, CommentStatus } from '../../libs/enums/comment.enum';
 import { Pagination as MuiPagination } from '@mui/material';
 import Link from 'next/link';
 import RemoveRedEyeIcon from '@mui/icons-material/RemoveRedEye';
@@ -30,10 +30,14 @@ import 'swiper/css/pagination';
 import { GET_COMMENTS, GET_CARS, GET_CAR } from '../../apollo/user/query';
 import { T } from '../../libs/types/common';
 import { Direction, Message } from '../../libs/enums/common.enum';
-import { CREATE_COMMENT, LIKE_TARGET_CAR } from '../../apollo/user/mutation';
-import { sweetErrorHandling, sweetMixinErrorAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
+import { CREATE_COMMENT, LIKE_TARGET_CAR, UPDATE_COMMENT } from '../../apollo/user/mutation';
+import { sweetConfirmAlert, sweetErrorHandling, sweetMixinErrorAlert, sweetMixinSuccessAlert, sweetTopSmallSuccessAlert } from '../../libs/sweetAlert';
  import { useRef } from 'react';
 import CarCardDP from '../../libs/components/common/CarCardDP';
+import Moment from 'react-moment';
+import { CommentUpdate } from '../../libs/types/comment/comment.update';
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
 
@@ -44,6 +48,19 @@ export const getStaticProps = async ({ locale }: any) => ({
 });
 
 const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
+	const [searchFilter, setSearchFilter] = useState<CommentsInquiry>({
+    page: 1,
+    limit: 5,
+    sort: 'createdAt',
+   direction: Direction.DESC,
+    search: { commentRefId: '' },
+});
+	const [total, setTotal] = useState<number>(0);
+	const [openBackdrop, setOpenBackdrop] = useState<boolean>(false);
+	 const [updatedComment, setUpdatedComment] = useState<string>('');
+	 const [updatedCommentWordsCnt, setUpdatedCommentWordsCnt] = useState<number>(0);
+	 const [updatedCommentId, setUpdatedCommentId] = useState<string>('');
+	 const [comments, setComments] = useState<Comment[]>([]);
 	const [lightboxOpen, setLightboxOpen] = useState(false);
     const [lightboxIndex, setLightboxIndex] = useState(0);
 	const lightboxSwiperRef = useRef<any>(null);
@@ -64,6 +81,7 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
 	});
 
 	/** APOLLO REQUESTS **/
+	 const [updateComment] = useMutation(UPDATE_COMMENT);
 	const [likeTargetCar] = useMutation(LIKE_TARGET_CAR);
 	// const [createComment] = useMutation(CREATE_COMMENT);
 	const [createComment] = useMutation(CREATE_COMMENT, {
@@ -125,13 +143,24 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
 } = useQuery(GET_COMMENTS, {
   fetchPolicy: 'cache-and-network',
   variables: { input: initialComment },
-  skip: !commentInquiry.search.commentRefId,
+ skip: !commentInquiry?.search?.commentRefId,
   notifyOnNetworkStatusChange: true,
   onCompleted: (data: T) => {
     if (data?.getComments?.list) setCarComments(data?.getComments?.list);
 	setCommentTotal(data?.getComments?.metaCounter[0]?.total ?? 0);
   },
 });
+
+
+//  const { refetch: getCommentsRefetch } = useQuery(GET_COMMENTS, {
+// 		fetchPolicy: 'cache-and-network',
+// 		variables: { input: searchFilter },
+// 		notifyOnNetworkStatusChange: true,
+// 		onCompleted(data: any) {
+// 			setComments(data.getComments.list);
+// 			setTotal(data.getComments?.metaCounter?.[0]?.total || 0);
+// 		},
+// 	});
 
 
 
@@ -160,6 +189,39 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
 	}, [commentInquiry]);
 
 	/** HANDLERS **/
+
+	 const updateButtonHandler = async (commentId: string, commentStatus?: CommentStatus.DELETE) => {
+			try {
+				if (!user?._id) throw new Error(Messages.error2);
+				if (!commentId) throw new Error('Select a comment to update!');
+				const updateData: CommentUpdate = {
+					_id: commentId,
+					...(commentStatus && { commentStatus }),
+					...(updatedComment && { commentContent: updatedComment }),
+				};
+				if (!updateData?.commentContent && !updateData?.commentStatus) throw new Error('Provide data to update!');
+				if (commentStatus) {
+					if (await sweetConfirmAlert('Do you want to delete the comment?')) {
+						await updateComment({ variables: { input: updateData } });
+						await sweetMixinSuccessAlert('Successfully deleted!');
+					} else return;
+				} else {
+					await updateComment({ variables: { input: updateData } });
+					await sweetMixinSuccessAlert('Successfully updated!');
+				}
+				await getCommetnsRefetch({ input: commentInquiry });
+			} catch (error: any) {
+				await sweetMixinErrorAlert(error.message);
+			} finally {
+				setOpenBackdrop(false);
+				setUpdatedComment('');
+				setUpdatedCommentWordsCnt(0);
+				setUpdatedCommentId('');
+			}
+		};
+
+
+
 	const changeImageHandler = (image: string) => {
 		setSlideImage(image);
 	};
@@ -209,6 +271,19 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
     await sweetErrorHandling(err);
   }
 };
+
+
+
+ const getCommentMemberImage = (imageUrl: string | undefined) => {
+        if (imageUrl) return `${process.env.REACT_APP_API_URL}/${imageUrl}`;
+        return '/img/community/articleImg.png';
+    };
+
+    const goMemberPage = (id: any) => {
+        if (id === user?._id) router.push('/mypage');
+        else router.push(`/member?memberId=${id}`);
+    };
+
 
 // ============================================================
 // FAQAT return(...) BLOKI — detail.tsx ichiga almashtiring
@@ -381,28 +456,59 @@ if (device === 'mobile') {
 							</Stack>
 
 							{/* 04 Reviews */}
-							{commentTotal !== 0 && (
-								<Stack className={'section-block'}>
-									<Typography className={'section-heading'}>
-										<span className={'heading-accent'}>04</span> Reviews
-										<span className={'review-count'}>{commentTotal}</span>
-									</Typography>
-									<Stack className={'review-list'}>
-										{carComments?.map((comment: Comment) => (
-											<Review comment={comment} key={comment?._id} />
-										))}
-										<Box component={'div'} className={'pagination-box'}>
-											<MuiPagination
-												page={commentInquiry.page}
-												count={Math.ceil(commentTotal / commentInquiry.limit)}
-												onChange={commentPaginationChangeHandler}
-												shape="circular"
-												color="primary"
-											/>
-										</Box>
-									</Stack>
-								</Stack>
-							)}
+							{/* Comments list */}
+                    {carComments?.map((commentData) => (
+                        <Stack className="comment-item" key={commentData?._id} >
+                            <Stack className="comment-author">
+                                <img
+                                    src={getCommentMemberImage(commentData?.memberData?.memberImage)}
+                                    alt=""
+                                    onClick={() => goMemberPage(commentData?.memberData?._id)}
+                                />
+                                <Stack className="comment-author-info">
+                                    <Typography className="comment-nick" onClick={() => goMemberPage(commentData?.memberData?._id)}>
+                                        {commentData?.memberData?.memberNick}
+                                    </Typography>
+                                    <Moment className="comment-date" format={'MMM DD, YYYY · HH:mm'}>
+                                        {commentData?.createdAt}
+                                    </Moment>
+                                </Stack>
+                                {commentData?.memberId === user?._id  && (
+                                    <Stack className="comment-actions">
+                                        <IconButton onClick={() => { setUpdatedCommentId(commentData?._id); updateButtonHandler(commentData?._id, CommentStatus.DELETE); }}>
+                                            <DeleteForeverIcon />
+                                        </IconButton>
+                                        <IconButton onClick={() => { setUpdatedComment(commentData?.commentContent); setUpdatedCommentWordsCnt(commentData?.commentContent?.length); setUpdatedCommentId(commentData?._id); setOpenBackdrop(true); }}>
+                                            <EditIcon />
+                                        </IconButton>
+                                        <Backdrop
+                                            sx={{ top: '40%', right: '25%', left: '25%', width: '700px', height: 'fit-content', borderRadius: '12px', color: '#fff', zIndex: 999 }}
+                                            open={openBackdrop}
+                                        >
+                                            <Stack sx={{ width: '100%', background: '#1e1e2e', border: '1px solid rgba(255,255,255,0.1)', padding: '24px', gap: '16px', borderRadius: '12px' }}>
+                                                <Typography variant="h6" color={'rgba(255,255,255,0.7)'}>Update comment</Typography>
+                                                <input
+                                                    autoFocus
+                                                    value={updatedComment}
+                                                    onChange={(e) => { if (e.target.value.length > 100) return; setUpdatedCommentWordsCnt(e.target.value.length); setUpdatedComment(e.target.value); }}
+                                                    type="text"
+                                                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', outline: 'none', height: '44px', padding: '0 14px', borderRadius: '8px', fontSize: '14px' }}
+                                                />
+                                                <Stack flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                                                    <Typography variant="subtitle2" color={'rgba(255,255,255,0.4)'}>{updatedCommentWordsCnt}/100</Typography>
+                                                    <Stack flexDirection={'row'} gap={'10px'}>
+                                                        <Button variant="outlined" sx={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.2)' }} onClick={() => { setOpenBackdrop(false); setUpdatedComment(''); setUpdatedCommentWordsCnt(0); }}>Cancel</Button>
+                                                        <Button variant="contained" sx={{ background: '#fff', color: '#0f1117' }} onClick={() => updateButtonHandler(updatedCommentId, undefined)}>Update</Button>
+                                                    </Stack>
+                                                </Stack>
+                                            </Stack>
+                                        </Backdrop>
+                                    </Stack>
+                                )}
+                            </Stack>
+                            <Typography className="comment-content">{commentData?.commentContent}</Typography>
+                        </Stack>
+                    ))}
 
 							{/* 05 Leave a Review */}
 							<Stack className={'section-block leave-review'}>
@@ -593,15 +699,19 @@ if (device === 'mobile') {
 };
 
 CarDetail.defaultProps = {
-	initialComment: {
-		page: 1,
-		limit: 5,
-		sort: 'createdAt',
-		direction: 'DESC',
-		search: {
-			commentRefId: '',
-		},
-	},
+    initialComment: {  // ✅ bu yo'q edi
+        page: 1,
+        limit: 5,
+        sort: 'createdAt',
+        direction: Direction.DESC,
+        search: { commentRefId: '' },
+    },
+    initialInput: {
+        page: 1,
+        limit: 5,
+        sort: 'createdAt',
+        direction: Direction.DESC,
+        search: { commentRefId: '' },
+    },
 };
-
 export default withLayoutFull(CarDetail);
