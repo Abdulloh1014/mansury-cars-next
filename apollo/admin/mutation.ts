@@ -4,6 +4,9 @@ import { gql } from '@apollo/client';
  *         MEMBER         *
  *************************/
 
+
+
+
 export const UPDATE_MEMBER_BY_ADMIN = gql`
 	mutation UpdateMemberByAdmin($input: MemberUpdate!) {
 		updateMemberByAdmin(input: $input) {

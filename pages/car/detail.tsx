@@ -38,9 +38,10 @@ import Moment from 'react-moment';
 import { CommentUpdate } from '../../libs/types/comment/comment.update';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
+import { REMOVE_COMMENT_BY_ADMIN } from '../../apollo/admin/mutation';
 
 SwiperCore.use([Autoplay, Navigation, Pagination]);
-
+ 
 export const getStaticProps = async ({ locale }: any) => ({
 	props: {
 		...(await serverSideTranslations(locale, ['common'])),
@@ -85,10 +86,10 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
 	const [likeTargetCar] = useMutation(LIKE_TARGET_CAR);
 	// const [createComment] = useMutation(CREATE_COMMENT);
 	const [createComment] = useMutation(CREATE_COMMENT, {
-  onCompleted: () => {
-    getCommetnsRefetch(); // ✅ to‘g‘ri joy
-  },
-});
+    onCompleted: () => {
+    getCommetnsRefetch(); 
+    },
+    });
 
 
 		const {
@@ -222,6 +223,7 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
 
 
 
+
 	const changeImageHandler = (image: string) => {
 		setSlideImage(image);
 	};
@@ -285,6 +287,13 @@ const CarDetail: NextPage = ({ initialComment, ...props }: any) => {
     };
 
 
+// 	const [removeCommentByAdmin] = useMutation(REMOVE_COMMENT_BY_ADMIN, {
+//     onCompleted: () => getCommetnsRefetch({ input: commentInquiry }),
+// });
+
+const [removeCommentByAdmin] = useMutation(REMOVE_COMMENT_BY_ADMIN, {
+    onCompleted: () => getCommetnsRefetch({ input: commentInquiry }),
+});
 // ============================================================
 // FAQAT return(...) BLOKI — detail.tsx ichiga almashtiring
 // ============================================================
@@ -353,8 +362,8 @@ if (device === 'mobile') {
 						<Stack className={'title-left'}>
 							<Typography className={'car-title'}>{car?.carTitle}</Typography>
 							<Stack className={'meta-row'}>
-								<Typography className={'meta-location'}>{car?.carLocation}</Typography>
-								<span className={'dot'}>·</span>
+								{/* <Typography className={'meta-location'}>{car?.carLocation}</Typography> */}
+								{/* <span className={'dot'}>·</span> */}
 								<Typography className={'meta-date'}>
 									{moment().diff(car?.createdAt, 'days')} days ago
 								</Typography>
@@ -414,7 +423,7 @@ if (device === 'mobile') {
 								</Typography>
 								<Stack className={'details-grid'}>
 									{[
-										{ label: 'Price', value: `$${formatterStr(car?.carPrice)}` },
+										{ label: 'Mileage', value: car?.carMileage +  '  km' },
 										{ label: 'Fuel Type', value: car?.carFuelType },
 										{ label: 'Doors', value: car?.carDoors },
 										{ label: 'Engine', value: car?.carEngine },
@@ -455,65 +464,105 @@ if (device === 'mobile') {
 								</Stack>
 							</Stack>
 
+
+
+
 							{/* 04 Reviews */}
 							{/* Comments list */}
-                    {carComments?.map((commentData) => (
-                        <Stack className="comment-item" key={commentData?._id} >
-                            <Stack className="comment-author">
-                                <img
-                                    src={getCommentMemberImage(commentData?.memberData?.memberImage)}
-                                    alt=""
-                                    onClick={() => goMemberPage(commentData?.memberData?._id)}
-                                />
-                                <Stack className="comment-author-info">
-                                    <Typography className="comment-nick" onClick={() => goMemberPage(commentData?.memberData?._id)}>
-                                        {commentData?.memberData?.memberNick}
-                                    </Typography>
-                                    <Moment className="comment-date" format={'MMM DD, YYYY · HH:mm'}>
-                                        {commentData?.createdAt}
-                                    </Moment>
+                   {carComments?.map((commentData) => (
+    <Stack className="comment-item" key={commentData?._id}>
+        <Stack className="comment-author">
+            <img
+                src={getCommentMemberImage(commentData?.memberData?.memberImage)}
+                alt=""
+                onClick={() => goMemberPage(commentData?.memberData?._id)}
+            />
+            <Stack className="comment-author-info">
+                <Typography className="comment-nick" onClick={() => goMemberPage(commentData?.memberData?._id)}>
+                    {commentData?.memberData?.memberNick}
+                </Typography>
+                <Moment className="comment-date" format={'MMM DD, YYYY · HH:mm'}>
+                    {commentData?.createdAt}
+                </Moment>
+            </Stack>
+
+          {/* DELETE — admin va car egasi (agent), lekin comment o'ziniki bo'lmasa */}
+{(user?.memberType === 'ADMIN' || car?.memberData?._id === user?._id) && 
+ commentData?.memberId !== user?._id && (
+    <IconButton sx={{ color: 'rgba(255,255,255,0.4)', '&:hover': { color: '#fff' } }}
+        onClick={async () => {
+            if (!commentData?._id) return;
+            if (user?.memberType === 'ADMIN') {
+                if (await sweetConfirmAlert('Do you want to delete the comment?')) {
+                    await removeCommentByAdmin({ variables: { input: commentData._id } });
+                    await sweetMixinSuccessAlert('Successfully deleted!');
+                }
+            } else {
+                updateButtonHandler(commentData._id, CommentStatus.DELETE);
+            }
+        }}>
+        <DeleteForeverIcon />
+    </IconButton>
+)}
+            {/* DELETE + EDIT — faqat comment yozgan user */}
+            {commentData?.memberId === user?._id && (
+                <Stack className="comment-actions">
+                    <IconButton onClick={() => {
+                        setUpdatedCommentId(commentData?._id);
+                        updateButtonHandler(commentData?._id, CommentStatus.DELETE);
+                    }}>
+                        <DeleteForeverIcon />
+                    </IconButton>
+                    <IconButton onClick={() => {
+                        setUpdatedComment(commentData?.commentContent);
+                        setUpdatedCommentWordsCnt(commentData?.commentContent?.length);
+                        setUpdatedCommentId(commentData?._id);
+                        setOpenBackdrop(true);
+                    }}>
+                        <EditIcon />
+                    </IconButton>
+                    <Backdrop
+                        sx={{ top: '40%', right: '25%', left: '25%', width: '700px', height: 'fit-content', borderRadius: '12px', color: '#fff', zIndex: 999 }}
+                        open={openBackdrop}
+                    >
+                        <Stack sx={{ width: '100%', background: '#1e1e2e', border: '1px solid rgba(255,255,255,0.1)', padding: '24px', gap: '16px', borderRadius: '12px' }}>
+                            <Typography variant="h6" color={'rgba(255,255,255,0.7)'}>Update comment</Typography>
+                            <input
+                                autoFocus
+                                value={updatedComment}
+                                onChange={(e) => {
+                                    if (e.target.value.length > 100) return;
+                                    setUpdatedCommentWordsCnt(e.target.value.length);
+                                    setUpdatedComment(e.target.value);
+                                }}
+                                type="text"
+                                style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', outline: 'none', height: '44px', padding: '0 14px', borderRadius: '8px', fontSize: '14px' }}
+                            />
+                            <Stack flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
+                                <Typography variant="subtitle2" color={'rgba(255,255,255,0.4)'}>{updatedCommentWordsCnt}/100</Typography>
+                                <Stack flexDirection={'row'} gap={'10px'}>
+                                    <Button variant="outlined" sx={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.2)' }} onClick={() => {
+                                        setOpenBackdrop(false);
+                                        setUpdatedComment('');
+                                        setUpdatedCommentWordsCnt(0);
+                                    }}>Cancel</Button>
+                                    <Button variant="contained" sx={{ background: '#fff', color: '#0f1117' }} onClick={() => updateButtonHandler(updatedCommentId, undefined)}>Update</Button>
                                 </Stack>
-                                {commentData?.memberId === user?._id  && (
-                                    <Stack className="comment-actions">
-                                        <IconButton onClick={() => { setUpdatedCommentId(commentData?._id); updateButtonHandler(commentData?._id, CommentStatus.DELETE); }}>
-                                            <DeleteForeverIcon />
-                                        </IconButton>
-                                        <IconButton onClick={() => { setUpdatedComment(commentData?.commentContent); setUpdatedCommentWordsCnt(commentData?.commentContent?.length); setUpdatedCommentId(commentData?._id); setOpenBackdrop(true); }}>
-                                            <EditIcon />
-                                        </IconButton>
-                                        <Backdrop
-                                            sx={{ top: '40%', right: '25%', left: '25%', width: '700px', height: 'fit-content', borderRadius: '12px', color: '#fff', zIndex: 999 }}
-                                            open={openBackdrop}
-                                        >
-                                            <Stack sx={{ width: '100%', background: '#1e1e2e', border: '1px solid rgba(255,255,255,0.1)', padding: '24px', gap: '16px', borderRadius: '12px' }}>
-                                                <Typography variant="h6" color={'rgba(255,255,255,0.7)'}>Update comment</Typography>
-                                                <input
-                                                    autoFocus
-                                                    value={updatedComment}
-                                                    onChange={(e) => { if (e.target.value.length > 100) return; setUpdatedCommentWordsCnt(e.target.value.length); setUpdatedComment(e.target.value); }}
-                                                    type="text"
-                                                    style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.15)', color: '#fff', outline: 'none', height: '44px', padding: '0 14px', borderRadius: '8px', fontSize: '14px' }}
-                                                />
-                                                <Stack flexDirection={'row'} justifyContent={'space-between'} alignItems={'center'}>
-                                                    <Typography variant="subtitle2" color={'rgba(255,255,255,0.4)'}>{updatedCommentWordsCnt}/100</Typography>
-                                                    <Stack flexDirection={'row'} gap={'10px'}>
-                                                        <Button variant="outlined" sx={{ color: 'rgba(255,255,255,0.6)', borderColor: 'rgba(255,255,255,0.2)' }} onClick={() => { setOpenBackdrop(false); setUpdatedComment(''); setUpdatedCommentWordsCnt(0); }}>Cancel</Button>
-                                                        <Button variant="contained" sx={{ background: '#fff', color: '#0f1117' }} onClick={() => updateButtonHandler(updatedCommentId, undefined)}>Update</Button>
-                                                    </Stack>
-                                                </Stack>
-                                            </Stack>
-                                        </Backdrop>
-                                    </Stack>
-                                )}
                             </Stack>
-                            <Typography className="comment-content">{commentData?.commentContent}</Typography>
                         </Stack>
-                    ))}
+                    </Backdrop>
+                </Stack>
+            )}
+        </Stack>
+        <Typography className="comment-content">{commentData?.commentContent}</Typography>
+    </Stack>
+))}
+					
 
 							{/* 05 Leave a Review */}
 							<Stack className={'section-block leave-review'}>
 								<Typography className={'section-heading'}>
-									<span className={'heading-accent'}>05</span> Leave a Review
+									<span className={'heading-accent'}>04</span> Leave a Review
 								</Typography>
 								<textarea
 									placeholder={'Share your experience with this vehicle...'}

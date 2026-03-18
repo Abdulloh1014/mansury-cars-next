@@ -304,7 +304,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
 
                     {/* Comments list */}
                     {comments?.map((commentData) => (
-                        <Stack className="comment-item" key={commentData?._id}  style={{background: 'red'}}>
+                        <Stack className="comment-item" key={commentData?._id}>
                             <Stack className="comment-author">
                                 <img
                                     src={getCommentMemberImage(commentData?.memberData?.memberImage)}
@@ -319,7 +319,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                                         {commentData?.createdAt}
                                     </Moment>
                                 </Stack>
-                                {commentData?.memberId === user?._id && (
+                                {(commentData?.memberId === user?._id || user?.memberType === 'ADMIN') && (
                                     <Stack className="comment-actions">
                                         <IconButton onClick={() => { setUpdatedCommentId(commentData?._id); updateButtonHandler(commentData?._id, CommentStatus.DELETE); }}>
                                             <DeleteForeverIcon />
