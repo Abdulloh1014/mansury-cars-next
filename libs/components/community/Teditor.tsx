@@ -88,8 +88,9 @@ const TuiEditor = () => {
     memoizedValues.articleContent = articleContent;
 
     if (
-      memoizedValues.articleContent === '' &&
-      memoizedValues.articleTitle === ''
+      memoizedValues.articleContent === '' ||
+      memoizedValues.articleTitle === '' || 
+	   memoizedValues.articleImage === ''
     ) {
       throw new Error(Message.INSERT_ALL_INPUTS);
     }

@@ -92,6 +92,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
     const { refetch: getCommentsRefetch } = useQuery(GET_COMMENTS, {
         fetchPolicy: 'cache-and-network',
         variables: { input: searchFilter },
+         skip: !articleId,  // ← shu bitta qator
         notifyOnNetworkStatusChange: true,
         onCompleted(data: any) {
             setComments(data.getComments.list);
@@ -239,7 +240,7 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                                 </Moment>
                             </Stack>
                         </Stack>
-                        <Stack className="article-stats">
+                        <Stack className="article-stats" >
                             <Stack className="stat-item" onClick={() => likeBoArticleHandler(user, boardArticle?._id)}>
                                 {boardArticle?.meLiked && boardArticle?.meLiked[0]?.myFavorite
                                     ? <ThumbUpAltIcon className="liked" />
@@ -258,9 +259,25 @@ const CommunityDetail: NextPage = ({ initialInput, ...props }: T) => {
                     </Stack>
 
                     {/* Content */}
-                    <Stack className="article-content">
+                    {/* Content */}
+{/* Content */}
+<Stack className="article-content">
+    <Stack className="text-side">
+        <ToastViewerComponent 
+            markdown={boardArticle?.articleContent?.replace(/!\[.*?\]\(.*?\)/g, '')} 
+            className={'ytb_play'} 
+        />
+    </Stack>
+    <Stack className="image-side">
+        <img 
+            src={`${process.env.REACT_APP_API_URL}/${boardArticle?.articleImage}`} 
+            alt="article" 
+        />
+    </Stack>
+</Stack>
+                    {/* <Stack className="article-content">
                         <ToastViewerComponent markdown={boardArticle?.articleContent} className={'ytb_play'} />
-                    </Stack>
+                    </Stack> */}
 
                     {/* Like button */}
                     <Stack className="article-like-row">
