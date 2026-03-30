@@ -166,7 +166,7 @@ const Footer = () => {
 							<h4>Quick Links</h4>
 							<a href="/">Home</a>
 							<a href="/car">Cars</a>
-							<a href="/agent">Agents</a>
+							<a href="/agent">Dealers</a>
 							<a href="/community">Community</a>
 							<a href="/about">About</a>
 						</Box>

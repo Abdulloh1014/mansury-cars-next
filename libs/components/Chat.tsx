@@ -132,6 +132,7 @@ const Chat = () => {
 		}
 	};
 
+
 	return (
 		<Stack className="chatting">
 			{openButton ? (
@@ -201,6 +202,8 @@ const Chat = () => {
 			</Stack>
 		</Stack>
 	);
+
+	
 };
 
 export default Chat;

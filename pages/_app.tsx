@@ -8,6 +8,8 @@ import { useApollo } from '../apollo/client';
 import { appWithTranslation } from 'next-i18next';
 import { SessionProvider, useSession } from 'next-auth/react';
 import { getJwtToken, updateUserInfo } from '../libs/auth';
+import ScrollToTopBtn from '../libs/components/common/ScrollToTopBtn';
+import '../scss/scrollToTopBtn.scss';
 
 import '../scss/app.scss';
 import '../scss/pc/main.scss';
@@ -38,6 +40,7 @@ const App = ({ Component, pageProps }: AppProps) => {
                     <CssBaseline />
                     <TokenSaver />
                     <Component {...pageProps} />
+                    <ScrollToTopBtn />
                 </ThemeProvider>
             </ApolloProvider>
         </SessionProvider>

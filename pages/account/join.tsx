@@ -60,7 +60,7 @@ const Join: NextPage = () => {
 					<Stack className={'left'}>
 
 						<Box className={'logo'}>
-							<img src="/img/logo/logoText.svg" alt="" />
+							<img src="/img/logo/mans_logo.jpg" alt="" style={{ borderRadius: '50%'}} />
 							<span>mansory</span>
 						</Box>
 

@@ -2,6 +2,8 @@
 @import '/scss/variables.scss';
 @import '/scss/pc/general.scss';
 
+
+
 @import '/scss/pc/homepage/homepage';
 
 @import '/scss/pc/car/car';
@@ -57,7 +59,7 @@ body::-webkit-scrollbar {
 				box-sizing: border-box;
 				z-index: 99;
 				align-items: center;
-				border-top: 1px solid rgba(255, 255, 255, 0.07);
+				border-bottom: 2px solid rgba(255, 255, 255, 0.1);
 				&.transparent {
                  background-color: #202020d9; /* To'yinganlik 85% gacha oshirildi (d9) */
                  -webkit-backdrop-filter: blur(10px); /* Safari brauzeri uchun */
@@ -271,47 +273,75 @@ body::-webkit-scrollbar {
 				background: #040b0d;
 				border: 1px solid #242424;
 				border-radius: 12px;
-				.select-box {
-					width: 912px;
-					display: flex;
-					
-					flex-direction: row;
-					justify-content: space-between;
-					.box {
-						
-						padding: 24px 22px;
-						width: 213px;
-						height: 56px;
-						display: flex;
-						flex-direction: row;
-						align-items: center;
-						justify-content: space-between;
-						border-radius: 12px;
-						background: rgba(255, 255, 255, 0.575);
-						box-sizing: border-box;
-						cursor: pointer;
-						&.on {
-							background: #ffffff;
-							border: 1px solid #000;
-							color: #181a20;
-						}
-						span {
-							color: #181a20;
-							font-family: $font;
-							font-size: 14px;
-							font-style: normal;
-							font-weight: 400;
-							line-height: 26px;
-							
-						}
-						// svg {
-						// }
-					}
-				}
+
+
+						.select-box {
+				width: 912px;
+				display: flex;
+				justify-content: space-between;
+    flex-direction: row;
+    align-items: center;
+    gap: 12px;
+	
+    .box {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        gap: 10px;
+		width: 273px;
+        height: 56px;
+        padding: 0 20px;
+        min-width: 160px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        border-radius: 10px;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        span {
+            color: rgba(255, 255, 255, 0.7);
+            font-family: $font;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3px;
+            white-space: nowrap;
+        }
+
+        svg {
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 18px;
+            transition: transform 0.2s ease;
+        }
+
+        &:hover {
+            background: rgba(255, 255, 255, 0.09);
+            border-color: rgba(255, 255, 255, 0.25);
+
+            span { color: #ffffff; }
+            svg { color: rgba(255, 255, 255, 0.7); }
+        }
+
+        &.on {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255, 255, 255, 0.4);
+
+            span { color: #ffffff; }
+
+            svg {
+                color: #ffffff;
+                transform: rotate(180deg);
+            }
+        }
+    }
+}
+
+
 				.search-box-other {
 					display: flex;
 					flex-direction: row;
 					align-items: center;
+					
 					.advanced-filter {
 						display: flex;
 						flex-direction: row;
@@ -363,7 +393,8 @@ body::-webkit-scrollbar {
 					gap: 40px;
 					visibility: hidden;
 					border-radius: 12px;
-					background: #ffffff;
+					// background: #ffffff;
+					
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 2;
@@ -412,23 +443,35 @@ body::-webkit-scrollbar {
 					justify-content: space-between;
 					visibility: hidden;
 					border-radius: 12px;
+					// background-color: #1ee0c6;
+
 					background: #fff;
+					// background-color: rgb(33, 35, 40);
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 1;
 					&.on {
 						visibility: visible;
 						transition: 0.2s ease-out;
-						background: #fffdfd;
+						// background: #fffdfd;
+						
 					}
 					div {
 						position: relative;
 						width: 272px;
-						height: 168px;
+						height: 68px;
 						border-radius: 15px;
 						cursor: pointer;
 						background-size: cover;
+						// background-color: red;
+						display: flex;
+						align-items: center;
+						justify-content: space-between;
 						span {
+						// 	display: flex;
+						// align-items: center;
+						// justify-content: space-between;
+						// background-color: #1ee0c6;
 							position: absolute;
 							top: 13px;
 							right: 12px;
@@ -460,7 +503,10 @@ body::-webkit-scrollbar {
 					align-items: center;
 					visibility: hidden;
 					border-radius: 12px;
-					background: #fff;
+					// background-color: #1ee0c6;
+
+					// background: #fff;
+					// background-color: rgb(33, 35, 40);
 					box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 					box-sizing: border-box;
 					z-index: 1;
@@ -470,6 +516,7 @@ body::-webkit-scrollbar {
 						background: #fffdfd;
 					}
 					span {
+						// background-color: rgb(33, 35, 40);
 						display: flex;
 						align-items: center;
 						padding: 10px 30px;
@@ -604,6 +651,8 @@ body::-webkit-scrollbar {
 		}
 	}
 
+
+	
 	.chatting {
 		.chat-button {
 			border: none;
