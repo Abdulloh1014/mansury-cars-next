@@ -2,8 +2,8 @@
   .join-page {
     position: relative;
     width: 100%;
-    height: 100vh;
-    min-height: 860px;
+    height: calc(100vh - 240px);   // 80px — navbar balandligi
+    min-height: 620px;
     display: flex;
     align-items: center;
     justify-content: center;

@@ -65,7 +65,7 @@ const Join: NextPage = () => {
 						</Box>
 
 						<Box className={'info'}>
-							<span>{loginView ? 'Welcome back.' : 'Join Mansury.'}</span>
+							<span>{loginView ? 'Welcome back.' : 'Join Mansory.'}</span>
 							<p>{loginView ? 'Sign in to access your premium account' : 'Create your account and start exploring'}</p>
 						</Box>
 

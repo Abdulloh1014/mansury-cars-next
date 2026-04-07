@@ -5,16 +5,16 @@ export default function Document() {
 		<Html lang="en">
 			<Head>
 				<meta name="robots" content="index,follow" />
-				<link rel="icon" type="image/png" href="/img/logo/favicon.svg" />
+				<link rel="icon" type="image/png" href="/img/logo/mans_logo.jpg" />
 
 				{/* SEO */}
-				<meta name="keyword" content={'mansury, mansury.uz, devex mern, mern nestjs fullstack'} />
+				<meta name="keyword" content={'mansory, mansory.uz, devex mern, mern nestjs fullstack'} />
 				<meta
 					name={'description'}
 					content={
-						'Buy and sell cars anywhere anytime in South Korea. Best Cars at Best prices on mansury.uz | ' +
-						'Покупайте и продавайте недвижимость в любой точке Южной Кореи в любое время. Лучшая недвижимость по лучшим ценам на mansury.uz | ' +
-						'대한민국 언제 어디서나 부동산을 사고팔 수 있습니다. mansury.uz에서 최적의 가격으로 최고의 부동산을 만나보세요'
+						'Buy and sell cars anywhere anytime in South Korea. Best Cars at Best prices on mansory.uz | ' +
+						'Покупайте и продавайте недвижимость в любой точке Южной Кореи в любое время. Лучшая недвижимость по лучшим ценам на mansory.uz | ' +
+						'대한민국 언제 어디서나 부동산을 사고팔 수 있습니다. mansory.uz에서 최적의 가격으로 최고의 부동산을 만나보세요'
 					}
 				/>
 			</Head>

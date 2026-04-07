@@ -65,7 +65,7 @@ const carsDataFromBackend = data?.getCars?.list ?? [];
 			return (
 				<>
 					<Head>
-						<title>Mansory</title>
+						<title>mansory</title>
 						<meta name={'title'} content={`mansury`} />
 					</Head>
 					<Stack id="pc-wrap">

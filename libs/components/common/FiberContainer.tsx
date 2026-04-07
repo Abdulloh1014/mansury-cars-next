@@ -30,7 +30,7 @@ const pushDetailHandler = async () => {
 	const topCars = useMemo(() => {
 		return [...cars]
 			.sort((a, b) => b.carViews - a.carViews)
-			.slice(0, 7);
+			.slice(0, 9);
 	}, [cars]);
 
 	// 🔁 Auto slide
