@@ -1,6 +1,7 @@
 import React, { useEffect, useMemo, useState } from 'react';
 import { useRouter } from 'next/router';
 import { Box, Typography, Button } from '@mui/material';
+import { REACT_APP_API_URL } from '../../config';
 
 interface Car {
 	
@@ -62,7 +63,8 @@ const pushDetailHandler = async () => {
 					position: 'absolute',
 					width: '100%',
 					height: '100%',
-					backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}/${activeCar.carImages[0]})`,
+					// backgroundImage: `url(${process.env.REACT_APP_API_URL}/${activeCar.carImages[0]})`,
+					 backgroundImage: `url(${REACT_APP_API_URL}/${activeCar.carImages[0]})`,
 					// backgroundColor: '#f3434a',
 					backgroundSize: 'cover',
 					backgroundPosition: 'center',

@@ -7,6 +7,7 @@ import { GET_CARS } from '../../../apollo/user/query';
 import { Car } from '../../types/car/car';
 import { CarsInquiry } from '../../types/car/car.input';
 import { T } from '../../types/common';
+import { REACT_APP_API_URL } from '../../config';
 
 
 interface PremiumCarsProps {
@@ -53,7 +54,8 @@ const pushDetailHandler = async (id: string) => {
           key={car._id}
           className="premium-card"
           sx={{
-           backgroundImage: `url(${process.env.NEXT_PUBLIC_API_URL}/${car.carImages?.[0]})`,
+          //  backgroundImage: `url(${process.env.REACT_APP_API_URL}/${car.carImages?.[0]})`,
+            backgroundImage: `url(${REACT_APP_API_URL}/${car.carImages?.[0]})`,
           }}
         >
           <Box className="overlay">
