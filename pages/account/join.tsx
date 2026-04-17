@@ -61,7 +61,7 @@ const Join: NextPage = () => {
 
 						<Box className={'logo'}>
 							<img src="/img/logo/mans_logo.jpg" alt="" style={{ borderRadius: '50%'}} />
-							<span>mansory</span>
+							<span>mansury</span>
 						</Box>
 
 						<Box className={'info'}>

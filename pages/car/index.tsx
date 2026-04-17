@@ -58,49 +58,37 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 
 	/** LIFECYCLES **/
 	useEffect(() => {
-		if (router.query.input) {
-			const inputObj = JSON.parse(router?.query?.input as string);
-			setSearchFilter(inputObj);
-		}
+    getCarsRefetch({ input: searchFilter });
+}, [searchFilter]);
 
-		setCurrentPage(searchFilter.page === undefined ? 1 : searchFilter.page);
-	}, [router]);
-
-	useEffect(() => {
-      // Backend Refetch
-	  console.log("searchFilter", searchFilter);
-	  //getCarsRefetch( { input: searchFilter }).then(); buni yozish shart emas aslida
-	}, [searchFilter]);
+	
 
 	/** HANDLERS **/
 	const handlePaginationChange = async (event: ChangeEvent<unknown>, value: number) => {
-		searchFilter.page = value;
-		await router.push(
-			`/car?input=${JSON.stringify(searchFilter)}`,
-			`/car?input=${JSON.stringify(searchFilter)}`,
-			{
-				scroll: false,
-			},
-		);
-		setCurrentPage(value);
-	};
+    const updatedFilter = { ...searchFilter, page: value };
+    setSearchFilter(updatedFilter);  // ← state ni ham yangilaymiz
+    setCurrentPage(value);
+    
+    await router.push(
+        `/car?input=${JSON.stringify(updatedFilter)}`,
+        `/car?input=${JSON.stringify(updatedFilter)}`,
+        { scroll: false }
+    );
+};
 
 		const likeCarHandler = async (user: T, id: string) => {
-	  try {
-		if (!id) return;
-		if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
-	
-		await likeTargetCar({
-		  variables: { input: id },
-		});
-		await getCarsRefetch({ input: initialInput });
-	
-		await sweetTopSmallSuccessAlert('success', 800);
-	  } catch (err: any) {
-		console.log('ERROR, likeCarHandler:', err.message);
-		sweetMixinErrorAlert(err.message).then();
-	  }
-	};
+    try {
+        if (!id) return;
+        if (!user._id) throw new Error(Message.NOT_AUTHENTICATED);
+
+        await likeTargetCar({ variables: { input: id } });
+        await getCarsRefetch({ input: searchFilter }); // ← initialInput emas, searchFilter
+        await sweetTopSmallSuccessAlert('success', 800);
+    } catch (err: any) {
+        console.log('ERROR, likeCarHandler:', err.message);
+        sweetMixinErrorAlert(err.message).then();
+    }
+};
 	
 
 	const sortingClickHandler = (e: MouseEvent<HTMLElement>) => {
@@ -242,7 +230,7 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 CarList.defaultProps = {
 	initialInput: {
 		page: 1,
-		limit: 9,
+		limit: 8,
 		sort: 'createdAt',
 		direction: 'DESC',
 		search: {
