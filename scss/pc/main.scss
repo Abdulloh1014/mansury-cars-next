@@ -220,23 +220,35 @@ body::-webkit-scrollbar {
 						}
 					}
 					.lan-box {
+						position: relative;
 						margin-left: 28px;
 						display: flex;
 						align-items: center;
 						.notification-icon {
 							color: white;
 						}
-						.btn-lang {
-							border-radius: 4px;
-							 color: #ebebeb;
-                            font-size: 19px;
-                            font-weight: 700;
-							img {
-								width: 24px;
-								height: 17px;
-								border-radius: 2px;
-							}
-						}
+					// SCSS
+.btn-lang {
+  font-family: 'Montserrat', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 2.5px;
+  color: rgba(255, 255, 255, 0.8);
+  text-transform: uppercase;
+  padding: 8px 12px;
+  gap: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  transition: color 0.3s ease;
+
+  &:hover {
+    color: #c9a84c;
+    background: transparent;
+  }
+}
 						.img-flag {
 							width: 24px;
 							height: 17px;
