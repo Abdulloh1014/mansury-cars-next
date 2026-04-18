@@ -13,7 +13,7 @@ export default NextAuth({
         async signIn({ user, account }) {
             if (account?.provider === 'google') {
                 try {
-                    const response = await fetch('http://localhost:3011/graphql', {
+                    const response = await fetch('http://187.124.129.79:4001/graphql', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
