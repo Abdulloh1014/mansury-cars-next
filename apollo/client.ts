@@ -109,14 +109,17 @@ function createIsomorphicLink() {
 			return forward(operation);
 		});
 
+		const graphqlUri = process.env.REACT_APP_API_GRAPHQL_URL || process.env.NEXT_PUBLIC_API_GRAPHQL_URL || 'http://localhost:3000/graphql';
+		const wsUri = process.env.REACT_APP_API_WS || process.env.NEXT_PUBLIC_API_WS || 'ws://127.0.0.1:3000';
+
 		// @ts-ignore
 		const link = new createUploadLink({
-			uri: process.env.REACT_APP_API_GRAPHQL_URL,
+			uri: graphqlUri,
 		});
 
 		/* WEBSOCKET SUBSCRIPTION LINK */
 		const wsLink = new WebSocketLink({
-			uri: process.env.REACT_APP_API_WS ?? 'ws://127.0.0.1:3007',
+			uri: wsUri,
 			options: {
 				reconnect: false,  //Agar uzilib qolsa: qayta ulanmaydi ❌
 				timeout: 30000,    // 30 sekundda ulanmasa: bekor qiladi
