@@ -71,7 +71,7 @@ const Events = () => {
                         spaceBetween={10} 
                         slidesPerView={device === 'mobile' ? 1 : 5} // Qurilmaga qarab moslashish
                         loop={true}
-                        autoplay={{ delay: 3000, disableOnInteraction: false }}
+                        autoplay={{ enabled: true, delay: 3000, disableOnInteraction: false }}
                         navigation={true}
                         breakpoints={{
                             320: { slidesPerView: 1 },

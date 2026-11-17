@@ -8,7 +8,6 @@ import {
 	FormControl,
 	InputLabel,
 	Select,
-	MenuItem,
 	Tooltip,
 	IconButton,
 } from '@mui/material';
@@ -21,14 +20,6 @@ import CancelRoundedIcon from '@mui/icons-material/CancelRounded';
 import { CarFuelType } from '../../enums/car.enum';
 import RefreshIcon from '@mui/icons-material/Refresh';
 import { carMileage } from '../../config';
-
-const MenuProps = {
-	PaperProps: {
-		style: {
-			maxHeight: '200px',
-		},
-	},
-};
 
 interface FilterType {
 	searchFilter: CarsInquiry;
@@ -763,51 +754,61 @@ if (searchFilter?.search?.colorList?.length === 0) {
 					<Typography className={'title'}>Mileage</Typography>
 					<Stack className="square-year-input">
 						<FormControl>
-							<InputLabel id="demo-simple-select-label" style={{ color: '#696969' }} >Min</InputLabel>
+							<InputLabel id="min-mileage-label" sx={{ color: '#696969', '&.Mui-focused': { color: '#696969' } }}>Min</InputLabel>
 							<Select
-							     style={{backgroundColor: '#1e2029',  color: '#696969'}}
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
+								native
+								sx={{
+									backgroundColor: '#1e2029',
+									color: '#696969',
+									'& .MuiOutlinedInput-notchedOutline': { borderColor: '#ddd' },
+									'&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#bbb' },
+									'&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#ddd' },
+								}}
+								labelId="min-mileage-label"
+								id="min-mileage-select"
 								value={searchFilter?.search?.mileageRange?.start ?? 0}
 								label="Min"
 								onChange={(e: any) => carSquareHandler(e, 'start')}
-								MenuProps={MenuProps}
 							>
-
 									{carMileage.map((square: number) => (
-									<MenuItem
-										value={square}
-										disabled={(searchFilter?.search?.mileageRange?.end || 0) < square}
-										key={square}
-									>
-										{square}
-									</MenuItem>
-								))}
-
+										<option
+											value={square}
+											disabled={(searchFilter?.search?.mileageRange?.end || 0) < square}
+											key={square}
+										>
+											{square}
+										</option>
+										))}
 
 							</Select>
 						</FormControl>
 
 						<div className="central-divider"></div>
 						<FormControl>
-							<InputLabel id="demo-simple-select-label" style={{ color: '#696969' }} >Max</InputLabel>
+							<InputLabel id="max-mileage-label" sx={{ color: '#696969', '&.Mui-focused': { color: '#696969' } }}>Max</InputLabel>
 							<Select
-							    style={{backgroundColor: '#1e2029',  color: '#696969'}}
-								labelId="demo-simple-select-label"
-								id="demo-simple-select"
+								native
+								sx={{
+									backgroundColor: '#1e2029',
+									color: '#696969',
+									'& .MuiOutlinedInput-notchedOutline': { borderColor: '#ddd' },
+									'&:hover .MuiOutlinedInput-notchedOutline': { borderColor: '#bbb' },
+									'&.Mui-focused .MuiOutlinedInput-notchedOutline': { borderColor: '#ddd' },
+								}}
+								labelId="max-mileage-label"
+								id="max-mileage-select"
 								value={searchFilter?.search?.mileageRange?.end ?? 500}
 								label="Max"
 								onChange={(e: any) => carSquareHandler(e, 'end')}
-								MenuProps={MenuProps}
 							>
 								{carMileage.map((square: number) => (
-									<MenuItem
+									<option
 										value={square}
 										disabled={(searchFilter?.search?.mileageRange?.start || 0) > square}
 										key={square}
 									>
 										{square}
-									</MenuItem>
+									</option>
 								))}
 							</Select>
 						</FormControl>

@@ -47,6 +47,10 @@ hr {
 	margin: auto;
 }
 
+html {
+	zoom: 0.75;
+}
+
 /** VERSION: PC **/
 #pc-wrap {
 	width: 100%;
@@ -60,8 +64,4 @@ hr {
 		margin: 0 auto;
 		display: flex;
 	}
-}
-
-html {
-    zoom: 0.75;
 }

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, MouseEvent, useEffect, useState } from 'react';
 import { NextPage } from 'next';
-import { Box, Button, Menu, MenuItem, Pagination, Stack, Typography } from '@mui/material';
+import { Box, Button, MenuItem, Pagination, Stack, Typography } from '@mui/material';
 import CarCard from '../../libs/components/car/CarCard';
 import useDeviceDetect from '../../libs/hooks/useDeviceDetect';
 import withLayoutBasic from '../../libs/components/layout/LayoutBasic';
@@ -32,7 +32,6 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 	const [cars, setCars] = useState<Car[]>([]);
 	const [total, setTotal] = useState<number>(0);
 	const [currentPage, setCurrentPage] = useState<number>(1);
-	const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 	const [sortingOpen, setSortingOpen] = useState(false);
 	const [filterSortName, setFilterSortName] = useState('New');
 
@@ -57,6 +56,22 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 		});
 
 	/** LIFECYCLES **/
+	// Filter controls update the URL with router.push. Keep the query state in
+	// sync so Apollo refetches with the selected filters.
+	useEffect(() => {
+		const input = router.query.input;
+		if (typeof input !== 'string') return;
+
+		try {
+			const nextFilter = JSON.parse(input) as CarsInquiry;
+			setSearchFilter((currentFilter) =>
+				JSON.stringify(currentFilter) === JSON.stringify(nextFilter) ? currentFilter : nextFilter,
+			);
+		} catch (error) {
+			console.error('Invalid car filter in URL:', error);
+		}
+	}, [router.query.input]);
+
 	useEffect(() => {
     getCarsRefetch({ input: searchFilter });
 }, [searchFilter]);
@@ -91,14 +106,12 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 };
 	
 
-	const sortingClickHandler = (e: MouseEvent<HTMLElement>) => {
-		setAnchorEl(e.currentTarget);
-		setSortingOpen(true);
+	const sortingClickHandler = () => {
+		setSortingOpen((open) => !open);
 	};
 
 	const sortingCloseHandler = () => {
 		setSortingOpen(false);
-		setAnchorEl(null);
 	};
 
 	const sortingHandler = (e: React.MouseEvent<HTMLLIElement>) => {
@@ -116,7 +129,6 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 				setFilterSortName('Highest Price');
 		}
 		setSortingOpen(false);
-		setAnchorEl(null);
 	};
 
 	if (device === 'mobile') {
@@ -129,11 +141,37 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 
 					<Box component={'div'} className={'right'}>
 						<span style={{ color: '#949598' }}>Sort by</span>
-						<div>
-							<Button onClick={sortingClickHandler} endIcon={<KeyboardArrowDownRoundedIcon  sx={{ paddingTop: '5px', color: '#fff' }} />}>
+						<div
+							style={{ position: 'relative' }}
+							onBlur={(event) => {
+								if (!event.currentTarget.contains(event.relatedTarget as Node | null)) sortingCloseHandler();
+							}}
+							onKeyDown={(event) => {
+								if (event.key === 'Escape') sortingCloseHandler();
+							}}
+						>
+							<Button
+								aria-haspopup="menu"
+								aria-expanded={sortingOpen}
+								onClick={sortingClickHandler}
+								endIcon={<KeyboardArrowDownRoundedIcon sx={{ paddingTop: '5px', color: '#fff' }} />}
+							>
 								{filterSortName}
 							</Button>
-							<Menu anchorEl={anchorEl} open={sortingOpen} onClose={sortingCloseHandler} sx={{ paddingTop: '5px', color: '#fff' }}>
+							{sortingOpen && (
+								<Box
+									role="menu"
+									sx={{
+										position: 'absolute',
+										top: 'calc(100% + 4px)',
+										right: 0,
+										zIndex: 10,
+										minWidth: 160,
+										py: 0.5,
+										backgroundColor: '#fff',
+										boxShadow: '0 4px 12px rgba(0, 0, 0, 0.25)',
+									}}
+								>
 								<MenuItem
 									onClick={sortingHandler}
 									id={'new'}
@@ -159,7 +197,8 @@ const CarList: NextPage = ({ initialInput, ...props }: any) => {
 								>
 									Highest Price
 								</MenuItem>
-							</Menu>
+								</Box>
+							)}
 						</div>
 					</Box>
 
